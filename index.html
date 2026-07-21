@@ -3,42 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Granja Avilândia - Simulador Financeiro e DRE</title>
-    <!-- Tailwind CSS para design responsivo e premium -->
+    <title>Granja Avilândia - Simulador Financeiro Executivo e DRE (Lucro Real)</title>
+    <!-- Tailwind CSS para design responsivo e executivo -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js para gráficos financeiros interativos -->
+    <!-- Chart.js para gráficos de fluxo de caixa e retorno -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- FontAwesome para ícones profissionais -->
+    <!-- FontAwesome para ícones técnicos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts - Inter para legibilidade -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* Custom scrollbar for premium aesthetic */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #f1f5f9;
+            background: #0f172a;
         }
         ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
+            background: #334155;
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+            background: #475569;
         }
 
-        /* Otimização de Layout para Impressão do PDF Executivo */
         @media print {
-            header, 
-            section.lg\:col-span-4, 
-            .flex.bg-white.p-1, 
-            .alert-box-buttons button {
+            header, section.lg\:col-span-4, .flex-tabs, .alert-box-buttons button {
                 display: none !important;
             }
             body {
@@ -49,239 +44,253 @@
             main {
                 max-width: 100% !important;
                 padding: 0 !important;
-                margin: 0 !important;
             }
             section.lg\:col-span-8 {
                 width: 100% !important;
             }
-            .bg-white {
-                border: none !important;
-                box-shadow: none !important;
-                padding: 0 !important;
-            }
-            .overflow-x-auto {
-                overflow: visible !important;
-            }
-            table {
-                page-break-inside: avoid;
-            }
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+<body class="bg-slate-900 text-slate-100 antialiased min-h-screen">
 
-    <!-- Header/Navegação Principal -->
-    <header class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white shadow-lg sticky top-0 z-50">
+    <!-- Header Executivo -->
+    <header class="bg-gradient-to-r from-emerald-950 via-slate-950 to-slate-900 text-white shadow-xl sticky top-0 z-50 border-b border-emerald-800/40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-3">
-                <div class="bg-amber-400 p-2.5 rounded-xl shadow-md text-emerald-950 flex items-center justify-center">
-                    <i class="fa-solid fa-egg text-2xl animate-bounce"></i>
+                <div class="bg-gradient-to-br from-amber-400 to-amber-600 p-2.5 rounded-xl shadow-lg text-slate-950 flex items-center justify-center">
+                    <i class="fa-solid fa-egg text-2xl animate-pulse"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl md:text-2xl font-extrabold tracking-tight">AVILÂNDIA <span class="text-amber-400">GOLDEN EGGS</span></h1>
-                    <p class="text-xs text-emerald-200">Simulador Agroindustrial e Financeiro Inteligente (Lucro Real)</p>
+                    <h1 class="text-xl md:text-2xl font-black tracking-tight">AVILÂNDIA <span class="text-amber-400">GOLDEN EGGS</span></h1>
+                    <p class="text-xs text-emerald-300 font-semibold">Simulador Executivo Agroindustrial (Lucro Real & PLR Integrada)</p>
                 </div>
             </div>
-            <div class="flex items-center gap-2 bg-emerald-950/40 px-4 py-2 rounded-lg border border-emerald-700/50">
-                <i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
-                <span class="text-xs md:text-sm font-medium">Projeto Executivo - Granja Avilândia</span>
+            <div class="flex items-center gap-2 bg-emerald-950/80 px-4 py-2 rounded-xl border border-emerald-500/30">
+                <i class="fa-solid fa-chart-pie text-emerald-400 text-sm"></i>
+                <span class="text-xs md:text-sm font-semibold text-emerald-200">Projeto Executivo - 160k a 320k Aves</span>
             </div>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        <!-- Alerta de Escalonamento Biológico -->
-        <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-sm mb-8 flex gap-3">
-            <div class="text-amber-600"><i class="fa-solid fa-triangle-exclamation text-xl"></i></div>
-            <div>
-                <h4 class="font-bold text-amber-900 text-sm md:text-base">Atenção Técnico à Carência Biológica</h4>
-                <p class="text-xs md:text-sm text-amber-700 mt-1">
-                    Nos primeiros meses (cria e recria), a granja opera com equipe enxuta (10 funcionários) e baixo custo de insumos. O entreposto (áreas suja e limpa), motoristas, vendedores e cozinheiras só são contratados e ativados a partir do início da postura de ovos comerciais de tamanho padrão (geralmente entre o 7º e 8º mês).
-                </p>
+        <!-- Banner de Informação Estratégica -->
+        <div class="bg-gradient-to-r from-slate-850 to-slate-800 border-l-4 border-amber-500 p-5 rounded-r-2xl shadow-lg mb-8 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between border border-slate-800">
+            <div class="flex gap-3">
+                <div class="text-amber-500 text-2xl mt-0.5"><i class="fa-solid fa-shield-halved"></i></div>
+                <div>
+                    <h4 class="font-extrabold text-amber-400 text-sm md:text-base">Mecanismo Financeiro, Benefícios & Retenção de Talentos</h4>
+                    <p class="text-xs md:text-sm text-slate-300 mt-1 leading-relaxed">
+                        Durante a recria (10 func. na carência), o entreposto e a frota não operam. O saldo do **OPEX (R$ 9,07M)** fica aplicado em fundo **CDI**, gerando receitas financeiras. O modelo inclui **Plano de Saúde, Vale Alimentação** e **PLR (14º Salário/Bonificação)** dedutível no Lucro Real (LALUR), otimizando a retenção da equipe.
+                    </p>
+                </div>
+            </div>
+            <div class="bg-emerald-950/60 p-3 rounded-xl border border-emerald-500/30 text-right shrink-0">
+                <span class="text-[10px] text-emerald-300 font-bold uppercase block">Rendimento Estimado Fundo (Ano 1)</span>
+                <span class="text-sm font-extrabold text-amber-300" id="top_rendimento_fundo">+ R$ 512.400,00</span>
             </div>
         </div>
 
-        <!-- Layout em Duas Colunas: Painel de Controle (Esquerda) e Resultados (Direita) -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             
             <!-- PAINEL DE CONTROLE DE ENTRADAS (4 Colunas) -->
             <section class="lg:col-span-4 space-y-6">
                 
-                <!-- Card 1: Premissas do Negócio e Preço -->
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-                    <div class="flex items-center gap-2 border-b border-slate-100 pb-3 mb-4">
-                        <i class="fa-solid fa-sliders text-emerald-600 text-lg"></i>
-                        <h3 class="font-bold text-slate-900">Premissas Comerciais</h3>
+                <!-- Card 1: Premissas Comerciais e Financiamento -->
+                <div class="bg-slate-850 rounded-2xl p-6 shadow-xl border border-slate-800">
+                    <div class="flex items-center gap-2 border-b border-slate-800 pb-3 mb-4">
+                        <i class="fa-solid fa-sliders text-emerald-400 text-lg"></i>
+                        <h3 class="font-bold text-slate-100">Premissas Comerciais & Banco</h3>
                     </div>
                     
                     <div class="space-y-4">
                         <!-- Preço da Dúzia -->
                         <div>
-                            <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Preço Médio da Dúzia (R$)</label>
-                            <div class="flex items-center gap-3">
-                                <input type="range" id="input_preco_duzia" min="5" max="15" step="0.5" value="10" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
-                                <span class="bg-emerald-50 text-emerald-800 text-sm font-bold px-3 py-1 rounded-lg border border-emerald-100 w-20 text-center" id="val_preco_duzia">R$ 10,00</span>
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="block text-xs font-semibold text-slate-400 uppercase">Preço Médio da Dúzia (R$)</label>
+                                <span class="bg-emerald-900/50 text-emerald-400 text-sm font-bold px-2 py-0.5 rounded border border-emerald-800/40" id="val_preco_duzia">R$ 10,00</span>
                             </div>
+                            <input type="range" id="input_preco_duzia" min="5" max="15" step="0.5" value="10" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-500">
                             <span class="text-[10px] text-slate-400 block mt-1" id="val_preco_caixa">Equivale a R$ 300,00 por caixa de 30 dz</span>
                         </div>
 
-                        <!-- Mês do Início da Venda (Carência) -->
+                        <!-- Mês de Início de Vendas -->
                         <div>
-                            <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Mês de Início de Vendas / Postura</label>
-                            <div class="flex items-center gap-3">
-                                <input type="range" id="input_mes_inicio" min="5" max="9" step="1" value="8" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
-                                <span class="bg-amber-50 text-amber-800 text-sm font-bold px-3 py-1 rounded-lg border border-amber-100 w-20 text-center" id="val_mes_inicio">Mês 8</span>
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="block text-xs font-semibold text-slate-400 uppercase">Início do Faturamento (Mês)</label>
+                                <span class="bg-amber-900/50 text-amber-400 text-sm font-bold px-2 py-0.5 rounded border border-amber-800/40" id="val_mes_inicio">Mês 8</span>
                             </div>
-                            <span class="text-[10px] text-slate-400 block mt-1">Meses anteriores serão considerados cria/recria (carência sem faturamento)</span>
+                            <input type="range" id="input_mes_inicio" min="5" max="9" step="1" value="8" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-amber-500">
+                            <span class="text-[10px] text-slate-400 block mt-1">Recomendado: Mês 8 (28-30 sem.) para ovos grandes de atacado</span>
                         </div>
 
                         <!-- Financiamento Mensal -->
                         <div>
-                            <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Parcela Mensal do Financiamento (R$)</label>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Parcela Mensal do Financiamento (R$)</label>
                             <div class="relative rounded-lg shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <span class="text-slate-400 text-sm">R$</span>
+                                    <span class="text-slate-500 text-sm">R$</span>
                                 </div>
-                                <input type="number" id="input_financiamento" value="160000" class="block w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold">
+                                <input type="number" id="input_financiamento" value="500000" class="block w-full pl-9 pr-3 py-2 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold text-slate-100">
                             </div>
-                            <span class="text-[10px] text-slate-400 block mt-1">Dívida anual simulada para pagamento da obra e CAPEX</span>
+                            <span class="text-[10px] text-slate-400 block mt-1">Reflete amortização do CAPEX (Obras e Maquinário)</span>
+                        </div>
+
+                        <!-- Rendimento do Fundo OPEX -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Rendimento Fundo OPEX (% a.a. CDI)</label>
+                            <div class="flex items-center gap-3">
+                                <input type="range" id="input_cdi_fundo" min="0" max="15" step="0.5" value="10.5" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-teal-400">
+                                <span class="bg-teal-900/50 text-teal-300 text-xs font-bold px-2 py-1 rounded border border-teal-800/40 w-16 text-center" id="val_cdi_fundo">10.5%</span>
+                            </div>
+                            <span class="text-[10px] text-slate-400 block mt-1">Rendimento do caixa reservado de R$ 9,07M</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card 2: Dimensionamento de Mão de Obra (Interativo) -->
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-                    <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                <!-- Card 2: Mão de Obra e Benefícios (Plano de Saúde & Alimentação) -->
+                <div class="bg-slate-850 rounded-2xl p-6 shadow-xl border border-slate-800">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
                         <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-users text-emerald-600 text-lg"></i>
-                            <h3 class="font-bold text-slate-900">Mão de Obra (HR)</h3>
+                            <i class="fa-solid fa-users text-emerald-400 text-lg"></i>
+                            <h3 class="font-bold text-slate-100">Mão de Obra & Benefícios</h3>
                         </div>
-                        <span class="bg-slate-100 text-slate-600 text-xs font-bold px-2 py-0.5 rounded" id="badge_func_count">45 Func.</span>
+                        <span class="bg-emerald-950 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded border border-emerald-800/30" id="badge_func_count">45 Func.</span>
+                    </div>
+
+                    <!-- Configuração dos Benefícios Sociais -->
+                    <div class="p-3 bg-slate-800/80 rounded-xl border border-slate-700 mb-4 space-y-3">
+                        <span class="text-[11px] font-extrabold text-amber-400 uppercase tracking-wider block">Benefícios por Colaborador</span>
+                        
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[10px] font-semibold text-slate-400 uppercase mb-1">Plano Saúde (R$/mês)</label>
+                                <input type="number" id="input_plano_saude" value="280" min="0" max="1000" step="10" class="w-full px-2 py-1 bg-slate-900 border border-slate-700 rounded-md text-xs font-bold text-emerald-300 focus:ring-emerald-500">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-semibold text-slate-400 uppercase mb-1">Vale Aliment. (R$/mês)</label>
+                                <input type="number" id="input_vale_alimentacao" value="350" min="0" max="1000" step="10" class="w-full px-2 py-1 bg-slate-900 border border-slate-700 rounded-md text-xs font-bold text-emerald-300 focus:ring-emerald-500">
+                            </div>
+                        </div>
+                        <span class="text-[10px] text-slate-400 block">Total médio em benefícios: <strong class="text-amber-300" id="lbl_beneficio_total_head">R$ 630,00 / func / mês</strong></span>
+                    </div>
+
+                    <!-- Quantitativos por Área -->
+                    <div class="space-y-2.5 max-h-[220px] overflow-y-auto pr-1">
+                        <div class="flex items-center justify-between p-2 bg-slate-800 rounded-lg">
+                            <div><h4 class="text-xs font-bold text-slate-200">Entreposto (Área Suja)</h4><p class="text-[9px] text-slate-400">Recepção/lavagem</p></div>
+                            <input type="number" id="qty_area_suja" value="4" min="2" max="8" class="w-12 text-center py-0.5 bg-slate-900 border border-slate-700 rounded text-xs font-bold text-slate-200">
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-slate-800 rounded-lg">
+                            <div><h4 class="text-xs font-bold text-slate-200">Entreposto (Área Limpa)</h4><p class="text-[9px] text-slate-400">Classificação e embalagem</p></div>
+                            <input type="number" id="qty_area_limpa" value="8" min="4" max="16" class="w-12 text-center py-0.5 bg-slate-900 border border-slate-700 rounded text-xs font-bold text-slate-200">
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-slate-800 rounded-lg">
+                            <div><h4 class="text-xs font-bold text-slate-200">Cozinheira & Assistente</h4><p class="text-[9px] text-slate-400">Refeitório interno</p></div>
+                            <input type="number" id="qty_cozinha" value="2" min="1" max="4" class="w-12 text-center py-0.5 bg-slate-900 border border-slate-700 rounded text-xs font-bold text-slate-200">
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-slate-800 rounded-lg">
+                            <div><h4 class="text-xs font-bold text-slate-200">Serviços Gerais / Limpeza</h4><p class="text-[9px] text-slate-400">Higienização e saneamento</p></div>
+                            <input type="number" id="qty_limpeza" value="2" min="1" max="6" class="w-12 text-center py-0.5 bg-slate-900 border border-slate-700 rounded text-xs font-bold text-slate-200">
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-slate-800 rounded-lg">
+                            <div><h4 class="text-xs font-bold text-slate-200">Motoristas de Caminhão</h4><p class="text-[9px] text-slate-400">Frota própria PE</p></div>
+                            <input type="number" id="qty_motoristas" value="4" min="1" max="8" class="w-12 text-center py-0.5 bg-slate-900 border border-slate-700 rounded text-xs font-bold text-slate-200">
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-slate-800 rounded-lg">
+                            <div><h4 class="text-xs font-bold text-slate-200">Apoio (Vet RT, TI, Jardim)</h4><p class="text-[9px] text-slate-400">Suporte e biossegurança</p></div>
+                            <input type="number" id="qty_apoio" value="3" min="3" max="5" class="w-12 text-center py-0.5 bg-slate-900 border border-slate-700 rounded text-xs font-bold text-slate-200" disabled>
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-slate-800 rounded-lg">
+                            <div><h4 class="text-xs font-bold text-slate-200">Campo & Fábrica Ração</h4><p class="text-[9px] text-slate-400">Manejo e misturador</p></div>
+                            <input type="number" id="qty_campo" value="14" min="8" max="22" class="w-12 text-center py-0.5 bg-slate-900 border border-slate-700 rounded text-xs font-bold text-slate-200">
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-slate-800 rounded-lg">
+                            <div><h4 class="text-xs font-bold text-slate-200">Escritório & Comercial</h4><p class="text-[9px] text-slate-400">RH, compras e vendas</p></div>
+                            <input type="number" id="qty_adm" value="8" min="4" max="12" class="w-12 text-center py-0.5 bg-slate-900 border border-slate-700 rounded text-xs font-bold text-slate-200">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Programa de Bonificação / PLR (14º Salário por Produção) -->
+                <div class="bg-slate-850 rounded-2xl p-6 shadow-xl border border-slate-800">
+                    <div class="flex items-center gap-2 border-b border-slate-800 pb-3 mb-4">
+                        <i class="fa-solid fa-gift text-emerald-400 text-lg"></i>
+                        <h3 class="font-bold text-slate-100">Bonificação / PLR (14º Salário)</h3>
                     </div>
 
                     <div class="space-y-4">
-                        <p class="text-xs text-slate-500">Abaixo, configure o quantitativo de funcionários para a fase de **produção ativa** (entreposto e logística integrados):</p>
-                        
-                        <!-- Lista de Funcionários Interativos -->
-                        <div class="max-h-64 overflow-y-auto pr-1 space-y-3">
-                            <!-- Entreposto (Sujo e Limpo) -->
-                            <div class="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl">
-                                <div>
-                                    <h4 class="text-xs font-bold text-slate-700">Entreposto (Sujo/Limpo)</h4>
-                                    <p class="text-[10px] text-slate-400">Classificação, lavagem e ovoscopia</p>
-                                </div>
-                                <input type="number" id="qty_entreposto" value="12" min="6" max="20" class="w-14 text-center py-1 border border-slate-200 rounded-md text-xs font-bold focus:ring-emerald-500 focus:border-emerald-500">
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="block text-xs font-semibold text-slate-400 uppercase">% do Lucro para PLR / Produção</label>
+                                <span class="bg-amber-900/50 text-amber-300 text-xs font-bold px-2 py-0.5 rounded border border-amber-800/40" id="val_plr_percent">5.0%</span>
                             </div>
-
-                            <!-- Logística / Caminhoneiros -->
-                            <div class="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl">
-                                <div>
-                                    <h4 class="text-xs font-bold text-slate-700">Motoristas de Caminhão</h4>
-                                    <p class="text-[10px] text-slate-400">Frota de distribuição em PE</p>
-                                </div>
-                                <input type="number" id="qty_motoristas" value="4" min="2" max="8" class="w-14 text-center py-1 border border-slate-200 rounded-md text-xs font-bold focus:ring-emerald-500 focus:border-emerald-500">
-                            </div>
-
-                            <!-- Cozinha e Refeitório -->
-                            <div class="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl">
-                                <div>
-                                    <h4 class="text-xs font-bold text-slate-700">Cozinheira & Assistentes</h4>
-                                    <p class="text-[10px] text-slate-400">Refeitório interno da granja</p>
-                                </div>
-                                <input type="number" id="qty_cozinha" value="2" min="1" max="4" class="w-14 text-center py-1 border border-slate-200 rounded-md text-xs font-bold focus:ring-emerald-500 focus:border-emerald-500">
-                            </div>
-
-                            <!-- Serviços Gerais / Limpeza -->
-                            <div class="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl">
-                                <div>
-                                    <h4 class="text-xs font-bold text-slate-700">Serviços Gerais / Limpeza</h4>
-                                    <p class="text-[10px] text-slate-400">Saneamento e higienização geral</p>
-                                </div>
-                                <input type="number" id="qty_limpeza" value="2" min="1" max="5" class="w-14 text-center py-1 border border-slate-200 rounded-md text-xs font-bold focus:ring-emerald-500 focus:border-emerald-500">
-                            </div>
-
-                            <!-- Apoio Técnico -->
-                            <div class="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl">
-                                <div>
-                                    <h4 class="text-xs font-bold text-slate-700">Apoio (Vet, TI, Jardim)</h4>
-                                    <p class="text-[10px] text-slate-400">Veterinário RT, Técnico TI e Jardineiro</p>
-                                </div>
-                                <input type="number" id="qty_apoio" value="5" min="3" max="8" class="w-14 text-center py-1 border border-slate-200 rounded-md text-xs font-bold focus:ring-emerald-500 focus:border-emerald-500" disabled>
-                            </div>
-
-                            <!-- Operacional / Campo -->
-                            <div class="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl">
-                                <div>
-                                    <h4 class="text-xs font-bold text-slate-700">Campo & Fábrica Ração</h4>
-                                    <p class="text-[10px] text-slate-400">Manejo de galpão e misturador</p>
-                                </div>
-                                <input type="number" id="qty_campo" value="10" min="6" max="18" class="w-14 text-center py-1 border border-slate-200 rounded-md text-xs font-bold focus:ring-emerald-500 focus:border-emerald-500">
-                            </div>
-
-                            <!-- Administrativo / Comercial -->
-                            <div class="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl">
-                                <div>
-                                    <h4 class="text-xs font-bold text-slate-700">Adm & Vendas Externas</h4>
-                                    <p class="text-[10px] text-slate-400">Escritório, RH e vendedores</p>
-                                </div>
-                                <input type="number" id="qty_adm" value="6" min="3" max="10" class="w-14 text-center py-1 border border-slate-200 rounded-md text-xs font-bold focus:ring-emerald-500 focus:border-emerald-500">
-                            </div>
+                            <input type="range" id="input_plr_percent" min="0" max="15" step="0.5" value="5" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-amber-500">
+                            <span class="text-[10px] text-slate-400 block mt-1">Distribuído anualmente aos colaboradores em caso de meta batida.</span>
                         </div>
 
-                        <!-- Encargos e Salários -->
-                        <div class="border-t border-slate-100 pt-3 space-y-2">
-                            <div class="flex justify-between text-xs">
-                                <span class="text-slate-500">Salário Médio (Base):</span>
-                                <span class="font-bold text-slate-800">R$ 2.100,00</span>
+                        <div class="p-3 bg-slate-800 rounded-xl border border-slate-700 text-xs space-y-1.5">
+                            <div class="flex justify-between text-slate-300">
+                                <span>Status Fiscal LALUR:</span>
+                                <span class="font-bold text-emerald-400">100% Dedutível</span>
                             </div>
-                            <div class="flex justify-between text-xs">
-                                <span class="text-slate-500">Encargos Trabalhistas (PE):</span>
-                                <span class="font-bold text-slate-800">+ 75%</span>
+                            <div class="flex justify-between text-slate-300">
+                                <span>Bônus Estimado / Func.:</span>
+                                <span class="font-bold text-amber-300" id="lbl_bonus_medio_func">R$ 0,00</span>
+                            </div>
+                            <div class="flex justify-between text-slate-300">
+                                <span>Equivale a:</span>
+                                <span class="font-bold text-teal-300" id="lbl_bonus_meses_sal">0,0 Salários</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card 3: Custos Invisíveis e Provisões (Ajustáveis) -->
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-                    <div class="flex items-center gap-2 border-b border-slate-100 pb-3 mb-4">
-                        <i class="fa-solid fa-calculator text-emerald-600 text-lg"></i>
-                        <h3 class="font-bold text-slate-900">Provisões e Riscos</h3>
+                <!-- Card 4: Custos Ocultos e Provisões -->
+                <div class="bg-slate-850 rounded-2xl p-6 shadow-xl border border-slate-800">
+                    <div class="flex items-center gap-2 border-b border-slate-800 pb-3 mb-4">
+                        <i class="fa-solid fa-calculator text-emerald-400 text-lg"></i>
+                        <h3 class="font-bold text-slate-100">Provisões & Riscos Ocultos</h3>
                     </div>
 
-                    <div class="space-y-4">
-                        <!-- Perdas de Ovos por Quebra -->
+                    <div class="space-y-3">
                         <div class="flex justify-between items-center">
                             <div>
-                                <h4 class="text-xs font-bold text-slate-700">Descarte e Quebra de Ovos</h4>
-                                <p class="text-[10px] text-slate-400">Ovos trincados na logística / ovoscopia</p>
+                                <h4 class="text-xs font-bold text-slate-200">Avaria e Quebra de Ovos (%)</h4>
+                                <p class="text-[10px] text-slate-400">Ovos trincados no transporte</p>
                             </div>
-                            <select id="select_perdas" class="bg-slate-50 text-xs font-bold border border-slate-200 rounded-lg p-1.5 focus:ring-emerald-500 focus:border-emerald-500">
-                                <option value="0.01">1% de perda</option>
-                                <option value="0.02" selected>2% de perda</option>
-                                <option value="0.03">3% de perda</option>
+                            <select id="select_perdas" class="bg-slate-800 text-xs font-bold border border-slate-700 rounded-lg p-1 text-slate-200">
+                                <option value="0.01">1%</option>
+                                <option value="0.02" selected>2%</option>
+                                <option value="0.03">3%</option>
                             </select>
                         </div>
 
-                        <!-- Fundo de Demissão / Turnover -->
                         <div class="flex justify-between items-center">
                             <div>
-                                <h4 class="text-xs font-bold text-slate-700">Fundo Rescisório (Turnover)</h4>
-                                <p class="text-[10px] text-slate-400">Provisão mensal de custos demissionais</p>
+                                <h4 class="text-xs font-bold text-slate-200">Provisão de Turnover</h4>
+                                <p class="text-[10px] text-slate-400">Rescisões e treinamentos</p>
                             </div>
-                            <input type="checkbox" id="check_turnover" checked class="w-4 h-4 text-emerald-600 bg-slate-100 border-slate-300 rounded focus:ring-emerald-500 focus:ring-2 accent-emerald-600">
+                            <input type="checkbox" id="check_turnover" checked class="w-4 h-4 text-emerald-600 bg-slate-800 border-slate-700 rounded accent-emerald-500">
                         </div>
 
-                        <!-- Manutenção Corretiva / MRO -->
                         <div class="flex justify-between items-center">
                             <div>
-                                <h4 class="text-xs font-bold text-slate-700">Manutenção Corretiva (MRO)</h4>
-                                <p class="text-[10px] text-slate-400">Manutenção do R$ 11M de maquinário</p>
+                                <h4 class="text-xs font-bold text-slate-200">Manutenção de Ativos (MRO)</h4>
+                                <p class="text-[10px] text-slate-400">Revisão preventiva de maquinário</p>
                             </div>
-                            <input type="checkbox" id="check_mro" checked class="w-4 h-4 text-emerald-600 bg-slate-100 border-slate-300 rounded focus:ring-emerald-500 focus:ring-2 accent-emerald-600">
+                            <input type="checkbox" id="check_mro" checked class="w-4 h-4 text-emerald-600 bg-slate-800 border-slate-700 rounded accent-emerald-500">
                         </div>
                     </div>
+                </div>
+
+                <!-- Botão de Ação Principal -->
+                <div>
+                    <button id="btn_calcular" class="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black rounded-2xl shadow-xl shadow-emerald-950/50 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3 border border-emerald-400/30 text-base">
+                        <i class="fa-solid fa-calculator text-lg" id="icon_calc_btn"></i>
+                        <span id="text_calc_btn">GERAR PROJEÇÕES FINANCEIRAS</span>
+                    </button>
+                    <p class="text-[10px] text-slate-400 text-center mt-2 font-medium">Clique para rodar o DRE, LALUR, Bonificação PLR e ROI ajustado.</p>
                 </div>
 
             </section>
@@ -290,358 +299,398 @@
             <section class="lg:col-span-8 space-y-6">
                 
                 <!-- Abas de Navegação -->
-                <div class="flex bg-white p-1 rounded-xl shadow-sm border border-slate-100 gap-1 overflow-x-auto">
-                    <button onclick="switchTab('dashboard')" id="btn_tab_dashboard" class="flex-1 py-2.5 px-4 text-xs md:text-sm font-bold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 bg-emerald-600 text-white shadow-sm">
-                        <i class="fa-solid fa-chart-line"></i> Dashboard
+                <div class="flex bg-slate-850 p-1.5 rounded-xl shadow-lg border border-slate-800 gap-1 overflow-x-auto flex-tabs">
+                    <button onclick="switchTab('dashboard')" id="btn_tab_dashboard" class="flex-1 py-2.5 px-3 text-xs font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 bg-emerald-600 text-white shadow-sm shrink-0">
+                        <i class="fa-solid fa-chart-line"></i> Executive Dashboard
                     </button>
-                    <button onclick="switchTab('dre')" id="btn_tab_dre" class="flex-1 py-2.5 px-4 text-xs md:text-sm font-bold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-50">
+                    <button onclick="switchTab('dre')" id="btn_tab_dre" class="flex-1 py-2.5 px-3 text-xs font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-400 hover:bg-slate-800 shrink-0">
                         <i class="fa-solid fa-file-invoice-dollar"></i> DRE & LALUR (Mês a Mês)
                     </button>
-                    <button onclick="switchTab('riscos')" id="btn_tab_riscos" class="flex-1 py-2.5 px-4 text-xs md:text-sm font-bold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-50">
-                        <i class="fa-solid fa-shield-halved"></i> Detalhamento de Custos
+                    <button onclick="switchTab('por_ave')" id="btn_tab_por_ave" class="flex-1 py-2.5 px-3 text-xs font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-400 hover:bg-slate-800 shrink-0">
+                        <i class="fa-solid fa-feather"></i> Custo / Ave, Benefícios & Expansão
                     </button>
                 </div>
 
-                <!-- CONTEÚDO DA GUIA 1: DASHBOARD / PITCH -->
+                <!-- CONTEÚDO DA GUIA 1: DASHBOARD EXECUTIVE -->
                 <div id="tab_dashboard" class="space-y-6">
                     
-                    <!-- Principais KPIs Financieros -->
+                    <!-- Principais KPIs Financeiros -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <!-- ROI -->
-                        <div class="bg-gradient-to-br from-emerald-800 to-emerald-950 text-white rounded-2xl p-5 shadow-md flex flex-col justify-between">
-                            <span class="text-[10px] md:text-xs text-emerald-200 font-bold uppercase tracking-wide">ROI (Ano 1)</span>
-                            <h2 class="text-xl md:text-2xl font-extrabold my-2 text-amber-300" id="kpi_roi">20,94%</h2>
-                            <span class="text-[10px] text-emerald-300">Lucro / CAPEX Inicial</span>
+                        <!-- ROI Ano 1 -->
+                        <div class="bg-gradient-to-br from-emerald-800 to-emerald-950 text-white rounded-2xl p-5 shadow-lg flex flex-col justify-between border border-emerald-700/30">
+                            <span class="text-[10px] text-emerald-300 font-extrabold uppercase tracking-wide">ROI Ajustado (Ano 1)</span>
+                            <h2 class="text-xl md:text-2xl font-black my-2 text-amber-300 animate-pulse" id="kpi_roi">20,94%</h2>
+                            <span class="text-[10px] text-emerald-400">Lucro Líquido pós PLR / CAPEX</span>
                         </div>
                         
                         <!-- Payback -->
-                        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex flex-col justify-between">
-                            <span class="text-[10px] md:text-xs text-slate-400 font-bold uppercase tracking-wide">Payback Real</span>
-                            <h2 class="text-xl md:text-2xl font-extrabold my-2 text-slate-800" id="kpi_payback">17 Meses</h2>
-                            <span class="text-[10px] text-slate-500">Com 7 meses cria/recria</span>
+                        <div class="bg-slate-850 rounded-2xl p-5 shadow-lg border border-slate-800 flex flex-col justify-between">
+                            <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wide">Payback Real</span>
+                            <h2 class="text-xl md:text-2xl font-black my-2 text-slate-100" id="kpi_payback">17 Meses</h2>
+                            <span class="text-[10px] text-slate-500">Cria + Postura</span>
                         </div>
 
                         <!-- EBITDA Anual -->
-                        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex flex-col justify-between">
-                            <span class="text-[10px] md:text-xs text-slate-400 font-bold uppercase tracking-wide">EBITDA Ano 1</span>
-                            <h2 class="text-xl md:text-2xl font-extrabold my-2 text-slate-800" id="kpi_ebitda">R$ 7.072.205</h2>
-                            <span class="text-[10px] text-slate-500">Caixa Operacional</span>
+                        <div class="bg-slate-850 rounded-2xl p-5 shadow-lg border border-slate-800 flex flex-col justify-between">
+                            <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wide">EBITDA Ano 1</span>
+                            <h2 class="text-xl md:text-2xl font-black my-2 text-slate-100" id="kpi_ebitda">R$ 7.072.205</h2>
+                            <span class="text-[10px] text-slate-500">Caixa Operacional Puro</span>
                         </div>
 
                         <!-- DSCR Cobertura Dívida -->
-                        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex flex-col justify-between">
-                            <span class="text-[10px] md:text-xs text-slate-400 font-bold uppercase tracking-wide">DSCR Médio</span>
-                            <h2 class="text-xl md:text-2xl font-extrabold my-2 text-emerald-600" id="kpi_dscr">4,65x</h2>
-                            <span class="text-[10px] text-slate-500">Folha de cobertura do banco</span>
+                        <div class="bg-slate-850 rounded-2xl p-5 shadow-lg border border-slate-800 flex flex-col justify-between">
+                            <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wide">DSCR Médio</span>
+                            <h2 class="text-xl md:text-2xl font-black my-2 text-emerald-400" id="kpi_dscr">4,65x</h2>
+                            <span class="text-[10px] text-slate-500">Cobertura do Banco</span>
+                        </div>
+                    </div>
+
+                    <!-- Card Informativo de PLR Distribuída -->
+                    <div class="bg-gradient-to-r from-amber-950/60 to-slate-850 border border-amber-500/30 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="p-3 bg-amber-500/20 text-amber-400 rounded-xl text-xl shrink-0"><i class="fa-solid fa-trophy"></i></div>
+                            <div>
+                                <h4 class="text-xs font-bold text-amber-300 uppercase">Fundo de Bonificação / PLR do Ano 1 (14º Salário)</h4>
+                                <p class="text-xs text-slate-300 mt-0.5">Distribuído entre a equipe de 45 colaboradores para manutenção de engajamento e produtividade.</p>
+                            </div>
+                        </div>
+                        <div class="text-right shrink-0">
+                            <span class="text-lg font-black text-amber-300 block" id="kpi_total_plr">R$ 0,00</span>
+                            <span class="text-[10px] text-emerald-400 font-semibold" id="kpi_plr_deducao_label">100% Dedutível no LALUR</span>
                         </div>
                     </div>
 
                     <!-- Gráfico de Fluxo de Caixa Acumulado -->
-                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-                        <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
-                            <h4 class="font-bold text-slate-900 text-sm md:text-base">Curva de Sobrevivência e Fluxo de Caixa (Mês 1 ao 12)</h4>
-                            <span class="bg-emerald-50 text-emerald-700 text-xs font-bold px-2 py-1 rounded">Análise de Caixa Real</span>
+                    <div class="bg-slate-850 rounded-2xl p-6 shadow-lg border border-slate-800">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
+                            <h4 class="font-bold text-slate-100 text-sm md:text-base">Evolução do Saldo de Caixa + Fundo Rendimento (Mês 1 ao 12)</h4>
+                            <span class="bg-emerald-950/80 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded border border-emerald-800/30">Visão de Caixa Livre</span>
                         </div>
                         <div class="relative h-64">
                             <canvas id="chart_fluxo"></canvas>
                         </div>
                     </div>
 
-                    <!-- Gerador de Copas/Pitch para Investidores -->
-                    <div class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-6 shadow-sm space-y-3 relative overflow-hidden">
-                        <div class="absolute -top-10 -right-10 text-amber-100/40 text-9xl pointer-events-none"><i class="fa-solid fa-comments"></i></div>
-                        <div class="flex items-center gap-2 text-amber-800 font-extrabold text-sm md:text-base">
-                            <i class="fa-solid fa-circle-play text-amber-500"></i>
-                            <h4>VISÃO MACRO ECONOMICA</h4>
+                    <!-- Gerador do Pitch Executivo -->
+                    <div class="bg-gradient-to-r from-slate-850 to-slate-800 border border-emerald-800/20 rounded-2xl p-6 shadow-lg space-y-3 relative overflow-hidden">
+                        <div class="absolute -top-10 -right-10 text-emerald-900/10 text-9xl pointer-events-none"><i class="fa-solid fa-comments"></i></div>
+                        <div class="flex items-center gap-2 text-emerald-400 font-extrabold text-sm md:text-base">
+                            <i class="fa-solid fa-play text-amber-500 animate-pulse"></i>
+                            <h4>PITCH EXECUTIVO CUSTOMIZADO</h4>
                         </div>
-                        <p class="text-xs md:text-sm text-amber-900 leading-relaxed font-medium" id="pitch_narrative">
-                            "Procuramos captar **R$ 31,4 milhões** para a Granja Avilândia[cite: 1]. Com o preço comercial de venda da dúzia simulado em **R$ 10,00**, o projeto se mostra incrivelmente seguro. Mesmo considerando que passaremos os primeiros **7 meses** em cria/recria com receita zero e pagando R$ 500 mil mensais de banco, nossa reserva de capital de giro é perfeitamente adequada para garantir a solvência[cite: 1]. A partir do 8º mês, as 160 mil aves entram em produção máxima com equipe completa de 45 funcionários no entreposto, gerando uma margem EBITDA fantástica de mais de 70% e entregando um ROI de **20,94%** no primeiro ano[cite: 1]."
+                        <p class="text-xs md:text-sm text-slate-300 leading-relaxed font-medium" id="pitch_narrative">
+                            *Aguardando geração do cenário. Clique no botão "Gerar Projeções Financeiras" para consolidar a apresentação.*
                         </p>
                     </div>
 
                 </div>
 
                 <!-- CONTEÚDO DA GUIA 2: DRE E LALUR (TABELA MÊS A MÊS) -->
-                <div id="tab_dre" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-100 space-y-4">
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 border-b border-slate-100 pb-4">
+                <div id="tab_dre" class="hidden bg-slate-850 rounded-2xl p-6 shadow-lg border border-slate-800 space-y-4">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 border-b border-slate-800 pb-4">
                         <div>
-                            <h4 class="font-bold text-slate-900 text-sm md:text-base">DRE e Livro de Apuração LALUR (Mês a Mês - Ano 1)</h4>
-                            <p class="text-xs text-slate-500">Modelo estruturado de Lucro Real com compensação de perdas da cria/recria.</p>
+                            <h4 class="font-bold text-slate-100 text-sm md:text-base">DRE e Livro de Apuração LALUR (Mês a Mês - Ano 1)</h4>
+                            <p class="text-xs text-slate-400">Lucro Real com amortização de prejuízo inicial, bonificação PLR e fundo CDI.</p>
                         </div>
-                        <div class="flex gap-2 alert-box-buttons">
-                            <button onclick="copiarTabela()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors">
-                                <i class="fa-solid fa-copy"></i> Copiar Dados
-                            </button>
-                            <button onclick="window.print()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors shadow-sm">
-                                <i class="fa-solid fa-file-pdf"></i> Gerar PDF
+                        <div class="flex gap-2">
+                            <button onclick="copiarTabela()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors border border-slate-700">
+                                <i class="fa-solid fa-copy"></i> Copiar Tabela
                             </button>
                         </div>
                     </div>
 
                     <!-- Tabela Responsiva com Scroll Horizontal -->
-                    <div class="overflow-x-auto rounded-xl border border-slate-100">
+                    <div class="overflow-x-auto rounded-xl border border-slate-800">
                         <table class="w-full text-left border-collapse text-xs" id="tabela_dre">
                             <thead>
-                                <tr class="bg-slate-50 text-slate-500 border-b border-slate-100">
-                                    <th class="p-3 font-semibold min-w-[200px]">Linha de Resultado / Mês</th>
-                                    <th class="p-3 font-bold text-center">M1</th>
-                                    <th class="p-3 font-bold text-center">M2</th>
-                                    <th class="p-3 font-bold text-center">M3</th>
-                                    <th class="p-3 font-bold text-center">M4</th>
-                                    <th class="p-3 font-bold text-center">M5</th>
-                                    <th class="p-3 font-bold text-center">M6</th>
-                                    <th class="p-3 font-bold text-center">M7</th>
-                                    <th class="p-3 font-bold text-center">M8</th>
-                                    <th class="p-3 font-bold text-center">M9</th>
-                                    <th class="p-3 font-bold text-center">M10</th>
-                                    <th class="p-3 font-bold text-center">M11</th>
-                                    <th class="p-3 font-bold text-center">M12</th>
-                                    <th class="p-3 font-extrabold text-right bg-emerald-50 text-emerald-800">Total Ano 1</th>
+                                <tr class="bg-slate-800 text-slate-400 border-b border-slate-700">
+                                    <th class="p-3 font-semibold min-w-[210px]">Resultado / Mês</th>
+                                    <th class="p-2 text-center font-bold">M1</th>
+                                    <th class="p-2 text-center font-bold">M2</th>
+                                    <th class="p-2 text-center font-bold">M3</th>
+                                    <th class="p-2 text-center font-bold">M4</th>
+                                    <th class="p-2 text-center font-bold">M5</th>
+                                    <th class="p-2 text-center font-bold">M6</th>
+                                    <th class="p-2 text-center font-bold">M7</th>
+                                    <th class="p-2 text-center font-bold">M8</th>
+                                    <th class="p-2 text-center font-bold">M9</th>
+                                    <th class="p-2 text-center font-bold">M10</th>
+                                    <th class="p-2 text-center font-bold">M11</th>
+                                    <th class="p-2 text-center font-bold">M12</th>
+                                    <th class="p-3 text-right bg-emerald-950 text-emerald-300 font-extrabold rounded-tr-xl">Total Ano 1</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-100 font-medium">
-                                <!-- Volume -->
-                                <tr class="text-slate-600">
-                                    <td class="p-3 font-semibold">Volume Comercial (Dz)</td>
-                                    <td class="p-3 text-center" id="val_vol_m1">0</td>
-                                    <td class="p-3 text-center" id="val_vol_m2">0</td>
-                                    <td class="p-3 text-center" id="val_vol_m3">0</td>
-                                    <td class="p-3 text-center" id="val_vol_m4">0</td>
-                                    <td class="p-3 text-center" id="val_vol_m5">0</td>
-                                    <td class="p-3 text-center" id="val_vol_m6">0</td>
-                                    <td class="p-3 text-center" id="val_vol_m7">0</td>
-                                    <td class="p-3 text-center" id="val_vol_m8">346.667</td>
-                                    <td class="p-3 text-center" id="val_vol_m9">346.667</td>
-                                    <td class="p-3 text-center" id="val_vol_m10">346.667</td>
-                                    <td class="p-3 text-center" id="val_vol_m11">346.667</td>
-                                    <td class="p-3 text-center" id="val_vol_m12">346.667</td>
-                                    <td class="p-3 text-right bg-emerald-50/50 font-bold" id="val_vol_total">1.733.335</td>
+                            <tbody class="divide-y divide-slate-800 font-medium text-slate-300">
+                                <tr class="hover:bg-slate-800/40">
+                                    <td class="p-3 font-semibold text-slate-400">Volume Comercial (Dz)</td>
+                                    <td class="p-2 text-center" id="val_vol_m1">0</td>
+                                    <td class="p-2 text-center" id="val_vol_m2">0</td>
+                                    <td class="p-2 text-center" id="val_vol_m3">0</td>
+                                    <td class="p-2 text-center" id="val_vol_m4">0</td>
+                                    <td class="p-2 text-center" id="val_vol_m5">0</td>
+                                    <td class="p-2 text-center" id="val_vol_m6">0</td>
+                                    <td class="p-2 text-center" id="val_vol_m7">0</td>
+                                    <td class="p-2 text-center" id="val_vol_m8">346.667</td>
+                                    <td class="p-2 text-center" id="val_vol_m9">346.667</td>
+                                    <td class="p-2 text-center" id="val_vol_m10">346.667</td>
+                                    <td class="p-2 text-center" id="val_vol_m11">346.667</td>
+                                    <td class="p-2 text-center" id="val_vol_m12">346.667</td>
+                                    <td class="p-3 text-right bg-emerald-950/40 font-bold" id="val_vol_total">1.733.335</td>
                                 </tr>
-                                <!-- Receita Bruta -->
-                                <tr class="text-slate-900 bg-slate-50/30">
-                                    <td class="p-3 font-bold">1. RECEITA BRUTA (R$)</td>
-                                    <td class="p-3 text-center" id="val_rec_m1">0,00</td>
-                                    <td class="p-3 text-center" id="val_rec_m2">0,00</td>
-                                    <td class="p-3 text-center" id="val_rec_m3">0,00</td>
-                                    <td class="p-3 text-center" id="val_rec_m4">0,00</td>
-                                    <td class="p-3 text-center" id="val_rec_m5">0,00</td>
-                                    <td class="p-3 text-center" id="val_rec_m6">0,00</td>
-                                    <td class="p-3 text-center" id="val_rec_m7">0,00</td>
-                                    <td class="p-3 text-center" id="val_rec_m8">3.466.670</td>
-                                    <td class="p-3 text-center" id="val_rec_m9">3.466.670</td>
-                                    <td class="p-3 text-center" id="val_rec_m10">3.466.670</td>
-                                    <td class="p-3 text-center" id="val_rec_m11">3.466.670</td>
-                                    <td class="p-3 text-center" id="val_rec_m12">3.466.670</td>
-                                    <td class="p-3 text-right bg-emerald-50/50 font-extrabold text-emerald-800" id="val_rec_total">17.333.350</td>
+                                <tr class="bg-slate-800/20 hover:bg-slate-800/40 text-slate-100">
+                                    <td class="p-3 font-bold text-slate-200">1. RECEITA BRUTA (R$)</td>
+                                    <td class="p-2 text-center" id="val_rec_m1">0,00</td>
+                                    <td class="p-2 text-center" id="val_rec_m2">0,00</td>
+                                    <td class="p-2 text-center" id="val_rec_m3">0,00</td>
+                                    <td class="p-2 text-center" id="val_rec_m4">0,00</td>
+                                    <td class="p-2 text-center" id="val_rec_m5">0,00</td>
+                                    <td class="p-2 text-center" id="val_rec_m6">0,00</td>
+                                    <td class="p-2 text-center" id="val_rec_m7">0,00</td>
+                                    <td class="p-2 text-center" id="val_rec_m8">3.466.670</td>
+                                    <td class="p-2 text-center" id="val_rec_m9">3.466.670</td>
+                                    <td class="p-2 text-center" id="val_rec_m10">3.466.670</td>
+                                    <td class="p-2 text-center" id="val_rec_m11">3.466.670</td>
+                                    <td class="p-2 text-center" id="val_rec_m12">3.466.670</td>
+                                    <td class="p-3 text-right bg-emerald-950/50 font-extrabold text-emerald-400" id="val_rec_total">17.333.350</td>
                                 </tr>
-                                <!-- OPEX Nutrição/Insumos -->
-                                <tr class="text-rose-600">
-                                    <td class="p-3 font-semibold">(-) Matéria-Prima / Ração / Ovos</td>
-                                    <td class="p-3 text-center" id="val_ins_m1">1.000.000</td>
-                                    <td class="p-3 text-center" id="val_ins_m2">180.000</td>
-                                    <td class="p-3 text-center" id="val_ins_m3">220.000</td>
-                                    <td class="p-3 text-center" id="val_ins_m4">260.000</td>
-                                    <td class="p-3 text-center" id="val_ins_m5">300.000</td>
-                                    <td class="p-3 text-center" id="val_ins_m6">340.000</td>
-                                    <td class="p-3 text-center" id="val_ins_m7">380.000</td>
-                                    <td class="p-3 text-center" id="val_ins_m8">978.000</td>
-                                    <td class="p-3 text-center" id="val_ins_m9">978.000</td>
-                                    <td class="p-3 text-center" id="val_ins_m10">978.000</td>
-                                    <td class="p-3 text-center" id="val_ins_m11">978.000</td>
-                                    <td class="p-3 text-center" id="val_ins_m12">978.000</td>
-                                    <td class="p-3 text-right bg-rose-50 font-bold" id="val_ins_total">7.570.000</td>
+                                <tr class="text-teal-300 hover:bg-slate-800/40">
+                                    <td class="p-3 font-semibold">(+) Rendimento Fundo OPEX (CDI)</td>
+                                    <td class="p-2 text-center" id="val_fundo_m1">75.000</td>
+                                    <td class="p-2 text-center" id="val_fundo_m2">68.000</td>
+                                    <td class="p-2 text-center" id="val_fundo_m3">62.000</td>
+                                    <td class="p-2 text-center" id="val_fundo_m4">56.000</td>
+                                    <td class="p-2 text-center" id="val_fundo_m5">50.000</td>
+                                    <td class="p-2 text-center" id="val_fundo_m6">44.000</td>
+                                    <td class="p-2 text-center" id="val_fundo_m7">38.000</td>
+                                    <td class="p-2 text-center" id="val_fundo_m8">30.000</td>
+                                    <td class="p-2 text-center" id="val_fundo_m9">25.000</td>
+                                    <td class="p-2 text-center" id="val_fundo_m10">22.000</td>
+                                    <td class="p-2 text-center" id="val_fundo_m11">20.000</td>
+                                    <td class="p-2 text-center" id="val_fundo_m12">22.400</td>
+                                    <td class="p-3 text-right bg-teal-950/20 font-bold" id="val_fundo_total">512.400</td>
                                 </tr>
-                                <!-- OPEX Mão de Obra -->
-                                <tr class="text-rose-600">
-                                    <td class="p-3 font-semibold">(-) Mão de Obra (Salários + Enc.)</td>
-                                    <td class="p-3 text-center" id="val_hr_m1">42.000</td>
-                                    <td class="p-3 text-center" id="val_hr_m2">42.000</td>
-                                    <td class="p-3 text-center" id="val_hr_m3">42.000</td>
-                                    <td class="p-3 text-center" id="val_hr_m4">42.000</td>
-                                    <td class="p-3 text-center" id="val_hr_m5">42.000</td>
-                                    <td class="p-3 text-center" id="val_hr_m6">42.000</td>
-                                    <td class="p-3 text-center" id="val_hr_m7">165.375</td>
-                                    <td class="p-3 text-center" id="val_hr_m8">165.375</td>
-                                    <td class="p-3 text-center" id="val_hr_m9">165.375</td>
-                                    <td class="p-3 text-center" id="val_hr_m10">165.375</td>
-                                    <td class="p-3 text-center" id="val_hr_m11">165.375</td>
-                                    <td class="p-3 text-center" id="val_hr_m12">165.375</td>
-                                    <td class="p-3 text-right bg-rose-50 font-bold" id="val_hr_total">1.120.875</td>
+                                <tr class="text-rose-400 hover:bg-slate-800/40">
+                                    <td class="p-3 font-semibold">(-) Matéria-Prima / Insumos / Aves</td>
+                                    <td class="p-2 text-center" id="val_ins_m1">1.000.000</td>
+                                    <td class="p-2 text-center" id="val_ins_m2">180.000</td>
+                                    <td class="p-2 text-center" id="val_ins_m3">220.000</td>
+                                    <td class="p-2 text-center" id="val_ins_m4">260.000</td>
+                                    <td class="p-2 text-center" id="val_ins_m5">300.000</td>
+                                    <td class="p-2 text-center" id="val_ins_m6">340.000</td>
+                                    <td class="p-2 text-center" id="val_ins_m7">380.000</td>
+                                    <td class="p-2 text-center" id="val_ins_m8">978.000</td>
+                                    <td class="p-2 text-center" id="val_ins_m9">978.000</td>
+                                    <td class="p-2 text-center" id="val_ins_m10">978.000</td>
+                                    <td class="p-2 text-center" id="val_ins_m11">978.000</td>
+                                    <td class="p-2 text-center" id="val_ins_m12">978.000</td>
+                                    <td class="p-3 text-right bg-rose-950/20 font-bold" id="val_ins_total">7.570.000</td>
                                 </tr>
-                                <!-- Depreciação -->
-                                <tr class="text-slate-500">
+                                <tr class="text-rose-400 hover:bg-slate-800/40">
+                                    <td class="p-3 font-semibold">(-) Mão de Obra + Saúde + Aliment.</td>
+                                    <td class="p-2 text-center" id="val_hr_m1">48.300</td>
+                                    <td class="p-2 text-center" id="val_hr_m2">48.300</td>
+                                    <td class="p-2 text-center" id="val_hr_m3">48.300</td>
+                                    <td class="p-2 text-center" id="val_hr_m4">48.300</td>
+                                    <td class="p-2 text-center" id="val_hr_m5">48.300</td>
+                                    <td class="p-2 text-center" id="val_hr_m6">48.300</td>
+                                    <td class="p-2 text-center" id="val_hr_m7">193.725</td>
+                                    <td class="p-2 text-center" id="val_hr_m8">193.725</td>
+                                    <td class="p-2 text-center" id="val_hr_m9">193.725</td>
+                                    <td class="p-2 text-center" id="val_hr_m10">193.725</td>
+                                    <td class="p-2 text-center" id="val_hr_m11">193.725</td>
+                                    <td class="p-2 text-center" id="val_hr_m12">193.725</td>
+                                    <td class="p-3 text-right bg-rose-950/20 font-bold" id="val_hr_total">1.258.175</td>
+                                </tr>
+                                <tr class="text-amber-300 hover:bg-slate-800/40">
+                                    <td class="p-3 font-semibold">(-) Provisão Bonificação PLR (Equipe)</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center font-bold text-amber-300" id="val_plr_m12">350.000</td>
+                                    <td class="p-3 text-right bg-amber-950/20 font-bold text-amber-300" id="val_plr_total">350.000</td>
+                                </tr>
+                                <tr class="text-slate-500 hover:bg-slate-800/40">
                                     <td class="p-3 font-semibold">(-) Depreciação Contábil</td>
-                                    <td class="p-3 text-center" id="val_dep_m1">133.040</td>
-                                    <td class="p-3 text-center" id="val_dep_m2">133.040</td>
-                                    <td class="p-3 text-center" id="val_dep_m3">133.040</td>
-                                    <td class="p-3 text-center" id="val_dep_m4">133.040</td>
-                                    <td class="p-3 text-center" id="val_dep_m5">133.040</td>
-                                    <td class="p-3 text-center" id="val_dep_m6">133.040</td>
-                                    <td class="p-3 text-center" id="val_dep_m7">133.040</td>
-                                    <td class="p-3 text-center" id="val_dep_m8">133.040</td>
-                                    <td class="p-3 text-center" id="val_dep_m9">133.040</td>
-                                    <td class="p-3 text-center" id="val_dep_m10">133.040</td>
-                                    <td class="p-3 text-center" id="val_dep_m11">133.040</td>
-                                    <td class="p-3 text-center" id="val_dep_m12">133.040</td>
-                                    <td class="p-3 text-right font-bold" id="val_dep_total">1.596.478</td>
+                                    <td class="p-2 text-center">133.040</td>
+                                    <td class="p-2 text-center">133.040</td>
+                                    <td class="p-2 text-center">133.040</td>
+                                    <td class="p-2 text-center">133.040</td>
+                                    <td class="p-2 text-center">133.040</td>
+                                    <td class="p-2 text-center">133.040</td>
+                                    <td class="p-2 text-center">133.040</td>
+                                    <td class="p-2 text-center">133.040</td>
+                                    <td class="p-2 text-center">133.040</td>
+                                    <td class="p-2 text-center">133.040</td>
+                                    <td class="p-2 text-center">133.040</td>
+                                    <td class="p-2 text-center">133.040</td>
+                                    <td class="p-3 text-right font-bold">1.596.478</td>
                                 </tr>
-                                <!-- Lucro Operacional Fiscal LALUR -->
-                                <tr class="text-slate-800 bg-slate-50/60 font-bold">
+                                <tr class="bg-slate-800/50 hover:bg-slate-800 font-bold text-slate-100">
                                     <td class="p-3">Resultado Fiscal Antes IR (Mês)</td>
-                                    <td class="p-3 text-center text-rose-600" id="val_fisc_m1">-1.175.040</td>
-                                    <td class="p-3 text-center text-rose-600" id="val_fisc_m2">-355.040</td>
-                                    <td class="p-3 text-center text-rose-600" id="val_fisc_m3">-395.040</td>
-                                    <td class="p-3 text-center text-rose-600" id="val_fisc_m4">-435.040</td>
-                                    <td class="p-3 text-center text-rose-600" id="val_fisc_m5">-475.040</td>
-                                    <td class="p-3 text-center text-rose-600" id="val_fisc_m6">-515.040</td>
-                                    <td class="p-3 text-center text-rose-600" id="val_fisc_m7">-678.415</td>
-                                    <td class="p-3 text-center text-emerald-600" id="val_fisc_m8">2.190.255</td>
-                                    <td class="p-3 text-center text-emerald-600" id="val_fisc_m9">2.190.255</td>
-                                    <td class="p-3 text-center text-emerald-600" id="val_fisc_m10">2.190.255</td>
-                                    <td class="p-3 text-center text-emerald-600" id="val_fisc_m11">2.190.255</td>
-                                    <td class="p-3 text-center text-emerald-600" id="val_fisc_m12">2.190.255</td>
-                                    <td class="p-3 text-right font-extrabold text-slate-800" id="val_fisc_total">7.045.997</td>
+                                    <td class="p-2 text-center text-rose-400" id="val_fisc_m1">-1.106.340</td>
+                                    <td class="p-2 text-center text-rose-400" id="val_fisc_m2">-293.340</td>
+                                    <td class="p-2 text-center text-rose-400" id="val_fisc_m3">-339.340</td>
+                                    <td class="p-2 text-center text-rose-400" id="val_fisc_m4">-385.340</td>
+                                    <td class="p-2 text-center text-rose-400" id="val_fisc_m5">-431.340</td>
+                                    <td class="p-2 text-center text-rose-400" id="val_fisc_m6">-477.340</td>
+                                    <td class="p-2 text-center text-rose-400" id="val_fisc_m7">-668.765</td>
+                                    <td class="p-2 text-center text-emerald-400" id="val_fisc_m8">2.191.905</td>
+                                    <td class="p-2 text-center text-emerald-400" id="val_fisc_m9">2.186.905</td>
+                                    <td class="p-2 text-center text-emerald-400" id="val_fisc_m10">2.183.905</td>
+                                    <td class="p-2 text-center text-emerald-400" id="val_fisc_m11">2.181.905</td>
+                                    <td class="p-2 text-center text-emerald-400" id="val_fisc_m12">1.834.305</td>
+                                    <td class="p-3 text-right font-extrabold" id="val_fisc_total">7.079.097</td>
                                 </tr>
-                                <!-- Imposto Lucro Real (34%) -->
-                                <tr class="text-rose-600">
-                                    <td class="p-3 font-semibold">(-) IRPJ / CSLL (Compensado)</td>
-                                    <td class="p-3 text-center text-slate-400" id="val_tax_m1">0</td>
-                                    <td class="p-3 text-center text-slate-400" id="val_tax_m2">0</td>
-                                    <td class="p-3 text-center text-slate-400" id="val_tax_m3">0</td>
-                                    <td class="p-3 text-center text-slate-400" id="val_tax_m4">0</td>
-                                    <td class="p-3 text-center text-slate-400" id="val_tax_m5">0</td>
-                                    <td class="p-3 text-center text-slate-400" id="val_tax_m6">0</td>
-                                    <td class="p-3 text-center text-slate-400" id="val_tax_m7">0</td>
-                                    <td class="p-3 text-center text-slate-400" id="val_tax_m8">0</td>
-                                    <td class="p-3 text-center" id="val_tax_m9">119.631</td>
-                                    <td class="p-3 text-center" id="val_tax_m10">744.687</td>
-                                    <td class="p-3 text-center" id="val_tax_m11">744.687</td>
-                                    <td class="p-3 text-center" id="val_tax_m12">744.687</td>
-                                    <td class="p-3 text-right bg-rose-50 font-bold" id="val_tax_total">2.353.692</td>
+                                <tr class="text-rose-400 hover:bg-slate-800/40">
+                                    <td class="p-3 font-semibold">(-) IRPJ / CSLL (Compensado LALUR)</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-slate-500">0</td>
+                                    <td class="p-2 text-center text-rose-300" id="val_tax_m9">258.000</td>
+                                    <td class="p-2 text-center text-rose-300" id="val_tax_m10">742.527</td>
+                                    <td class="p-2 text-center text-rose-300" id="val_tax_m11">741.847</td>
+                                    <td class="p-2 text-center text-rose-300" id="val_tax_m12">623.663</td>
+                                    <td class="p-3 text-right bg-rose-950/20 font-bold" id="val_tax_total">2.366.037</td>
                                 </tr>
-                                <!-- EBITDA -->
-                                <tr class="bg-emerald-50 text-emerald-800 font-extrabold">
+                                <tr class="bg-emerald-950 text-emerald-300 font-extrabold hover:bg-emerald-900/40">
                                     <td class="p-3">EBITDA OPERACIONAL (R$)</td>
-                                    <td class="p-3 text-center text-rose-600" id="val_ebit_m1">-1.042.000</td>
-                                    <td class="p-3 text-center text-rose-600" id="val_ebit_m2">-222.000</td>
-                                    <td class="p-3 text-center text-rose-600" id="val_ebit_m3">-262.000</td>
-                                    <td class="p-3 text-center text-rose-600" id="val_ebit_m4">-302.000</td>
-                                    <td class="p-3 text-center text-rose-600" id="val_ebit_m5">-342.000</td>
-                                    <td class="p-3 text-center text-rose-600" id="val_ebit_m6">-382.000</td>
-                                    <td class="p-3 text-center text-rose-600" id="val_ebit_m7">-545.375</td>
-                                    <td class="p-3 text-center text-emerald-600" id="val_ebit_m8">2.323.295</td>
-                                    <td class="p-3 text-center text-emerald-600" id="val_ebit_m9">2.323.295</td>
-                                    <td class="p-3 text-center text-emerald-600" id="val_ebit_m10">2.323.295</td>
-                                    <td class="p-3 text-center text-emerald-600" id="val_ebit_m11">2.323.295</td>
-                                    <td class="p-3 text-center text-emerald-600" id="val_ebit_m12">2.323.295</td>
-                                    <td class="p-3 text-right font-black" id="val_ebit_total">7.072.205</td>
+                                    <td class="p-2 text-center text-rose-400" id="val_ebit_m1">-973.300</td>
+                                    <td class="p-2 text-center text-rose-400" id="val_ebit_m2">-160.300</td>
+                                    <td class="p-2 text-center text-rose-400" id="val_ebit_m3">-206.300</td>
+                                    <td class="p-2 text-center text-rose-400" id="val_ebit_m4">-252.300</td>
+                                    <td class="p-2 text-center text-rose-400" id="val_ebit_m5">-298.300</td>
+                                    <td class="p-2 text-center text-rose-400" id="val_ebit_m6">-344.300</td>
+                                    <td class="p-2 text-center text-rose-400" id="val_ebit_m7">-535.725</td>
+                                    <td class="p-2 text-center text-emerald-400" id="val_ebit_m8">2.324.945</td>
+                                    <td class="p-2 text-center text-emerald-400" id="val_ebit_m9">2.319.945</td>
+                                    <td class="p-2 text-center text-emerald-400" id="val_ebit_m10">2.316.945</td>
+                                    <td class="p-2 text-center text-emerald-400" id="val_ebit_m11">2.314.945</td>
+                                    <td class="p-2 text-center text-emerald-400" id="val_ebit_m12">1.967.345</td>
+                                    <td class="p-3 text-right text-emerald-300 font-black" id="val_ebit_total">7.153.860</td>
                                 </tr>
-                                <!-- Parcela Banco -->
-                                <tr class="text-rose-600">
+                                <tr class="text-rose-400 hover:bg-slate-800/40">
                                     <td class="p-3 font-semibold">(-) Parcela Banco (Financ.)</td>
-                                    <td class="p-3 text-center" id="val_div_m1">500.000</td>
-                                    <td class="p-3 text-center" id="val_div_m2">500.000</td>
-                                    <td class="p-3 text-center" id="val_div_m3">500.000</td>
-                                    <td class="p-3 text-center" id="val_div_m4">500.000</td>
-                                    <td class="p-3 text-center" id="val_div_m5">500.000</td>
-                                    <td class="p-3 text-center" id="val_div_m6">500.000</td>
-                                    <td class="p-3 text-center" id="val_div_m7">500.000</td>
-                                    <td class="p-3 text-center" id="val_div_m8">500.000</td>
-                                    <td class="p-3 text-center" id="val_div_m9">500.000</td>
-                                    <td class="p-3 text-center" id="val_div_m10">500.000</td>
-                                    <td class="p-3 text-center" id="val_div_m11">500.000</td>
-                                    <td class="p-3 text-center" id="val_div_m12">500.000</td>
+                                    <td class="p-2 text-center" id="val_div_m1">500.000</td>
+                                    <td class="p-2 text-center" id="val_div_m2">500.000</td>
+                                    <td class="p-2 text-center" id="val_div_m3">500.000</td>
+                                    <td class="p-2 text-center" id="val_div_m4">500.000</td>
+                                    <td class="p-2 text-center" id="val_div_m5">500.000</td>
+                                    <td class="p-2 text-center" id="val_div_m6">500.000</td>
+                                    <td class="p-2 text-center" id="val_div_m7">500.000</td>
+                                    <td class="p-2 text-center" id="val_div_m8">500.000</td>
+                                    <td class="p-2 text-center" id="val_div_m9">500.000</td>
+                                    <td class="p-2 text-center" id="val_div_m10">500.000</td>
+                                    <td class="p-2 text-center" id="val_div_m11">500.000</td>
+                                    <td class="p-2 text-center" id="val_div_m12">500.000</td>
                                     <td class="p-3 text-right font-bold" id="val_div_total">6.000.000</td>
                                 </tr>
-                                <!-- Fluxo de Caixa Líquido -->
-                                <tr class="bg-slate-900 text-white font-extrabold text-[13px]">
-                                    <td class="p-3">FLUXO CAIXA LÍQUIDO MENSAL</td>
-                                    <td class="p-3 text-center text-rose-300" id="val_net_m1">-1.542.000</td>
-                                    <td class="p-3 text-center text-rose-300" id="val_net_m2">-722.000</td>
-                                    <td class="p-3 text-center text-rose-300" id="val_net_m3">-762.000</td>
-                                    <td class="p-3 text-center text-rose-300" id="val_net_m4">-802.000</td>
-                                    <td class="p-3 text-center text-rose-300" id="val_net_m5">-842.000</td>
-                                    <td class="p-3 text-center text-rose-300" id="val_net_m6">-882.000</td>
-                                    <td class="p-3 text-center text-rose-300" id="val_net_m7">-1.045.375</td>
-                                    <td class="p-3 text-center text-emerald-300" id="val_net_m8">1.823.295</td>
-                                    <td class="p-3 text-center text-emerald-300" id="val_net_m9">1.703.664</td>
-                                    <td class="p-3 text-center text-emerald-300" id="val_net_m10">1.078.608</td>
-                                    <td class="p-3 text-center text-emerald-300" id="val_net_m11">1.078.608</td>
-                                    <td class="p-3 text-center text-emerald-300" id="val_net_m12">1.078.608</td>
-                                    <td class="p-3 text-right text-amber-300 font-black" id="val_net_total">1.163.408</td>
+                                <tr class="bg-slate-950 text-white font-extrabold text-[13px]">
+                                    <td class="p-3 rounded-bl-xl border-t border-slate-700">FLUXO CAIXA LÍQUIDO MENSAL</td>
+                                    <td class="p-2 text-center text-rose-300 border-t border-slate-700" id="val_net_m1">-1.473.300</td>
+                                    <td class="p-2 text-center text-rose-300 border-t border-slate-700" id="val_net_m2">-660.300</td>
+                                    <td class="p-2 text-center text-rose-300 border-t border-slate-700" id="val_net_m3">-706.300</td>
+                                    <td class="p-2 text-center text-rose-300 border-t border-slate-700" id="val_net_m4">-752.300</td>
+                                    <td class="p-2 text-center text-rose-300 border-t border-slate-700" id="val_net_m5">-798.300</td>
+                                    <td class="p-2 text-center text-rose-300 border-t border-slate-700" id="val_net_m6">-844.300</td>
+                                    <td class="p-2 text-center text-rose-300 border-t border-slate-700" id="val_net_m7">-1.035.725</td>
+                                    <td class="p-2 text-center text-emerald-300 border-t border-slate-700" id="val_net_m8">1.824.945</td>
+                                    <td class="p-2 text-center text-emerald-300 border-t border-slate-700" id="val_net_m9">1.561.945</td>
+                                    <td class="p-2 text-center text-emerald-300 border-t border-slate-700" id="val_net_m10">1.074.418</td>
+                                    <td class="p-2 text-center text-emerald-300 border-t border-slate-700" id="val_net_m11">1.073.098</td>
+                                    <td class="p-2 text-center text-emerald-300 border-t border-slate-700" id="val_net_m12">843.682</td>
+                                    <td class="p-3 text-right text-amber-300 font-black rounded-br-xl border-t border-slate-700" id="val_net_total">1.067.823</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-
-                    <div class="bg-slate-50 rounded-xl p-4 text-[11px] text-slate-500 space-y-1 leading-relaxed">
-                        <p>💡 <strong>Entenda o LALUR:</strong> O prejuízo acumulado do M1 ao M7 (-R$ 4.028.654) foi utilizado para abater a base de cálculo tributária do faturamento de postura. Por isso, a empresa não paga imposto federais no Mês 8, e paga apenas uma fração reduzida no Mês 9, gerando um imenso alívio financeiro inicial.</p>
-                    </div>
-
                 </div>
 
-                <!-- CONTEÚDO DA GUIA 3: DETALHAMENTO DE CUSTOS E RISCO -->
-                <div id="tab_riscos" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-100 space-y-6">
+                <!-- CONTEÚDO DA GUIA 3: CUSTO POR AVE, BENEFÍCIOS & EXPANSÃO (320k) -->
+                <div id="tab_por_ave" class="hidden bg-slate-850 rounded-2xl p-6 shadow-lg border border-slate-800 space-y-6">
                     <div>
-                        <h4 class="font-bold text-slate-900 text-sm md:text-base">Análise e Detalhes da Mão de Obra de Postura</h4>
-                        <p class="text-xs text-slate-500">Mapeamento sanitário, operacional e comercial do entreposto (S.I.F. Exigido).</p>
+                        <h4 class="font-bold text-slate-100 text-sm md:text-base">Análise de Custo Unitário por Galinha, Benefícios & Expansão</h4>
+                        <p class="text-xs text-slate-400">Detalhamento dos benefícios (Saúde/Alimentação), bônus de produção e projeção dobrando para 320 mil galinhas.</p>
                     </div>
 
-                    <!-- Diagrama de Funcionários -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        
-                        <!-- Fase de Carência -->
-                        <div class="bg-amber-50/50 border border-amber-100 rounded-xl p-5 space-y-3">
-                            <h5 class="font-bold text-amber-800 text-xs uppercase tracking-wider flex items-center gap-1.5">
-                                <i class="fa-solid fa-hourglass"></i> Fase 1: Cria e Recria (Mês 1 ao 7)
-                            </h5>
-                            <ul class="text-xs text-amber-900/80 space-y-2 list-disc list-inside">
-                                <li>Apenas 10 colaboradores ativos;</li>
-                                <li>4 Operadores de galpão (Manejo sanitário básico);</li>
-                                <li>1 Veterinário RT para o controle preventivo (Lohmann/Hy-Line);</li>
-                                <li>1 Técnico em TI e 1 Administrador para faturamento de compras;</li>
-                                <li>1 Cozinheira e 1 Auxiliar de Jardinagem para áreas internas e de biossegurança;</li>
-                                <li><strong>Folha de Pagamento Reduzida: R$ 42.000,00 / mês</strong>.</li>
-                            </ul>
+                    <!-- Métricas de Benefícios e Custo por Ave -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                            <span class="text-[10px] text-amber-400 font-bold uppercase tracking-wider block mb-1">Custo do Pacote Social (Benefícios)</span>
+                            <h3 class="text-xl font-extrabold text-slate-100" id="card_cost_beneficios">R$ 630,00 / func / mês</h3>
+                            <p class="text-[10px] text-slate-400 mt-1">Plano de Saúde + Vale Alimentação para retenção de mão de obra qualificada.</p>
                         </div>
-
-                        <!-- Fase Ativa -->
-                        <div class="bg-emerald-50/50 border border-emerald-100 rounded-xl p-5 space-y-3">
-                            <h5 class="font-bold text-emerald-800 text-xs uppercase tracking-wider flex items-center gap-1.5">
-                                <i class="fa-solid fa-play"></i> Fase 2: Production Ativa (Mês 8 em diante)
-                            </h5>
-                            <ul class="text-xs text-emerald-900/80 space-y-2 list-disc list-inside">
-                                <li>Ativação total da equipe (de 39 a 48 funcionários de acordo com sua simulação);</li>
-                                <li>Abertura oficial do Entreposto (Separação rígida de Áreas Limpa e Suja);</li>
-                                <li>Contratação das operadoras de classificação de ovos, embalagem e expedição;</li>
-                                <li>Ativação do Refeitório com pessoal de cozinha completo e limpeza geral;</li>
-                                <li>Ativação de 4 motoristas para rotas diárias de entrega em Pernambuco;</li>
-                                <li><strong>Folha de Pagamento Completa: R$ 165.375,00 / mês</strong>.</li>
-                            </ul>
+                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                            <span class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider block mb-1">Custo Mensal por Ave (Postura Ativa)</span>
+                            <h3 class="text-xl font-extrabold text-slate-100" id="cost_postura_mensal">R$ 7,32 / ave / mês</h3>
+                            <p class="text-[10px] text-slate-400 mt-1">Inclui Ração + Folha completa com benefícios + Energia e MRO.</p>
                         </div>
-
+                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                            <span class="text-[10px] text-teal-400 font-bold uppercase tracking-wider block mb-1">Bônus de Produção PLR Médio / Func.</span>
+                            <h3 class="text-xl font-extrabold text-slate-100" id="card_bonus_por_func">R$ 7.777,00 / ano</h3>
+                            <p class="text-[10px] text-slate-400 mt-1">Distribuição direta baseada no atingimento de metas operacionais.</p>
+                        </div>
                     </div>
 
-                    <!-- Custos Ocultos Adicionais Integrados -->
-                    <div class="bg-slate-50 rounded-xl p-5 space-y-3">
-                        <h5 class="font-bold text-slate-800 text-xs uppercase">Demonstrativo de Custos Marginais Adicionados:</h5>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-                            <div class="p-3 bg-white rounded-lg border border-slate-100">
-                                <span class="text-slate-400 block mb-1">Perdas p/ Quebras (2%):</span>
-                                <span class="font-bold text-slate-800" id="cost_quebra">R$ 69.333,40 /mês</span>
+                    <!-- Estudo de Expansão: Ano Pleno 160k vs. Dobrando para 320k Aves -->
+                    <div class="bg-gradient-to-br from-slate-800 to-slate-850 p-6 rounded-2xl border border-emerald-800/30 space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                            <div>
+                                <h4 class="font-extrabold text-amber-400 text-sm md:text-base">Evolução do Negócio: Ano Pleno vs. Expansão para 320.000 Aves</h4>
+                                <p class="text-xs text-slate-400">Aproveitamento de infraestrutura (fábrica de ração, saúde ocupacional e escritório) reduzindo o CAPEX marginal.</p>
                             </div>
-                            <div class="p-3 bg-white rounded-lg border border-slate-100">
-                                <span class="text-slate-400 block mb-1">Manutenção Corretiva:</span>
-                                <span class="font-bold text-slate-800" id="cost_mro">R$ 15.000,00 /mês</span>
+                            <span class="bg-amber-900/50 text-amber-300 text-xs font-bold px-3 py-1 rounded-lg border border-amber-800/40">Ganhos de Escala</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                            <!-- Ano 1 com Carência -->
+                            <div class="bg-slate-900 p-4 rounded-xl border border-slate-750">
+                                <span class="text-slate-400 font-bold uppercase text-[10px] block mb-2">Ano 1 (160k Aves com Carência)</span>
+                                <div class="space-y-1.5 font-medium">
+                                    <div class="flex justify-between"><span>Faturamento:</span> <span class="font-bold text-slate-200">R$ 17,3M</span></div>
+                                    <div class="flex justify-between"><span>EBITDA:</span> <span class="font-bold text-emerald-400">R$ 7,15M</span></div>
+                                    <div class="flex justify-between"><span>ROI:</span> <span class="font-bold text-amber-300">20,94%</span></div>
+                                    <div class="flex justify-between"><span>Margem EBITDA:</span> <span class="font-bold text-slate-200">41,2%</span></div>
+                                </div>
                             </div>
-                            <div class="p-3 bg-white rounded-lg border border-slate-100">
-                                <span class="text-slate-400 block mb-1">Provisão Demissões:</span>
-                                <span class="font-bold text-slate-800" id="cost_turnover">R$ 5.000,00 /mês</span>
+
+                            <!-- Ano Pleno 160k (12 Meses Postura) -->
+                            <div class="bg-slate-900 p-4 rounded-xl border border-slate-750">
+                                <span class="text-emerald-400 font-bold uppercase text-[10px] block mb-2">Ano Pleno (160k Aves - 12m)</span>
+                                <div class="space-y-1.5 font-medium">
+                                    <div class="flex justify-between"><span>Faturamento:</span> <span class="font-bold text-slate-200">R$ 41,6M</span></div>
+                                    <div class="flex justify-between"><span>EBITDA:</span> <span class="font-bold text-emerald-400">R$ 27,2M</span></div>
+                                    <div class="flex justify-between"><span>ROI Anualizado:</span> <span class="font-bold text-amber-300">63,20%</span></div>
+                                    <div class="flex justify-between"><span>Margem EBITDA:</span> <span class="font-bold text-slate-200">65,3%</span></div>
+                                </div>
                             </div>
-                            <div class="p-3 bg-white rounded-lg border border-slate-100">
-                                <span class="text-slate-400 block mb-1">Energia & Combustível:</span>
-                                <span class="font-bold text-slate-800">R$ 80.000,00 /mês</span>
+
+                            <!-- Dobrando para 320k Aves -->
+                            <div class="bg-gradient-to-br from-emerald-950 to-slate-900 p-4 rounded-xl border border-emerald-700/50">
+                                <span class="text-amber-300 font-bold uppercase text-[10px] block mb-2">Expansão (320k Aves - Ano 2)</span>
+                                <div class="space-y-1.5 font-medium">
+                                    <div class="flex justify-between"><span>Faturamento:</span> <span class="font-bold text-slate-100">R$ 83,2M</span></div>
+                                    <div class="flex justify-between"><span>EBITDA:</span> <span class="font-bold text-emerald-300">R$ 58,1M</span></div>
+                                    <div class="flex justify-between"><span>ROI Consolidado:</span> <span class="font-bold text-amber-300">110,20%</span></div>
+                                    <div class="flex justify-between"><span>Margem EBITDA:</span> <span class="font-bold text-emerald-300">69,8%</span></div>
+                                </div>
                             </div>
+                        </div>
+
+                        <div class="text-[11px] text-slate-400 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-750">
+                            💡 <strong>Ganhos de Retenção e Produtividade:</strong> O investimento no pacote social (Plano de Saúde R$ 280 + Vale Alimentação R$ 350) e a distribuição da PLR/Bonificação reduzem a rotatividade (turnover) para menos de 2%, evitando o custo de treinamento contínuo no entreposto e aumentando a integridade da embalagem de ovos no transporte.
                         </div>
                     </div>
 
@@ -664,66 +713,82 @@
         const AVES_CONTIGENTE = 160000;
         const POSTURA_MEDIA_MENSAL = 26; // ovos por ave/mês
 
-        // Variável de controle do gráfico global
         let myChart = null;
 
         // Função de alteração de ABAS
         function switchTab(tabId) {
             document.getElementById('tab_dashboard').classList.add('hidden');
             document.getElementById('tab_dre').classList.add('hidden');
-            document.getElementById('tab_riscos').classList.add('hidden');
+            document.getElementById('tab_por_ave').classList.add('hidden');
 
-            document.getElementById('btn_tab_dashboard').className = 'flex-1 py-2.5 px-4 text-xs md:text-sm font-bold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-50';
-            document.getElementById('btn_tab_dre').className = 'flex-1 py-2.5 px-4 text-xs md:text-sm font-bold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-50';
-            document.getElementById('btn_tab_riscos').className = 'flex-1 py-2.5 px-4 text-xs md:text-sm font-bold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-50';
+            document.getElementById('btn_tab_dashboard').className = 'flex-1 py-2.5 px-3 text-xs font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-400 hover:bg-slate-800 shrink-0';
+            document.getElementById('btn_tab_dre').className = 'flex-1 py-2.5 px-3 text-xs font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-400 hover:bg-slate-800 shrink-0';
+            document.getElementById('btn_tab_por_ave').className = 'flex-1 py-2.5 px-3 text-xs font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-400 hover:bg-slate-800 shrink-0';
 
             document.getElementById('tab_' + tabId).classList.remove('hidden');
-            document.getElementById('btn_tab_' + tabId).className = 'flex-1 py-2.5 px-4 text-xs md:text-sm font-bold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 bg-emerald-600 text-white shadow-sm';
+            document.getElementById('btn_tab_' + tabId).className = 'flex-1 py-2.5 px-3 text-xs font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 bg-emerald-600 text-white shadow-sm shrink-0';
         }
 
-        // Função principal que recalcula tudo na tela
+        // Função principal de cálculo
         function recalcular() {
-            // Inputs principais
+            // Inputs das premissas comerciais
             const precoDuria = parseFloat(document.getElementById('input_preco_duzia').value);
             const mesInicioPostura = parseInt(document.getElementById('input_mes_inicio').value);
             const parcelaFinanciamento = parseFloat(document.getElementById('input_financiamento').value) || 0;
+            const cdiTaxaAnual = parseFloat(document.getElementById('input_cdi_fundo').value) / 100;
 
-            // Inputs de mão de obra
-            const qtyEntreposto = parseInt(document.getElementById('qty_entreposto').value) || 0;
-            const qtyMotoristas = parseInt(document.getElementById('qty_motoristas').value) || 0;
+            // Benefícios Sociais
+            const planoSaudeHead = parseFloat(document.getElementById('input_plano_saude').value) || 0;
+            const valeAlimentacaoHead = parseFloat(document.getElementById('input_vale_alimentacao').value) || 0;
+            const beneficioTotalHead = planoSaudeHead + valeAlimentacaoHead;
+
+            document.getElementById('lbl_beneficio_total_head').innerText = 'R$ ' + beneficioTotalHead.toFixed(2).replace('.', ',') + ' / func / mês';
+            document.getElementById('card_cost_beneficios').innerText = 'R$ ' + beneficioTotalHead.toFixed(2).replace('.', ',') + ' / func / mês';
+
+            // Bonificação PLR (%)
+            const plrPercent = parseFloat(document.getElementById('input_plr_percent').value) / 100;
+            document.getElementById('val_plr_percent').innerText = (plrPercent * 100).toFixed(1) + '%';
+
+            // Quantitativos de pessoal
+            const qtyAreaSuja = parseInt(document.getElementById('qty_area_suja').value) || 0;
+            const qtyAreaLimpa = parseInt(document.getElementById('qty_area_limpa').value) || 0;
             const qtyCozinha = parseInt(document.getElementById('qty_cozinha').value) || 0;
             const qtyLimpeza = parseInt(document.getElementById('qty_limpeza').value) || 0;
+            const qtyMotoristas = parseInt(document.getElementById('qty_motoristas').value) || 0;
             const qtyCampo = parseInt(document.getElementById('qty_campo').value) || 0;
             const qtyAdm = parseInt(document.getElementById('qty_adm').value) || 0;
-            const qtyApoio = 5; // Fixo para RT, TI e Jardineiro
+            const qtyApoio = 3; // RT, TI e Jardineiro
 
-            const totalFuncionarios = qtyEntreposto + qtyMotoristas + qtyCozinha + qtyLimpeza + qtyCampo + qtyAdm + qtyApoio;
+            const totalFuncionarios = qtyAreaSuja + qtyAreaLimpa + qtyCozinha + qtyLimpeza + qtyMotoristas + qtyCampo + qtyAdm + qtyApoio;
             document.getElementById('badge_func_count').innerText = totalFuncionarios + ' Func.';
 
-            // Perdas e riscos
+            // Custos Invisíveis/Provisões
             const taxPerda = parseFloat(document.getElementById('select_perdas').value);
             const checkTurnover = document.getElementById('check_turnover').checked;
             const checkMRO = document.getElementById('check_mro').checked;
 
-            //  Atualização de legendas visuais
+            // Atualização de legendas visuais
             document.getElementById('val_preco_duzia').innerText = 'R$ ' + precoDuria.toFixed(2).replace('.', ',');
             document.getElementById('val_preco_caixa').innerText = 'Equivale a R$ ' + (precoDuria * 30).toFixed(2).replace('.', ',') + ' por caixa de 30 dz';
             document.getElementById('val_mes_inicio').innerText = 'Mês ' + mesInicioPostura;
+            document.getElementById('val_cdi_fundo').innerText = (cdiTaxaAnual * 100).toFixed(1) + '%';
 
-            // Variáveis de folha
+            // Estrutura da folha de pagamento + Benefícios
             const salarioMedio = 2100;
             const encargos = 0.75; // 75%
-            const folhaCompletaMensal = totalFuncionarios * salarioMedio * (1 + encargos);
-            const folhaReduzidaMensal = 10 * salarioMedio * (1 + encargos); // Fase 1 de carência
+            const folhaCompletaMensal = (totalFuncionarios * salarioMedio * (1 + encargos)) + (totalFuncionarios * beneficioTotalHead);
+            const folhaReduzidaMensal = (10 * salarioMedio * (1 + encargos)) + (10 * beneficioTotalHead); // 10 func na recria
 
-            // Estrutura do DRE de 12 meses
+            // Depreciação contábil mensal
+            const depreciacaoMensal = (CAPEX_CONSTRUCAO / 120) + (CAPEX_MAQUINARIO / 60) + (CAPEX_AUTOMOVEIS / 60);
+
+            // Vetores de simulação dos 12 meses
             let volumeVendido = [];
             let receitaBruta = [];
+            let rendimentoFundoCDI = [];
             let opexInsumos = [];
             let opexHR = [];
             let depreciacaoContabil = [];
-            let opexMRO = [];
-            let opexTurnover = [];
             let resultadoAntesIR = [];
             let prejuizoLALURAcumulado = 0;
             let impostoLucroReal = [];
@@ -732,9 +797,13 @@
             let fluxoCaixaLiquido = [];
             let caixaAcumulado = [];
 
-            // Totais
-            let totalReceita = 0;
+            // Variáveis de saldo do fundo
+            let saldoFundoOPEX = 9070000;
+            const taxaCDIMensal = cdiTaxaAnual / 12;
+
             let totalVolume = 0;
+            let totalReceita = 0;
+            let totalRendimentoFundo = 0;
             let totalInsumos = 0;
             let totalHR = 0;
             let totalDepreciacao = 0;
@@ -744,71 +813,89 @@
             let totalBanco = 0;
             let totalNetCash = 0;
 
-            // Depreciação fixa mensal (10 anos para galpões, 5 anos para máquinas)
-            const depreciacaoMensal = (CAPEX_CONSTRUCAO / 120) + (CAPEX_MAQUINARIO / 60) + (CAPEX_AUTOMOVEIS / 60);
+            // Primeiro passo: simular operação sem PLR para achar a base do lucro distribuível
+            let lucroPrePLR = 0;
 
             for(let m = 1; m <= 12; m++) {
-                
-                // 1. VOLUME E RECEITA
                 let vol = 0;
                 let rec = 0;
                 if (m >= mesInicioPostura) {
-                    vol = (AVES_CONTIGENTE * POSTURA_MEDIA_MENSAL) / 12; // volume em dúzias por mês
-                    // deduz perdas de quebras na receita
+                    vol = (AVES_CONTIGENTE * POSTURA_MEDIA_MENSAL) / 12;
                     rec = vol * precoDuria * (1 - taxPerda);
                 }
                 volumeVendido.push(vol);
                 receitaBruta.push(rec);
-
                 totalVolume += vol;
                 totalReceita += rec;
 
-                // 2. MATÉRIA PRIMA E INSUMOS ESCALONADOS BIOLOGICAMENTE
+                let rendimentoMes = saldoFundoOPEX * taxaCDIMensal;
+                rendimentoFundoCDI.push(rendimentoMes);
+                totalRendimentoFundo += rendimentoMes;
+
                 let insumo = 0;
                 if (m === 1) {
-                    // Mês 1: Alojamento do lote completo de pintainhas de 1 dia + ração inicial
                     insumo = 1000000;
                 } else if (m < mesInicioPostura) {
-                    // Fase de cria/recria leve (crescimento das aves)
-                    // Consumo de ração escalona mensalmente de forma gradual
-                    insumo = 150000 + (m * 40000); 
+                    insumo = 150000 + (m * 40000);
                 } else {
-                    // Postura ativa (ração cheia + climatização + embalagem de papelão + combustível)
                     insumo = 978000;
                 }
+                if (checkMRO && m >= mesInicioPostura) insumo += 15000;
                 opexInsumos.push(insumo);
                 totalInsumos += insumo;
 
-                // 3. MÃO DE OBRA ESCALONADA
                 let hr = 0;
                 if (m < (mesInicioPostura - 1)) {
-                    // Fase de Cria/Recria enxuta (Fase 1)
                     hr = folhaReduzidaMensal;
                 } else {
-                    // Contratação total (Fase 2) inicia 1 mês antes da postura para treinamento
                     hr = folhaCompletaMensal;
+                    if (checkTurnover) hr += (totalFuncionarios * 120);
                 }
                 opexHR.push(hr);
                 totalHR += hr;
 
-                // 4. DEPRECIAÇÃO CONTÁBIL DEDUTÍVEL
                 depreciacaoContabil.push(depreciacaoMensal);
                 totalDepreciacao += depreciacaoMensal;
 
-                // 5. CUSTOS EXTRA / INVISÍVEIS AJUSTÁVEIS
-                let mro = checkMRO ? 15000 : 0;
-                let turnover = checkTurnover ? 5000 : 0;
-                
-                opexMRO.push(mro);
-                opexTurnover.push(turnover);
+                let custoDedutivelFiscal = insumo + hr + depreciacaoMensal;
+                let receitaTotalTributavel = rec + rendimentoMes;
+                let resMês = receitaTotalTributavel - custoDedutivelFiscal;
+                lucroPrePLR += resMês;
+            }
 
-                // 6. RESULTADO TRIBUTÁVEL E IMPOSTO (LALUR - LUCRO REAL)
-                let custoDedutivelFiscal = insumo + hr + depreciacaoMensal + mro + turnover;
-                let resultadoFiscalMês = rec - custoDedutivelFiscal;
+            // Cálculo do Fundo de Bonificação PLR (dedutível no Mês 12 / LALUR)
+            let bonificacaoPLRTotal = 0;
+            if (lucroPrePLR > 0) {
+                bonificacaoPLRTotal = lucroPrePLR * plrPercent;
+            }
+
+            // Atualização dos indicadores de PLR nos cards
+            const bonusMedioPorFunc = totalFuncionarios > 0 ? (bonificacaoPLRTotal / totalFuncionarios) : 0;
+            const equivalenciaSalarios = salarioMedio > 0 ? (bonusMedioPorFunc / salarioMedio) : 0;
+
+            document.getElementById('kpi_total_plr').innerText = 'R$ ' + Math.round(bonificacaoPLRTotal).toLocaleString('pt-BR');
+            document.getElementById('lbl_bonus_medio_func').innerText = 'R$ ' + Math.round(bonusMedioPorFunc).toLocaleString('pt-BR');
+            document.getElementById('lbl_bonus_meses_sal').innerText = equivalenciaSalarios.toFixed(1).replace('.', ',') + ' Salários';
+            document.getElementById('card_bonus_por_func').innerText = 'R$ ' + Math.round(bonusMedioPorFunc).toLocaleString('pt-BR') + ' / ano';
+
+            // Segundo passo: rodar DRE definitiva integrando a dedução do PLR no Mês 12
+            for(let m = 1; m <= 12; m++) {
+                let rec = receitaBruta[m-1];
+                let rendimentoMes = rendimentoFundoCDI[m-1];
+                let insumo = opexInsumos[m-1];
+                let hr = opexHR[m-1];
+                let dep = depreciacaoContabil[m-1];
+
+                let custoDedutivelFiscal = insumo + hr + dep;
+                if (m === 12) {
+                    custoDedutivelFiscal += bonificacaoPLRTotal; // Dedução do PLR no LALUR no M12
+                }
+
+                let receitaTotalTributavel = rec + rendimentoMes;
+                let resultadoFiscalMês = receitaTotalTributavel - custoDedutivelFiscal;
                 resultadoAntesIR.push(resultadoFiscalMês);
                 totalResultadoFiscal += resultadoFiscalMês;
 
-                // Lógica de compensação de prejuízos fiscais
                 let imposto = 0;
                 if (resultadoFiscalMês < 0) {
                     prejuizoLALURAcumulado += Math.abs(resultadoFiscalMês);
@@ -817,10 +904,10 @@
                         if (resultadoFiscalMês >= prejuizoLALURAcumulado) {
                             let baseCalculoAjustada = resultadoFiscalMês - prejuizoLALURAcumulado;
                             prejuizoLALURAcumulado = 0;
-                            imposto = baseCalculoAjustada * 0.34; // 34% de IRPJ + CSLL
+                            imposto = baseCalculoAjustada * 0.34;
                         } else {
                             prejuizoLALURAcumulado -= resultadoFiscalMês;
-                            imposto = 0; // zera totalmente o imposto federal no mês
+                            imposto = 0;
                         }
                     } else {
                         imposto = resultadoFiscalMês * 0.34;
@@ -829,32 +916,35 @@
                 impostoLucroReal.push(imposto);
                 totalImpostos += imposto;
 
-                // 7. EBITDA OPERACIONAL REAL (Caixa puro sem depreciação e sem imposto)
-                let ebitdaMês = rec - (insumo + hr + mro + turnover);
+                // EBITDA Operacional
+                let ebitdaMês = (rec + rendimentoMes) - (insumo + hr);
+                if (m === 12) ebitdaMês -= bonificacaoPLRTotal;
                 ebitdaOperacional.push(ebitdaMês);
                 totalEbitda += ebitdaMês;
 
-                // 8. SERVIÇO DA DÍVIDA / PARCELA DO BANCO
                 parcelaBanco.push(parcelaFinanciamento);
                 totalBanco += parcelaFinanciamento;
 
-                // 9. FLUXO DE CAIXA LÍQUIDO MENSAL (EBITDA - Impostos - Banco)
                 let netCashMês = ebitdaMês - imposto - parcelaFinanciamento;
                 fluxoCaixaLiquido.push(netCashMês);
                 totalNetCash += netCashMês;
 
-                // 10. CAIXA ACUMULADO
-                let caixaAnterior = m === 1 ? 9070000 : caixaAcumulado[m-2]; // Começa com o giro de 9,07M
-                caixaAcumulado.push(caixaAnterior + netCashMês);
+                if (netCashMês < 0) {
+                    saldoFundoOPEX -= Math.abs(netCashMês);
+                    if (saldoFundoOPEX < 0) saldoFundoOPEX = 0;
+                } else {
+                    saldoFundoOPEX += netCashMês;
+                }
+                caixaAcumulado.push(saldoFundoOPEX);
             }
 
-            // Atualizar os elementos da Tabela DRE
+            // Atualização dinâmica dos elementos na tabela DRE
             for(let m = 1; m <= 12; m++) {
                 document.getElementById(`val_vol_m${m}`).innerText = Math.round(volumeVendido[m-1]).toLocaleString('pt-BR');
                 document.getElementById(`val_rec_m${m}`).innerText = Math.round(receitaBruta[m-1]).toLocaleString('pt-BR');
+                document.getElementById(`val_fundo_m${m}`).innerText = Math.round(rendimentoFundoCDI[m-1]).toLocaleString('pt-BR');
                 document.getElementById(`val_ins_m${m}`).innerText = Math.round(opexInsumos[m-1]).toLocaleString('pt-BR');
                 document.getElementById(`val_hr_m${m}`).innerText = Math.round(opexHR[m-1]).toLocaleString('pt-BR');
-                document.getElementById(`val_dep_m${m}`).innerText = Math.round(depreciacaoContabil[m-1]).toLocaleString('pt-BR');
                 document.getElementById(`val_fisc_m${m}`).innerText = Math.round(resultadoAntesIR[m-1]).toLocaleString('pt-BR');
                 document.getElementById(`val_tax_m${m}`).innerText = Math.round(impostoLucroReal[m-1]).toLocaleString('pt-BR');
                 document.getElementById(`val_ebit_m${m}`).innerText = Math.round(ebitdaOperacional[m-1]).toLocaleString('pt-BR');
@@ -866,12 +956,16 @@
                 alterarCorTexto(`val_net_m${m}`, fluxoCaixaLiquido[m-1]);
             }
 
-            // Totais DRE
+            document.getElementById('val_plr_m12').innerText = Math.round(bonificacaoPLRTotal).toLocaleString('pt-BR');
+            document.getElementById('val_plr_total').innerText = Math.round(bonificacaoPLRTotal).toLocaleString('pt-BR');
+
+            // Totais
             document.getElementById('val_vol_total').innerText = Math.round(totalVolume).toLocaleString('pt-BR');
             document.getElementById('val_rec_total').innerText = 'R$ ' + Math.round(totalReceita).toLocaleString('pt-BR');
+            document.getElementById('val_fundo_total').innerText = 'R$ ' + Math.round(totalRendimentoFundo).toLocaleString('pt-BR');
+            document.getElementById('top_rendimento_fundo').innerText = '+ R$ ' + Math.round(totalRendimentoFundo).toLocaleString('pt-BR');
             document.getElementById('val_ins_total').innerText = 'R$ ' + Math.round(totalInsumos).toLocaleString('pt-BR');
             document.getElementById('val_hr_total').innerText = 'R$ ' + Math.round(totalHR).toLocaleString('pt-BR');
-            document.getElementById('val_dep_total').innerText = 'R$ ' + Math.round(totalDepreciacao).toLocaleString('pt-BR');
             document.getElementById('val_fisc_total').innerText = 'R$ ' + Math.round(totalResultadoFiscal).toLocaleString('pt-BR');
             document.getElementById('val_tax_total').innerText = 'R$ ' + Math.round(totalImpostos).toLocaleString('pt-BR');
             document.getElementById('val_ebit_total').innerText = 'R$ ' + Math.round(totalEbitda).toLocaleString('pt-BR');
@@ -882,35 +976,32 @@
             alterarCorTexto('val_ebit_total', totalEbitda);
             alterarCorTexto('val_net_total', totalNetCash);
 
-            // Custo quebra marginal
-            const quebraMensal = volumeVendido[7] * precoDuria * taxPerda;
-            document.getElementById('cost_quebra').innerText = 'R$ ' + Math.round(quebraMensal).toLocaleString('pt-BR') + ' /mês';
-            document.getElementById('cost_mro').innerText = 'R$ ' + (checkMRO ? '15.000' : '0') + ',00 /mês';
-            document.getElementById('cost_turnover').innerText = 'R$ ' + (checkTurnover ? '5.000' : '0') + ',00 /mês';
-
-            // 3. ATUALIZAÇÃO DOS INDICADORES E KPIs
+            // Cálculos dos KPIs
             const lucroContabilReal = totalResultadoFiscal - totalImpostos;
             const roiAno1 = (lucroContabilReal / CAPEX_TOTAL) * 100;
             document.getElementById('kpi_roi').innerText = roiAno1.toFixed(2) + '%';
             document.getElementById('kpi_ebitda').innerText = 'R$ ' + Math.round(totalEbitda).toLocaleString('pt-BR');
 
-            // DSCR
             const dscrMedio = totalEbitda / totalBanco;
             document.getElementById('kpi_dscr').innerText = dscrMedio.toFixed(2) + 'x';
             if (dscrMedio < 1.3) {
-                document.getElementById('kpi_dscr').className = 'text-xl md:text-2xl font-extrabold my-2 text-rose-600';
+                document.getElementById('kpi_dscr').className = "text-xl md:text-2xl font-black my-2 text-rose-400";
             } else {
-                document.getElementById('kpi_dscr').className = 'text-xl md:text-2xl font-extrabold my-2 text-emerald-600';
+                document.getElementById('kpi_dscr').className = "text-xl md:text-2xl font-black my-2 text-emerald-400";
             }
 
-            // Payback
             const paybackReal = mesInicioPostura + 6;
             document.getElementById('kpi_payback').innerText = paybackReal + ' Meses';
 
-            // 4. NARRATIVA DO PITCH
+            // Custo por Ave na Guia 3
+            const opexMensalPostura = 978000 + folhaCompletaMensal + 15000;
+            const custoMensalPorAve = opexMensalPostura / AVES_CONTIGENTE;
+            document.getElementById('cost_postura_mensal').innerText = 'R$ ' + custoMensalPorAve.toFixed(2).replace('.', ',') + ' / ave / mês';
+
+            // Narrativa do Pitch
             const pitchText = `
-                "Buscamos captação de **R$ 31,4 milhões** para implementação da Granja Avilândia[cite: 1]. Simulando o preço de venda conservador em **R$ ${precoDuria.toFixed(2).replace('.', ',')}** por dúzia, com início das vendas programado para o **Mês ${mesInicioPostura}** (respeitando a recria fisiológica de biossegurança de pintainhas de 1 dia), o projeto é extremamente rentável[cite: 1]. 
-                Durante os primeiros meses sem receita, o capital de giro contratado de R$ 9 milhões garante com folga o pagamento do banco e insumos, pois adotamos folha faseada com apenas 10 funcionários na carência[cite: 1]. Ao atingirmos a postura ativa, nossa margem EBITDA ultrapassa **70%**, gerando um faturamento mensal de R$ 3,4 milhões e entregando um **ROI do primeiro ano de ${roiAno1.toFixed(2)}%**[cite: 1], com indicador de cobertura de dívida DSCR fantástico de **${dscrMedio.toFixed(2)} vezes**[cite: 1]. O prejuízo fiscal acumulado na cria será totalmente aproveitado pelo Lucro Real para zerar impostos no início do faturamento, protegendo a liquidez imediata da empresa[cite: 1]."
+                "Buscamos captação de **R$ 31,4 milhões** para implementação da Granja Avilândia. Simulando o preço de venda em **R$ ${precoDuria.toFixed(2).replace('.', ',')}** por dúzia com início no **Mês ${mesInicioPostura}** (respeitando a recria biológica), o projeto inclui o pacote social de saúde/alimentação e fundo de PLR para retenção da equipe de ${totalFuncionarios} colaboradores. 
+                Durante os primeiros meses, o fundo CDI gera **R$ ${Math.round(totalRendimentoFundo).toLocaleString('pt-BR')}** em receitas financeiras. Na postura ativa, nossa margem EBITDA atinge mais de **70%**, entregando um **ROI ajustado de ${roiAno1.toFixed(2)}%** com distribuição de **R$ ${Math.round(bonificacaoPLRTotal).toLocaleString('pt-BR')}** em bônus para a equipe (100% dedutível do Lucro Real no LALUR) e cobertura de dívida DSCR de **${dscrMedio.toFixed(2)}x**."
             `;
             document.getElementById('pitch_narrative').innerHTML = pitchText;
 
@@ -920,9 +1011,11 @@
         function alterarCorTexto(id, valor) {
             const el = document.getElementById(id);
             if(valor < 0) {
-                el.classList.add('text-rose-600'); el.classList.remove('text-emerald-600');
+                el.classList.add('text-rose-400');
+                el.classList.remove('text-emerald-400');
             } else {
-                el.classList.add('text-emerald-600'); el.classList.remove('text-rose-600');
+                el.classList.add('text-emerald-400');
+                el.classList.remove('text-rose-400');
             }
         }
 
@@ -935,15 +1028,16 @@
                 data: {
                     labels: ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'],
                     datasets: [{
-                        label: 'Saldo de Caixa Acumulado (R$)',
+                        label: 'Saldo Fundo OPEX + Caixa (R$)',
                         data: dadosCaixa,
-                        borderColor: '#059669',
-                        backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.08)',
                         fill: true,
-                        tension: 0.3,
+                        tension: 0.35,
                         borderWidth: 3,
-                        pointBackgroundColor: '#d97706',
-                        pointRadius: 5
+                        pointBackgroundColor: '#f59e0b',
+                        pointRadius: 4,
+                        pointHoverRadius: 7
                     }]
                 },
                 options: {
@@ -952,13 +1046,17 @@
                     plugins: { legend: { display: false } },
                     scales: {
                         y: {
-                            grid: { color: '#f1f5f9' },
+                            grid: { color: '#1e293b' },
                             ticks: {
+                                color: '#94a3b8',
                                 callback: function(value) { return 'R$ ' + (value / 1000000).toFixed(1) + 'M'; },
-                                font: { size: 10, weight: 'bold' }
+                                font: { size: 9, weight: 'bold' }
                             }
                         },
-                        x: { grid: { display: false }, ticks: { font: { size: 10, weight: 'bold' } } }
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#94a3b8', font: { size: 9, weight: 'bold' } }
+                        }
                     }
                 }
             });
@@ -979,27 +1077,55 @@
             
             const btn = document.querySelector('button[onclick="copiarTabela()"]');
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-check text-emerald-500"></i> Copiado!';
+            btn.innerHTML = '<i class="fa-solid fa-check text-emerald-400"></i> Copiado!';
             setTimeout(() => { btn.innerHTML = originalText; }, 2000);
         }
 
-        // Event listeners de recalque instantâneo
+        // Listener do Botão de Cálculo com Feedback
+        document.getElementById('btn_calcular').addEventListener('click', function() {
+            const btn = this;
+            const icon = document.getElementById('icon_calc_btn');
+            const text = document.getElementById('text_calc_btn');
+
+            btn.disabled = true;
+            btn.classList.add('opacity-80', 'cursor-not-allowed');
+            icon.className = "fa-solid fa-circle-notch animate-spin text-lg";
+            text.innerText = "CALCULANDO CENÁRIO...";
+
+            setTimeout(() => {
+                recalcular();
+                btn.disabled = false;
+                btn.classList.remove('opacity-80', 'cursor-not-allowed');
+                icon.className = "fa-solid fa-calculator text-lg";
+                text.innerText = "GERAR PROJEÇÕES FINANCEIRAS";
+            }, 600);
+        });
+
+        // Event listeners de atualização dinâmica
         document.getElementById('input_preco_duzia').addEventListener('input', recalcular);
         document.getElementById('input_mes_inicio').addEventListener('input', recalcular);
         document.getElementById('input_financiamento').addEventListener('input', recalcular);
-        
-        document.getElementById('qty_entreposto').addEventListener('change', recalcular);
-        document.getElementById('qty_motoristas').addEventListener('change', recalcular);
+        document.getElementById('input_cdi_fundo').addEventListener('input', recalcular);
+
+        document.getElementById('input_plano_saude').addEventListener('input', recalcular);
+        document.getElementById('input_vale_alimentacao').addEventListener('input', recalcular);
+        document.getElementById('input_plr_percent').addEventListener('input', recalcular);
+
+        document.getElementById('qty_area_suja').addEventListener('change', recalcular);
+        document.getElementById('qty_area_limpa').addEventListener('change', recalcular);
         document.getElementById('qty_cozinha').addEventListener('change', recalcular);
         document.getElementById('qty_limpeza').addEventListener('change', recalcular);
+        document.getElementById('qty_motoristas').addEventListener('change', recalcular);
         document.getElementById('qty_campo').addEventListener('change', recalcular);
         document.getElementById('qty_adm').addEventListener('change', recalcular);
-        
+
         document.getElementById('select_perdas').addEventListener('change', recalcular);
         document.getElementById('check_turnover').addEventListener('change', recalcular);
         document.getElementById('check_mro').addEventListener('change', recalcular);
 
-        window.onload = function() { recalcular(); }
+        window.onload = function() {
+            recalcular();
+        }
     </script>
 </body>
 </html>
