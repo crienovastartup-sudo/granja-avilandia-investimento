@@ -79,7 +79,7 @@
                         <span>FASE 0: Implantação</span>
                         <span class="bg-slate-200 text-slate-700 text-[10px] px-1.5 py-0.5 rounded">10 Meses</span>
                     </div>
-                    <p class="text-[10px] text-slate-500">CAPEX: R$ 31,47M (Obras, Galpões, Fábrica Ração). Sem receita.</p>
+                    <p class="text-[10px] text-slate-500">CAPEX Imobilizado: R$ 22,40M (Obras, Galpões, Fábrica Ração) + Giro: R$ 9,07M. Total: R$ 31,47M.</p>
                 </div>
 
                 <!-- Fase 1 -->
@@ -88,7 +88,7 @@
                         <span>FASE 1: Cria / Recria</span>
                         <span class="bg-amber-100 text-amber-800 text-[10px] px-1.5 py-0.5 rounded">6 Meses</span>
                     </div>
-                    <p class="text-[10px] text-amber-800">160k Aves. Somente OPEX. Geração de prejuízo fiscal LALUR.</p>
+                    <p class="text-[10px] text-amber-800">160k Aves. Custeado pelo Giro R$ 9,07M. Gerador de prejuízo fiscal LALUR.</p>
                 </div>
 
                 <!-- Fase 2 -->
@@ -151,9 +151,9 @@
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <span class="text-slate-400 text-sm">R$</span>
                                 </div>
-                                <input type="number" id="input_financiamento" value="152000" class="block w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold text-slate-800">
+                                <input type="number" id="input_financiamento" value="108000" class="block w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold text-slate-800">
                             </div>
-                            <span class="text-[10px] text-slate-400 block mt-1">Reflete amortização de R$ 31,47M em ~249 parcelas de R$ 152.000</span>
+                            <span class="text-[10px] text-slate-400 block mt-1">Reflete amortização de R$ 22,40M (CAPEX Imobilizado) em parcelas mensais</span>
                         </div>
 
                         <!-- Rendimento do Fundo OPEX (CDI) -->
@@ -463,7 +463,7 @@
                                 <i class="fa-solid fa-calculator"></i> Entenda o ROI
                             </div>
                             <p class="text-[11px] text-slate-600 leading-relaxed">
-                                O ROI é calculado dividindo o <strong>Lucro Líquido Real</strong> (pós IRPJ/CSLL e pós PLR) pelo <strong>CAPEX Total Investido (R$ 31,47M)</strong>. Alterar os sliders de preço ou mês de início atualiza instantaneamente o retorno do investidor.
+                                O ROI é calculado dividindo o <strong>Lucro Líquido Real</strong> (pós IRPJ/CSLL e pós PLR) pelo <strong>Aporte Global Investido (R$ 31,47M = R$ 22,40M CAPEX + R$ 9,07M Giro)</strong>. Alterar os sliders atualiza o retorno instantaneamente.
                             </p>
                         </div>
                         <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-1.5 shadow-sm">
@@ -1113,12 +1113,13 @@
     </main>
 
     <script>
-        // CAPEX de partida do Projeto Executivo
-        const CAPEX_CONSTRUCAO = 9435476.43;
-        const CAPEX_MAQUINARIO = 11120526.28;
+        // CAPEX e Aporte Global de partida do Projeto Executivo
+        const CAPEX_CONSTRUCAO = 9430000.00;
+        const CAPEX_MAQUINARIO = 11120000.00;
         const CAPEX_AUTOMOVEIS = 1850000.00;
-        const CAPEX_GIRO = 9070000.00; // Reserva de Giro/OPEX Inicial no ano de carência
-        const CAPEX_TOTAL = CAPEX_CONSTRUCAO + CAPEX_MAQUINARIO + CAPEX_AUTOMOVEIS + CAPEX_GIRO; // R$ 31.476.002,71
+        const CAPEX_IMOBILIZADO = CAPEX_CONSTRUCAO + CAPEX_MAQUINARIO + CAPEX_AUTOMOVEIS; // R$ 22.400.000,00 (CAPEX Fase 0)
+        const CAPEX_GIRO = 9070000.00; // Reserva de Giro / OPEX Anual Baseline (Fase 1 - Custeio de 1º Ano)
+        const CAPEX_TOTAL = CAPEX_IMOBILIZADO + CAPEX_GIRO; // R$ 31.470.000,00 (Aporte Global Total)
 
         const AVES_CONTIGENTE = 160000;
         const POSTURA_MEDIA_MENSAL = 26; // ovos por ave/mês
@@ -1296,6 +1297,7 @@
             const folhaCompletaMensal = (totalFuncionarios * salarioMedio * (1 + encargos)) + (totalFuncionarios * beneficioTotalHead);
             const folhaReduzidaMensal = (10 * salarioMedio * (1 + encargos)) + (10 * beneficioTotalHead);
 
+            // Depreciação incide estritamente sobre o CAPEX Imobilizado de R$ 22,40M
             const depreciacaoMensal = (CAPEX_CONSTRUCAO / 120) + (CAPEX_MAQUINARIO / 60) + (CAPEX_AUTOMOVEIS / 60);
             const taxaCDIMensal = cdiTaxaAnual / 12;
 
@@ -1601,7 +1603,7 @@
 
             // Pitch Narrative
             const pitchText = `
-                "Projeto Executivo para a Granja Avilândia Golden Eggs. Simulando o preço de venda da dúzia em <strong>R$ ${precoDuria.toFixed(2).replace('.', ',')}</strong> com início de postura no <strong>Mês ${mesInicioPostura}</strong> (respeitando a fase de recria biológica), o projeto inclui pacote social e PLR para ${totalFuncionarios} colaboradores. 
+                "Aportes globais do projeto Granja Avilândia Golden Eggs: CAPEX Imobilizado de <strong>R$ 22,40M</strong> e Giro de 1º Ano de <strong>R$ 9,07M</strong> (Total R$ 31,47M). Simulando o preço de venda da dúzia em <strong>R$ ${precoDuria.toFixed(2).replace('.', ',')}</strong> com início de postura no <strong>Mês ${mesInicioPostura}</strong> (respeitando a fase de recria biológica), o projeto inclui pacote social e PLR para ${totalFuncionarios} colaboradores. 
                 Durante a carência, o fundo CDI gera <strong>R$ ${Math.round(totalCDI1).toLocaleString('pt-BR')}</strong> em receitas financeiras. Na postura ativa, nossa margem EBITDA atinge ${margemEbitdaAvilandia}, entregando um <strong>ROI no Ano 1 de ${roiAno1.toFixed(2)}%</strong> com distribuição de <strong>R$ ${Math.round(bonificacaoPLR1).toLocaleString('pt-BR')}</strong> em PLR (100% dedutível no LALUR) e cobertura DSCR bancária de <strong>${dscrMedio.toFixed(2)}x</strong>. No Ano Pleno, o faturamento alcança <strong>R$ ${(totalRec2/1000000).toFixed(1)}M</strong> com ROI de <strong>${roiAno2.toFixed(2)}%</strong>."
             `;
             document.getElementById('pitch_narrative').innerHTML = pitchText;
