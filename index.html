@@ -4,74 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Granja Avilândia - Simulador Financeiro e DRE LALUR</title>
-    <!-- Tailwind CSS para design responsivo e executivo -->
+    <!-- Tailwind CSS para design responsivo executivo -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js para gráficos financeiros interativos -->
+    <!-- Chart.js para gráficos interativos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- jsPDF e jsPDF-AutoTable para geração nativa de relatórios PDF -->
+    <!-- jsPDF e jsPDF-AutoTable para geração de relatórios PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
-    <!-- FontAwesome para ícones profissionais -->
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts - Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
         @media print {
-            header, 
-            section.lg\:col-span-4, 
-            .flex.bg-white.p-1, 
-            .alert-box-buttons button {
-                display: none !important;
-            }
-            body {
-                background-color: #ffffff !important;
-                color: #000000 !important;
-                font-size: 9pt;
-            }
-            main {
-                max-width: 100% !important;
-                padding: 0 !important;
-                margin: 0 !important;
-            }
-            section.lg\:col-span-8 {
-                width: 100% !important;
-            }
-            .bg-white {
-                border: none !important;
-                box-shadow: none !important;
-                padding: 0 !important;
-            }
-            .overflow-x-auto {
-                overflow: visible !important;
-            }
-            table {
-                page-break-inside: avoid;
-            }
+            header, section.lg\:col-span-4, .flex.bg-white.p-1, .alert-box-buttons button { display: none !important; }
+            body { background-color: #ffffff !important; color: #000000 !important; font-size: 9pt; }
+            main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+            section.lg\:col-span-8 { width: 100% !important; }
+            .bg-white { border: none !important; box-shadow: none !important; padding: 0 !important; }
+            .overflow-x-auto { overflow: visible !important; }
+            table { page-break-inside: avoid; }
         }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
 
-    <!-- Header/Navegação Principal (Tema Claro Executivo) -->
+    <!-- Header Executivo -->
     <header class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-3">
@@ -92,24 +57,24 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        <!-- Alerta de Escalonamento Biológico e Benefícios -->
+        <!-- Alerta e Resumo Executivo -->
         <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-sm mb-8 flex flex-col md:flex-row justify-between gap-4 items-start md:items-center">
             <div class="flex gap-3">
                 <div class="text-amber-600 shrink-0"><i class="fa-solid fa-triangle-exclamation text-xl"></i></div>
                 <div>
                     <h4 class="font-bold text-amber-900 text-sm md:text-base">Mecanismo Financeiro, Benefícios & Retenção de Talentos</h4>
                     <p class="text-xs md:text-sm text-amber-800 mt-1 leading-relaxed">
-                        Cálculos executados em tempo real! Inclui **Plano de Saúde, Vale Alimentação** e **PLR (14º Salário/Bonificação)** dedutível no Lucro Real (LALUR). Durante a recria (10 func. na carência), o saldo mantido em fundo **CDI** gera receitas financeiras para neutralizar amortizações.
+                        Cálculos executados em tempo real! Inclui <strong>Plano de Saúde, Vale Alimentação</strong> e <strong>PLR (14º Salário)</strong> 100% dedutíveis no Lucro Real (LALUR). O saldo de caixa acumulado rende juros no CDI para potencializar a liquidez do projeto.
                     </p>
                 </div>
             </div>
             <div class="bg-amber-100/80 px-3 py-2 rounded-lg border border-amber-300 text-right shrink-0">
                 <span class="text-[10px] text-amber-800 font-bold uppercase block">Rendimento Estimado Fundo (Ano 1)</span>
-                <span class="text-sm font-extrabold text-emerald-800" id="top_rendimento_fundo">+ R$ 512.400,00</span>
+                <span class="text-sm font-extrabold text-emerald-800" id="top_rendimento_fundo">+ R$ 0,00</span>
             </div>
         </div>
 
-        <!-- Layout em Duas Colunas: Painel de Controle (Esquerda) e Resultados (Direita) -->
+        <!-- Layout de Duas Colunas -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             
             <!-- PAINEL DE CONTROLE DE ENTRADAS (4 Colunas) -->
@@ -162,7 +127,7 @@
                                 <input type="range" id="input_cdi_fundo" min="0" max="15" step="0.5" value="10.5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600">
                                 <span class="bg-teal-50 text-teal-800 text-xs font-bold px-2 py-1 rounded border border-teal-100 w-16 text-center" id="val_cdi_fundo">10.5%</span>
                             </div>
-                            <span class="text-[10px] text-slate-400 block mt-1">Rendimento do caixa reservado de R$ 9,07M</span>
+                            <span class="text-[10px] text-slate-400 block mt-1">Rendimento do caixa reservado acumulado</span>
                         </div>
                     </div>
                 </div>
@@ -177,7 +142,7 @@
                         <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-full" id="badge_func_count">45 Func.</span>
                     </div>
 
-                    <!-- Configuração dos Benefícios Sociais (Novos Inputs) -->
+                    <!-- Configuração dos Benefícios Sociais -->
                     <div class="p-3 bg-emerald-50/60 rounded-xl border border-emerald-100 mb-4 space-y-3">
                         <span class="text-[11px] font-extrabold text-emerald-900 uppercase tracking-wider block">Benefícios por Colaborador</span>
                         
@@ -230,7 +195,7 @@
                     </div>
                 </div>
 
-                <!-- Card 3: Programa de Bonificação / PLR (14º Salário por Produção) -->
+                <!-- Card 3: Programa de Bonificação / PLR (14º Salário) -->
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
                     <div class="flex items-center gap-2 border-b border-slate-100 pb-3 mb-4">
                         <i class="fa-solid fa-gift text-emerald-600 text-lg"></i>
@@ -302,7 +267,7 @@
                     </div>
                 </div>
 
-                <!-- Botão de Ação para Download PDF -->
+                <!-- Botão de Ação Exportar PDF -->
                 <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-200 space-y-2">
                     <h4 class="text-xs font-extrabold text-emerald-900 uppercase tracking-wider text-center">Exportação de Relatório Fiscal LALUR</h4>
                     <button onclick="gerarPDFConsolidado()" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-extrabold rounded-xl shadow-md transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2.5 text-sm">
@@ -317,7 +282,7 @@
             <!-- PAINEL DE RESULTADOS E DRE (8 Colunas) -->
             <section class="lg:col-span-8 space-y-6">
                 
-                <!-- Abas de Navegação -->
+                <!-- Abas de Navegação Principais -->
                 <div class="flex bg-white p-1.5 rounded-xl shadow-sm border border-slate-200 gap-1 overflow-x-auto">
                     <button onclick="switchTab('dashboard')" id="btn_tab_dashboard" class="flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 bg-emerald-600 text-white shadow-sm shrink-0">
                         <i class="fa-solid fa-chart-line"></i> Executive Dashboard
@@ -336,34 +301,62 @@
                 <!-- CONTEÚDO DA GUIA 1: DASHBOARD EXECUTIVE -->
                 <div id="tab_dashboard" class="space-y-6">
                     
-                    <!-- Principais KPIs Financeiros -->
+                    <!-- KPIs Principais -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <!-- ROI Ano 1 -->
                         <div class="bg-gradient-to-br from-emerald-800 to-emerald-950 text-white rounded-2xl p-5 shadow-sm flex flex-col justify-between">
                             <span class="text-[10px] text-emerald-200 font-extrabold uppercase tracking-wide">ROI Ajustado (Ano 1)</span>
-                            <h2 class="text-xl md:text-2xl font-black my-2 text-amber-300" id="kpi_roi">20,94%</h2>
+                            <h2 class="text-xl md:text-2xl font-black my-2 text-amber-300" id="kpi_roi">0,00%</h2>
                             <span class="text-[10px] text-emerald-300">Lucro Líquido pós PLR / CAPEX</span>
                         </div>
                         
                         <!-- Payback -->
                         <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between">
                             <span class="text-[10px] text-slate-500 font-extrabold uppercase tracking-wide">Payback Real</span>
-                            <h2 class="text-xl md:text-2xl font-black my-2 text-slate-800" id="kpi_payback">17 Meses</h2>
+                            <h2 class="text-xl md:text-2xl font-black my-2 text-slate-800" id="kpi_payback">14 Meses</h2>
                             <span class="text-[10px] text-slate-400">Cria + Postura</span>
                         </div>
 
                         <!-- EBITDA Anual -->
                         <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between">
                             <span class="text-[10px] text-slate-500 font-extrabold uppercase tracking-wide">EBITDA Ano 1</span>
-                            <h2 class="text-xl md:text-2xl font-black my-2 text-slate-800" id="kpi_ebitda">R$ 7.072.205</h2>
+                            <h2 class="text-xl md:text-2xl font-black my-2 text-slate-800" id="kpi_ebitda">R$ 0,00</h2>
                             <span class="text-[10px] text-slate-400">Caixa Operacional Puro</span>
                         </div>
 
                         <!-- DSCR Cobertura Dívida -->
                         <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between">
                             <span class="text-[10px] text-slate-500 font-extrabold uppercase tracking-wide">DSCR Médio</span>
-                            <h2 class="text-xl md:text-2xl font-black my-2 text-emerald-600" id="kpi_dscr">4,65x</h2>
+                            <h2 class="text-xl md:text-2xl font-black my-2 text-emerald-600" id="kpi_dscr">0,00x</h2>
                             <span class="text-[10px] text-slate-400">Cobertura do Banco</span>
+                        </div>
+                    </div>
+
+                    <!-- Explicações Detalhadas de ROI, PLR e LALUR -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-1.5 shadow-sm">
+                            <div class="flex items-center gap-2 text-emerald-700 font-extrabold text-xs uppercase">
+                                <i class="fa-solid fa-calculator"></i> Entenda o ROI
+                            </div>
+                            <p class="text-[11px] text-slate-600 leading-relaxed">
+                                O ROI é calculado dividindo o <strong>Lucro Líquido Real</strong> (pós IRPJ/CSLL e pós PLR) pelo <strong>CAPEX Total Investido (R$ 22,4M)</strong>. Alterar os sliders de preço ou mês de início atualiza instantaneamente o retorno do investidor.
+                            </p>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-1.5 shadow-sm">
+                            <div class="flex items-center gap-2 text-amber-800 font-extrabold text-xs uppercase">
+                                <i class="fa-solid fa-gift"></i> Benefício da PLR (14º Salário)
+                            </div>
+                            <p class="text-[11px] text-slate-600 leading-relaxed">
+                                Regulamentada pela Lei 10.101/00, a PLR é <strong>100% isenta de encargos trabalhistas (INSS/FGTS)</strong> e totalmente dedutível da base de IRPJ/CSLL no LALUR, reduzindo o imposto a pagar ao governo enquanto engaja a equipe.
+                            </p>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-1.5 shadow-sm">
+                            <div class="flex items-center gap-2 text-teal-800 font-extrabold text-xs uppercase">
+                                <i class="fa-solid fa-file-invoice-dollar"></i> Compensação no LALUR
+                            </div>
+                            <p class="text-[11px] text-slate-600 leading-relaxed">
+                                Os prejuízos operacionais acumulados durante a recria (sem receita) formam um <strong>saldo credor fiscal</strong> no LALUR que compensa o lucro inicial na fase de postura, zerando os impostos nos primeiros meses de venda.
+                            </p>
                         </div>
                     </div>
 
@@ -385,7 +378,7 @@
                     <!-- Gráfico de Fluxo de Caixa Acumulado -->
                     <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
-                            <h4 class="font-bold text-slate-900 text-sm md:text-base">Evolução do Saldo de Caixa + Fundo Rendimento (Mês 1 ao 12)</h4>
+                            <h4 class="font-bold text-slate-900 text-sm md:text-base">Evolução Acumulada do Saldo de Caixa + Fundo CDI (Mês 1 ao 12)</h4>
                             <span class="bg-emerald-50 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded border border-emerald-100">Visão de Caixa Livre</span>
                         </div>
                         <div class="relative h-64">
@@ -409,22 +402,42 @@
 
                 <!-- CONTEÚDO DA GUIA 2: DRE E LALUR (TABELA MÊS A MÊS) -->
                 <div id="tab_dre" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 border-b border-slate-100 pb-4">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-100 pb-4">
                         <div>
-                            <h4 class="font-bold text-slate-900 text-sm md:text-base">DRE e Livro de Apuração LALUR (Mês a Mês - Ano 1)</h4>
-                            <p class="text-xs text-slate-500">Lucro Real com amortização de prejuízo inicial, bonificação PLR e fundo CDI.</p>
+                            <h4 class="font-bold text-slate-900 text-sm md:text-base">DRE e Livro de Apuração LALUR (Mês a Mês)</h4>
+                            <p class="text-xs text-slate-500">Lucro Real com amortização de prejuízo inicial, bonificação PLR e fundo acumulado CDI.</p>
                         </div>
+
+                        <!-- Seletor de Ano / Cenário para Tabela Mês a Mês -->
+                        <div class="flex bg-slate-100 p-1 rounded-xl gap-1 shrink-0">
+                            <button onclick="switchDREYear(1)" id="btn_dre_ano1" class="px-3 py-1.5 text-xs font-extrabold rounded-lg transition-all bg-emerald-600 text-white shadow-sm">
+                                Ano 1 (Carência)
+                            </button>
+                            <button onclick="switchDREYear(2)" id="btn_dre_ano2" class="px-3 py-1.5 text-xs font-extrabold rounded-lg transition-all text-slate-600 hover:bg-slate-200">
+                                Ano 2 (Pleno 160k)
+                            </button>
+                            <button onclick="switchDREYear(3)" id="btn_dre_ano3" class="px-3 py-1.5 text-xs font-extrabold rounded-lg transition-all text-slate-600 hover:bg-slate-200">
+                                Ano 3 (320k Aves)
+                            </button>
+                        </div>
+
                         <div class="flex gap-2 alert-box-buttons">
                             <button onclick="copiarTabela()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors border border-slate-200">
-                                <i class="fa-solid fa-copy"></i> Copiar Tabela
+                                <i class="fa-solid fa-copy"></i> Copiar
                             </button>
-                            <button onclick="gerarPDFCenario(1)" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors shadow-sm">
-                                <i class="fa-solid fa-file-pdf"></i> PDF Ano 1
+                            <button onclick="gerarPDFCenario(activeDREYear)" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors shadow-sm">
+                                <i class="fa-solid fa-file-pdf"></i> PDF
                             </button>
                         </div>
                     </div>
 
-                    <!-- Tabela Responsiva com Scroll Horizontal -->
+                    <!-- Indicação Visual de Ano Selecionado -->
+                    <div class="bg-emerald-50/70 border border-emerald-200 text-emerald-900 px-3 py-2 rounded-lg text-xs font-bold flex justify-between items-center" id="dre_year_badge">
+                        <span>Exibindo: Ano 1 com Carência Biológica (160.000 Aves)</span>
+                        <span class="text-[10px] text-emerald-700 font-normal">Valores em R$ recalculados em tempo real</span>
+                    </div>
+
+                    <!-- Tabela Responsiva Completa com IDs em TODAS as células -->
                     <div class="overflow-x-auto rounded-xl border border-slate-200">
                         <table class="w-full text-left border-collapse text-xs" id="tabela_dre">
                             <thead>
@@ -442,10 +455,11 @@
                                     <th class="p-2 text-center font-bold">M10</th>
                                     <th class="p-2 text-center font-bold">M11</th>
                                     <th class="p-2 text-center font-bold">M12</th>
-                                    <th class="p-3 text-right bg-emerald-800 text-white font-extrabold rounded-tr-xl">Total Ano 1</th>
+                                    <th class="p-3 text-right bg-emerald-800 text-white font-extrabold rounded-tr-xl">Total Ano</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
+                                <!-- Volume Comercial -->
                                 <tr class="hover:bg-slate-50">
                                     <td class="p-3 font-semibold text-slate-500">Volume Comercial (Dz)</td>
                                     <td class="p-2 text-center" id="val_vol_m1">0</td>
@@ -455,13 +469,15 @@
                                     <td class="p-2 text-center" id="val_vol_m5">0</td>
                                     <td class="p-2 text-center" id="val_vol_m6">0</td>
                                     <td class="p-2 text-center" id="val_vol_m7">0</td>
-                                    <td class="p-2 text-center" id="val_vol_m8">346.667</td>
-                                    <td class="p-2 text-center" id="val_vol_m9">346.667</td>
-                                    <td class="p-2 text-center" id="val_vol_m10">346.667</td>
-                                    <td class="p-2 text-center" id="val_vol_m11">346.667</td>
-                                    <td class="p-2 text-center" id="val_vol_m12">346.667</td>
-                                    <td class="p-3 text-right bg-emerald-50 font-bold text-slate-900" id="val_vol_total">1.733.335</td>
+                                    <td class="p-2 text-center" id="val_vol_m8">0</td>
+                                    <td class="p-2 text-center" id="val_vol_m9">0</td>
+                                    <td class="p-2 text-center" id="val_vol_m10">0</td>
+                                    <td class="p-2 text-center" id="val_vol_m11">0</td>
+                                    <td class="p-2 text-center" id="val_vol_m12">0</td>
+                                    <td class="p-3 text-right bg-emerald-50 font-bold text-slate-900" id="val_vol_total">0</td>
                                 </tr>
+
+                                <!-- Receita Bruta -->
                                 <tr class="bg-slate-50 font-bold text-slate-900">
                                     <td class="p-3">1. RECEITA BRUTA (R$)</td>
                                     <td class="p-2 text-center" id="val_rec_m1">0,00</td>
@@ -471,172 +487,210 @@
                                     <td class="p-2 text-center" id="val_rec_m5">0,00</td>
                                     <td class="p-2 text-center" id="val_rec_m6">0,00</td>
                                     <td class="p-2 text-center" id="val_rec_m7">0,00</td>
-                                    <td class="p-2 text-center" id="val_rec_m8">3.466.670</td>
-                                    <td class="p-2 text-center" id="val_rec_m9">3.466.670</td>
-                                    <td class="p-2 text-center" id="val_rec_m10">3.466.670</td>
-                                    <td class="p-2 text-center" id="val_rec_m11">3.466.670</td>
-                                    <td class="p-2 text-center" id="val_rec_m12">3.466.670</td>
-                                    <td class="p-3 text-right bg-emerald-100 font-extrabold text-emerald-900" id="val_rec_total">17.333.350</td>
+                                    <td class="p-2 text-center" id="val_rec_m8">0,00</td>
+                                    <td class="p-2 text-center" id="val_rec_m9">0,00</td>
+                                    <td class="p-2 text-center" id="val_rec_m10">0,00</td>
+                                    <td class="p-2 text-center" id="val_rec_m11">0,00</td>
+                                    <td class="p-2 text-center" id="val_rec_m12">0,00</td>
+                                    <td class="p-3 text-right bg-emerald-100 font-extrabold text-emerald-900" id="val_rec_total">0,00</td>
                                 </tr>
+
+                                <!-- Rendimento Fundo OPEX CDI -->
                                 <tr class="text-teal-700">
                                     <td class="p-3 font-semibold">(+) Rendimento Fundo OPEX (CDI)</td>
-                                    <td class="p-2 text-center" id="val_fundo_m1">75.000</td>
-                                    <td class="p-2 text-center" id="val_fundo_m2">68.000</td>
-                                    <td class="p-2 text-center" id="val_fundo_m3">62.000</td>
-                                    <td class="p-2 text-center" id="val_fundo_m4">56.000</td>
-                                    <td class="p-2 text-center" id="val_fundo_m5">50.000</td>
-                                    <td class="p-2 text-center" id="val_fundo_m6">44.000</td>
-                                    <td class="p-2 text-center" id="val_fundo_m7">38.000</td>
-                                    <td class="p-2 text-center" id="val_fundo_m8">30.000</td>
-                                    <td class="p-2 text-center" id="val_fundo_m9">25.000</td>
-                                    <td class="p-2 text-center" id="val_fundo_m10">22.000</td>
-                                    <td class="p-2 text-center" id="val_fundo_m11">20.000</td>
-                                    <td class="p-2 text-center" id="val_fundo_m12">22.400</td>
-                                    <td class="p-3 text-right bg-teal-50 font-bold" id="val_fundo_total">512.400</td>
+                                    <td class="p-2 text-center" id="val_fundo_m1">0</td>
+                                    <td class="p-2 text-center" id="val_fundo_m2">0</td>
+                                    <td class="p-2 text-center" id="val_fundo_m3">0</td>
+                                    <td class="p-2 text-center" id="val_fundo_m4">0</td>
+                                    <td class="p-2 text-center" id="val_fundo_m5">0</td>
+                                    <td class="p-2 text-center" id="val_fundo_m6">0</td>
+                                    <td class="p-2 text-center" id="val_fundo_m7">0</td>
+                                    <td class="p-2 text-center" id="val_fundo_m8">0</td>
+                                    <td class="p-2 text-center" id="val_fundo_m9">0</td>
+                                    <td class="p-2 text-center" id="val_fundo_m10">0</td>
+                                    <td class="p-2 text-center" id="val_fundo_m11">0</td>
+                                    <td class="p-2 text-center" id="val_fundo_m12">0</td>
+                                    <td class="p-3 text-right bg-teal-50 font-bold" id="val_fundo_total">0</td>
                                 </tr>
+
+                                <!-- Matéria-Prima / Insumos -->
                                 <tr class="text-rose-600">
-                                    <td class="p-3 font-semibold">(-) Matéria-Prima / Insumos / Aves</td>
-                                    <td class="p-2 text-center" id="val_ins_m1">1.000.000</td>
-                                    <td class="p-2 text-center" id="val_ins_m2">180.000</td>
-                                    <td class="p-2 text-center" id="val_ins_m3">220.000</td>
-                                    <td class="p-2 text-center" id="val_ins_m4">260.000</td>
-                                    <td class="p-2 text-center" id="val_ins_m5">300.000</td>
-                                    <td class="p-2 text-center" id="val_ins_m6">340.000</td>
-                                    <td class="p-2 text-center" id="val_ins_m7">380.000</td>
-                                    <td class="p-2 text-center" id="val_ins_m8">978.000</td>
-                                    <td class="p-2 text-center" id="val_ins_m9">978.000</td>
-                                    <td class="p-2 text-center" id="val_ins_m10">978.000</td>
-                                    <td class="p-2 text-center" id="val_ins_m11">978.000</td>
-                                    <td class="p-2 text-center" id="val_ins_m12">978.000</td>
-                                    <td class="p-3 text-right bg-rose-50 font-bold" id="val_ins_total">7.570.000</td>
+                                    <td class="p-3 font-semibold">(-) Matéria-Prima / Ração / Insumos</td>
+                                    <td class="p-2 text-center" id="val_ins_m1">0</td>
+                                    <td class="p-2 text-center" id="val_ins_m2">0</td>
+                                    <td class="p-2 text-center" id="val_ins_m3">0</td>
+                                    <td class="p-2 text-center" id="val_ins_m4">0</td>
+                                    <td class="p-2 text-center" id="val_ins_m5">0</td>
+                                    <td class="p-2 text-center" id="val_ins_m6">0</td>
+                                    <td class="p-2 text-center" id="val_ins_m7">0</td>
+                                    <td class="p-2 text-center" id="val_ins_m8">0</td>
+                                    <td class="p-2 text-center" id="val_ins_m9">0</td>
+                                    <td class="p-2 text-center" id="val_ins_m10">0</td>
+                                    <td class="p-2 text-center" id="val_ins_m11">0</td>
+                                    <td class="p-2 text-center" id="val_ins_m12">0</td>
+                                    <td class="p-3 text-right bg-rose-50 font-bold" id="val_ins_total">0</td>
                                 </tr>
+
+                                <!-- Mão de Obra e Benefícios -->
                                 <tr class="text-rose-600">
                                     <td class="p-3 font-semibold">(-) Mão de Obra + Saúde + Aliment.</td>
-                                    <td class="p-2 text-center" id="val_hr_m1">48.300</td>
-                                    <td class="p-2 text-center" id="val_hr_m2">48.300</td>
-                                    <td class="p-2 text-center" id="val_hr_m3">48.300</td>
-                                    <td class="p-2 text-center" id="val_hr_m4">48.300</td>
-                                    <td class="p-2 text-center" id="val_hr_m5">48.300</td>
-                                    <td class="p-2 text-center" id="val_hr_m6">48.300</td>
-                                    <td class="p-2 text-center" id="val_hr_m7">193.725</td>
-                                    <td class="p-2 text-center" id="val_hr_m8">193.725</td>
-                                    <td class="p-2 text-center" id="val_hr_m9">193.725</td>
-                                    <td class="p-2 text-center" id="val_hr_m10">193.725</td>
-                                    <td class="p-2 text-center" id="val_hr_m11">193.725</td>
-                                    <td class="p-2 text-center" id="val_hr_m12">193.725</td>
-                                    <td class="p-3 text-right bg-rose-50 font-bold" id="val_hr_total">1.258.175</td>
+                                    <td class="p-2 text-center" id="val_hr_m1">0</td>
+                                    <td class="p-2 text-center" id="val_hr_m2">0</td>
+                                    <td class="p-2 text-center" id="val_hr_m3">0</td>
+                                    <td class="p-2 text-center" id="val_hr_m4">0</td>
+                                    <td class="p-2 text-center" id="val_hr_m5">0</td>
+                                    <td class="p-2 text-center" id="val_hr_m6">0</td>
+                                    <td class="p-2 text-center" id="val_hr_m7">0</td>
+                                    <td class="p-2 text-center" id="val_hr_m8">0</td>
+                                    <td class="p-2 text-center" id="val_hr_m9">0</td>
+                                    <td class="p-2 text-center" id="val_hr_m10">0</td>
+                                    <td class="p-2 text-center" id="val_hr_m11">0</td>
+                                    <td class="p-2 text-center" id="val_hr_m12">0</td>
+                                    <td class="p-3 text-right bg-rose-50 font-bold" id="val_hr_total">0</td>
                                 </tr>
+
+                                <!-- Provisão Bonificação PLR -->
                                 <tr class="text-amber-800">
                                     <td class="p-3 font-semibold">(-) Provisão Bonificação PLR (Equipe)</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center font-bold text-amber-800" id="val_plr_m12">350.000</td>
-                                    <td class="p-3 text-right bg-amber-50 font-bold text-amber-800" id="val_plr_total">350.000</td>
+                                    <td class="p-2 text-center" id="val_plr_m1">0</td>
+                                    <td class="p-2 text-center" id="val_plr_m2">0</td>
+                                    <td class="p-2 text-center" id="val_plr_m3">0</td>
+                                    <td class="p-2 text-center" id="val_plr_m4">0</td>
+                                    <td class="p-2 text-center" id="val_plr_m5">0</td>
+                                    <td class="p-2 text-center" id="val_plr_m6">0</td>
+                                    <td class="p-2 text-center" id="val_plr_m7">0</td>
+                                    <td class="p-2 text-center" id="val_plr_m8">0</td>
+                                    <td class="p-2 text-center" id="val_plr_m9">0</td>
+                                    <td class="p-2 text-center" id="val_plr_m10">0</td>
+                                    <td class="p-2 text-center" id="val_plr_m11">0</td>
+                                    <td class="p-2 text-center font-bold text-amber-800" id="val_plr_m12">0</td>
+                                    <td class="p-3 text-right bg-amber-50 font-bold text-amber-800" id="val_plr_total">0</td>
                                 </tr>
+
+                                <!-- Depreciação Contábil -->
                                 <tr class="text-slate-500">
                                     <td class="p-3 font-semibold">(-) Depreciação Contábil</td>
-                                    <td class="p-2 text-center">133.040</td>
-                                    <td class="p-2 text-center">133.040</td>
-                                    <td class="p-2 text-center">133.040</td>
-                                    <td class="p-2 text-center">133.040</td>
-                                    <td class="p-2 text-center">133.040</td>
-                                    <td class="p-2 text-center">133.040</td>
-                                    <td class="p-2 text-center">133.040</td>
-                                    <td class="p-2 text-center">133.040</td>
-                                    <td class="p-2 text-center">133.040</td>
-                                    <td class="p-2 text-center">133.040</td>
-                                    <td class="p-2 text-center">133.040</td>
-                                    <td class="p-2 text-center">133.040</td>
-                                    <td class="p-3 text-right font-bold">1.596.478</td>
+                                    <td class="p-2 text-center" id="val_dep_m1">0</td>
+                                    <td class="p-2 text-center" id="val_dep_m2">0</td>
+                                    <td class="p-2 text-center" id="val_dep_m3">0</td>
+                                    <td class="p-2 text-center" id="val_dep_m4">0</td>
+                                    <td class="p-2 text-center" id="val_dep_m5">0</td>
+                                    <td class="p-2 text-center" id="val_dep_m6">0</td>
+                                    <td class="p-2 text-center" id="val_dep_m7">0</td>
+                                    <td class="p-2 text-center" id="val_dep_m8">0</td>
+                                    <td class="p-2 text-center" id="val_dep_m9">0</td>
+                                    <td class="p-2 text-center" id="val_dep_m10">0</td>
+                                    <td class="p-2 text-center" id="val_dep_m11">0</td>
+                                    <td class="p-2 text-center" id="val_dep_m12">0</td>
+                                    <td class="p-3 text-right font-bold" id="val_dep_total">0</td>
                                 </tr>
+
+                                <!-- Resultado Fiscal LALUR -->
                                 <tr class="bg-slate-100 font-bold text-slate-900">
                                     <td class="p-3">Resultado Fiscal Antes IR (Mês)</td>
-                                    <td class="p-2 text-center text-rose-600" id="val_fisc_m1">-1.106.340</td>
-                                    <td class="p-2 text-center text-rose-600" id="val_fisc_m2">-293.340</td>
-                                    <td class="p-2 text-center text-rose-600" id="val_fisc_m3">-339.340</td>
-                                    <td class="p-2 text-center text-rose-600" id="val_fisc_m4">-385.340</td>
-                                    <td class="p-2 text-center text-rose-600" id="val_fisc_m5">-431.340</td>
-                                    <td class="p-2 text-center text-rose-600" id="val_fisc_m6">-477.340</td>
-                                    <td class="p-2 text-center text-rose-600" id="val_fisc_m7">-668.765</td>
-                                    <td class="p-2 text-center text-emerald-700" id="val_fisc_m8">2.191.905</td>
-                                    <td class="p-2 text-center text-emerald-700" id="val_fisc_m9">2.186.905</td>
-                                    <td class="p-2 text-center text-emerald-700" id="val_fisc_m10">2.183.905</td>
-                                    <td class="p-2 text-center text-emerald-700" id="val_fisc_m11">2.181.905</td>
-                                    <td class="p-2 text-center text-emerald-700" id="val_fisc_m12">1.834.305</td>
-                                    <td class="p-3 text-right font-extrabold" id="val_fisc_total">7.079.097</td>
+                                    <td class="p-2 text-center" id="val_fisc_m1">0</td>
+                                    <td class="p-2 text-center" id="val_fisc_m2">0</td>
+                                    <td class="p-2 text-center" id="val_fisc_m3">0</td>
+                                    <td class="p-2 text-center" id="val_fisc_m4">0</td>
+                                    <td class="p-2 text-center" id="val_fisc_m5">0</td>
+                                    <td class="p-2 text-center" id="val_fisc_m6">0</td>
+                                    <td class="p-2 text-center" id="val_fisc_m7">0</td>
+                                    <td class="p-2 text-center" id="val_fisc_m8">0</td>
+                                    <td class="p-2 text-center" id="val_fisc_m9">0</td>
+                                    <td class="p-2 text-center" id="val_fisc_m10">0</td>
+                                    <td class="p-2 text-center" id="val_fisc_m11">0</td>
+                                    <td class="p-2 text-center" id="val_fisc_m12">0</td>
+                                    <td class="p-3 text-right font-extrabold" id="val_fisc_total">0</td>
                                 </tr>
+
+                                <!-- Imposto Lucro Real (IRPJ / CSLL) -->
                                 <tr class="text-rose-600">
                                     <td class="p-3 font-semibold">(-) IRPJ / CSLL (Compensado LALUR)</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center text-slate-400">0</td>
-                                    <td class="p-2 text-center" id="val_tax_m9">258.000</td>
-                                    <td class="p-2 text-center" id="val_tax_m10">742.527</td>
-                                    <td class="p-2 text-center" id="val_tax_m11">741.847</td>
-                                    <td class="p-2 text-center" id="val_tax_m12">623.663</td>
-                                    <td class="p-3 text-right bg-rose-50 font-bold" id="val_tax_total">2.366.037</td>
+                                    <td class="p-2 text-center" id="val_tax_m1">0</td>
+                                    <td class="p-2 text-center" id="val_tax_m2">0</td>
+                                    <td class="p-2 text-center" id="val_tax_m3">0</td>
+                                    <td class="p-2 text-center" id="val_tax_m4">0</td>
+                                    <td class="p-2 text-center" id="val_tax_m5">0</td>
+                                    <td class="p-2 text-center" id="val_tax_m6">0</td>
+                                    <td class="p-2 text-center" id="val_tax_m7">0</td>
+                                    <td class="p-2 text-center" id="val_tax_m8">0</td>
+                                    <td class="p-2 text-center" id="val_tax_m9">0</td>
+                                    <td class="p-2 text-center" id="val_tax_m10">0</td>
+                                    <td class="p-2 text-center" id="val_tax_m11">0</td>
+                                    <td class="p-2 text-center" id="val_tax_m12">0</td>
+                                    <td class="p-3 text-right bg-rose-50 font-bold" id="val_tax_total">0</td>
                                 </tr>
+
+                                <!-- EBITDA Operacional -->
                                 <tr class="bg-emerald-50 text-emerald-900 font-extrabold">
                                     <td class="p-3">EBITDA OPERACIONAL (R$)</td>
-                                    <td class="p-2 text-center text-rose-600" id="val_ebit_m1">-973.300</td>
-                                    <td class="p-2 text-center text-rose-600" id="val_ebit_m2">-160.300</td>
-                                    <td class="p-2 text-center text-rose-600" id="val_ebit_m3">-206.300</td>
-                                    <td class="p-2 text-center text-rose-600" id="val_ebit_m4">-252.300</td>
-                                    <td class="p-2 text-center text-rose-600" id="val_ebit_m5">-298.300</td>
-                                    <td class="p-2 text-center text-rose-600" id="val_ebit_m6">-344.300</td>
-                                    <td class="p-2 text-center text-rose-600" id="val_ebit_m7">-535.725</td>
-                                    <td class="p-2 text-center text-emerald-700" id="val_ebit_m8">2.324.945</td>
-                                    <td class="p-2 text-center text-emerald-700" id="val_ebit_m9">2.319.945</td>
-                                    <td class="p-2 text-center text-emerald-700" id="val_ebit_m10">2.316.945</td>
-                                    <td class="p-2 text-center text-emerald-700" id="val_ebit_m11">2.314.945</td>
-                                    <td class="p-2 text-center text-emerald-700" id="val_ebit_m12">1.967.345</td>
-                                    <td class="p-3 text-right text-emerald-900 font-black" id="val_ebit_total">7.153.860</td>
+                                    <td class="p-2 text-center" id="val_ebit_m1">0</td>
+                                    <td class="p-2 text-center" id="val_ebit_m2">0</td>
+                                    <td class="p-2 text-center" id="val_ebit_m3">0</td>
+                                    <td class="p-2 text-center" id="val_ebit_m4">0</td>
+                                    <td class="p-2 text-center" id="val_ebit_m5">0</td>
+                                    <td class="p-2 text-center" id="val_ebit_m6">0</td>
+                                    <td class="p-2 text-center" id="val_ebit_m7">0</td>
+                                    <td class="p-2 text-center" id="val_ebit_m8">0</td>
+                                    <td class="p-2 text-center" id="val_ebit_m9">0</td>
+                                    <td class="p-2 text-center" id="val_ebit_m10">0</td>
+                                    <td class="p-2 text-center" id="val_ebit_m11">0</td>
+                                    <td class="p-2 text-center" id="val_ebit_m12">0</td>
+                                    <td class="p-3 text-right text-emerald-900 font-black" id="val_ebit_total">0</td>
                                 </tr>
+
+                                <!-- Parcela Banco -->
                                 <tr class="text-rose-600">
                                     <td class="p-3 font-semibold">(-) Parcela Banco (Financ.)</td>
-                                    <td class="p-2 text-center" id="val_div_m1">500.000</td>
-                                    <td class="p-2 text-center" id="val_div_m2">500.000</td>
-                                    <td class="p-2 text-center" id="val_div_m3">500.000</td>
-                                    <td class="p-2 text-center" id="val_div_m4">500.000</td>
-                                    <td class="p-2 text-center" id="val_div_m5">500.000</td>
-                                    <td class="p-2 text-center" id="val_div_m6">500.000</td>
-                                    <td class="p-2 text-center" id="val_div_m7">500.000</td>
-                                    <td class="p-2 text-center" id="val_div_m8">500.000</td>
-                                    <td class="p-2 text-center" id="val_div_m9">500.000</td>
-                                    <td class="p-2 text-center" id="val_div_m10">500.000</td>
-                                    <td class="p-2 text-center" id="val_div_m11">500.000</td>
-                                    <td class="p-2 text-center" id="val_div_m12">500.000</td>
-                                    <td class="p-3 text-right font-bold" id="val_div_total">6.000.000</td>
+                                    <td class="p-2 text-center" id="val_div_m1">0</td>
+                                    <td class="p-2 text-center" id="val_div_m2">0</td>
+                                    <td class="p-2 text-center" id="val_div_m3">0</td>
+                                    <td class="p-2 text-center" id="val_div_m4">0</td>
+                                    <td class="p-2 text-center" id="val_div_m5">0</td>
+                                    <td class="p-2 text-center" id="val_div_m6">0</td>
+                                    <td class="p-2 text-center" id="val_div_m7">0</td>
+                                    <td class="p-2 text-center" id="val_div_m8">0</td>
+                                    <td class="p-2 text-center" id="val_div_m9">0</td>
+                                    <td class="p-2 text-center" id="val_div_m10">0</td>
+                                    <td class="p-2 text-center" id="val_div_m11">0</td>
+                                    <td class="p-2 text-center" id="val_div_m12">0</td>
+                                    <td class="p-3 text-right font-bold" id="val_div_total">0</td>
                                 </tr>
+
+                                <!-- Fluxo de Caixa Líquido Mensal -->
                                 <tr class="bg-slate-900 text-white font-extrabold text-[13px]">
                                     <td class="p-3 rounded-bl-xl border-t border-slate-700">FLUXO CAIXA LÍQUIDO MENSAL</td>
-                                    <td class="p-2 text-center text-rose-300" id="val_net_m1">-1.473.300</td>
-                                    <td class="p-2 text-center text-rose-300" id="val_net_m2">-660.300</td>
-                                    <td class="p-2 text-center text-rose-300" id="val_net_m3">-706.300</td>
-                                    <td class="p-2 text-center text-rose-300" id="val_net_m4">-752.300</td>
-                                    <td class="p-2 text-center text-rose-300" id="val_net_m5">-798.300</td>
-                                    <td class="p-2 text-center text-rose-300" id="val_net_m6">-844.300</td>
-                                    <td class="p-2 text-center text-rose-300" id="val_net_m7">-1.035.725</td>
-                                    <td class="p-2 text-center text-emerald-300" id="val_net_m8">1.824.945</td>
-                                    <td class="p-2 text-center text-emerald-300" id="val_net_m9">1.561.945</td>
-                                    <td class="p-2 text-center text-emerald-300" id="val_net_m10">1.074.418</td>
-                                    <td class="p-2 text-center text-emerald-300" id="val_net_m11">1.073.098</td>
-                                    <td class="p-2 text-center text-emerald-300" id="val_net_m12">843.682</td>
-                                    <td class="p-3 text-right text-amber-300 font-black rounded-br-xl" id="val_net_total">1.067.823</td>
+                                    <td class="p-2 text-center" id="val_net_m1">0</td>
+                                    <td class="p-2 text-center" id="val_net_m2">0</td>
+                                    <td class="p-2 text-center" id="val_net_m3">0</td>
+                                    <td class="p-2 text-center" id="val_net_m4">0</td>
+                                    <td class="p-2 text-center" id="val_net_m5">0</td>
+                                    <td class="p-2 text-center" id="val_net_m6">0</td>
+                                    <td class="p-2 text-center" id="val_net_m7">0</td>
+                                    <td class="p-2 text-center" id="val_net_m8">0</td>
+                                    <td class="p-2 text-center" id="val_net_m9">0</td>
+                                    <td class="p-2 text-center" id="val_net_m10">0</td>
+                                    <td class="p-2 text-center" id="val_net_m11">0</td>
+                                    <td class="p-2 text-center" id="val_net_m12">0</td>
+                                    <td class="p-3 text-right text-amber-300 font-black rounded-br-xl" id="val_net_total">0</td>
+                                </tr>
+
+                                <!-- Saldo de Caixa Acumulado -->
+                                <tr class="bg-teal-900 text-teal-100 font-bold text-xs">
+                                    <td class="p-3">SALDO ACUMULADO DE CAIXA (R$)</td>
+                                    <td class="p-2 text-center" id="val_caixa_m1">0</td>
+                                    <td class="p-2 text-center" id="val_caixa_m2">0</td>
+                                    <td class="p-2 text-center" id="val_caixa_m3">0</td>
+                                    <td class="p-2 text-center" id="val_caixa_m4">0</td>
+                                    <td class="p-2 text-center" id="val_caixa_m5">0</td>
+                                    <td class="p-2 text-center" id="val_caixa_m6">0</td>
+                                    <td class="p-2 text-center" id="val_caixa_m7">0</td>
+                                    <td class="p-2 text-center" id="val_caixa_m8">0</td>
+                                    <td class="p-2 text-center" id="val_caixa_m9">0</td>
+                                    <td class="p-2 text-center" id="val_caixa_m10">0</td>
+                                    <td class="p-2 text-center" id="val_caixa_m11">0</td>
+                                    <td class="p-2 text-center" id="val_caixa_m12">0</td>
+                                    <td class="p-3 text-right font-black text-amber-300" id="val_caixa_total">0</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -659,12 +713,12 @@
                         </div>
                         <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
                             <span class="text-[10px] text-emerald-700 font-bold uppercase tracking-wider block mb-1">Custo Mensal por Ave (Postura Ativa)</span>
-                            <h3 class="text-xl font-extrabold text-slate-900" id="cost_postura_mensal">R$ 7,32 / ave / mês</h3>
+                            <h3 class="text-xl font-extrabold text-slate-900" id="cost_postura_mensal">R$ 0,00 / ave / mês</h3>
                             <p class="text-[10px] text-slate-500 mt-1">Inclui Ração + Folha completa com benefícios + Energia e MRO.</p>
                         </div>
                         <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
                             <span class="text-[10px] text-teal-700 font-bold uppercase tracking-wider block mb-1">Bônus de Produção PLR Médio / Func.</span>
-                            <h3 class="text-xl font-extrabold text-slate-900" id="card_bonus_por_func">R$ 7.777,00 / ano</h3>
+                            <h3 class="text-xl font-extrabold text-slate-900" id="card_bonus_por_func">R$ 0,00 / ano</h3>
                             <p class="text-[10px] text-slate-500 mt-1">Distribuição direta baseada no atingimento de metas operacionais.</p>
                         </div>
                     </div>
@@ -678,7 +732,7 @@
                             </div>
                             <div class="p-3 bg-white rounded-xl border border-slate-200">
                                 <span class="text-slate-500 block font-semibold mb-1">Custo Anual da Ave em Postura Ativa:</span>
-                                <span class="font-bold text-emerald-700 text-sm" id="cost_postura_anual">R$ 87,84 / ave / ano</span>
+                                <span class="font-bold text-emerald-700 text-sm" id="cost_postura_anual">R$ 0,00 / ave / ano</span>
                             </div>
                         </div>
                     </div>
@@ -702,13 +756,13 @@
                                     <span class="bg-amber-100 text-amber-900 text-[10px] font-bold px-2 py-0.5 rounded">160k Aves</span>
                                 </div>
                                 <h3 class="text-sm font-extrabold text-slate-900">Ano 1 com Carência</h3>
-                                <p class="text-[11px] text-slate-500 mt-1">Inclui 7 meses de recria sem receita, rendimento CDI de giro e aproveitamento do prejuízo no LALUR.</p>
+                                <p class="text-[11px] text-slate-500 mt-1">Inclui meses de recria sem receita, rendimento CDI de giro e aproveitamento do prejuízo no LALUR.</p>
                             </div>
                             
                             <div class="space-y-1.5 text-xs font-medium border-t border-slate-200 pt-3">
-                                <div class="flex justify-between"><span>Faturamento:</span> <span class="font-bold text-slate-900" id="cen1_fat">R$ 17,3M</span></div>
-                                <div class="flex justify-between"><span>EBITDA:</span> <span class="font-bold text-emerald-700" id="cen1_ebit">R$ 7,15M</span></div>
-                                <div class="flex justify-between"><span>ROI:</span> <span class="font-bold text-amber-800" id="cen1_roi">20,94%</span></div>
+                                <div class="flex justify-between"><span>Faturamento:</span> <span class="font-bold text-slate-900" id="cen1_fat">R$ 0,0M</span></div>
+                                <div class="flex justify-between"><span>EBITDA:</span> <span class="font-bold text-emerald-700" id="cen1_ebit">R$ 0,0M</span></div>
+                                <div class="flex justify-between"><span>ROI:</span> <span class="font-bold text-amber-800" id="cen1_roi">0,00%</span></div>
                             </div>
 
                             <button onclick="gerarPDFCenario(1)" class="w-full py-2.5 bg-white hover:bg-slate-100 text-emerald-700 border border-emerald-300 font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-colors">
@@ -728,9 +782,9 @@
                             </div>
                             
                             <div class="space-y-1.5 text-xs font-medium border-t border-slate-200 pt-3">
-                                <div class="flex justify-between"><span>Faturamento:</span> <span class="font-bold text-slate-900" id="cen2_fat">R$ 41,6M</span></div>
-                                <div class="flex justify-between"><span>EBITDA:</span> <span class="font-bold text-emerald-700" id="cen2_ebit">R$ 27,2M</span></div>
-                                <div class="flex justify-between"><span>ROI Anualizado:</span> <span class="font-bold text-amber-800" id="cen2_roi">63,20%</span></div>
+                                <div class="flex justify-between"><span>Faturamento:</span> <span class="font-bold text-slate-900" id="cen2_fat">R$ 0,0M</span></div>
+                                <div class="flex justify-between"><span>EBITDA:</span> <span class="font-bold text-emerald-700" id="cen2_ebit">R$ 0,0M</span></div>
+                                <div class="flex justify-between"><span>ROI Anualizado:</span> <span class="font-bold text-amber-800" id="cen2_roi">0,00%</span></div>
                             </div>
 
                             <button onclick="gerarPDFCenario(2)" class="w-full py-2.5 bg-white hover:bg-slate-100 text-emerald-700 border border-emerald-300 font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-colors">
@@ -750,9 +804,9 @@
                             </div>
                             
                             <div class="space-y-1.5 text-xs font-medium border-t border-emerald-200 pt-3">
-                                <div class="flex justify-between"><span>Faturamento:</span> <span class="font-bold text-slate-900" id="cen3_fat">R$ 83,2M</span></div>
-                                <div class="flex justify-between"><span>EBITDA:</span> <span class="font-bold text-emerald-800" id="cen3_ebit">R$ 58,1M</span></div>
-                                <div class="flex justify-between"><span>ROI Consolidado:</span> <span class="font-bold text-amber-800" id="cen3_roi">110,20%</span></div>
+                                <div class="flex justify-between"><span>Faturamento:</span> <span class="font-bold text-slate-900" id="cen3_fat">R$ 0,0M</span></div>
+                                <div class="flex justify-between"><span>EBITDA:</span> <span class="font-bold text-emerald-800" id="cen3_ebit">R$ 0,0M</span></div>
+                                <div class="flex justify-between"><span>ROI Consolidado:</span> <span class="font-bold text-amber-800" id="cen3_roi">0,00%</span></div>
                             </div>
 
                             <button onclick="gerarPDFCenario(3)" class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl text-xs flex items-center justify-center gap-2 transition-colors shadow-sm">
@@ -781,49 +835,68 @@
 
     </main>
 
-    <!-- Scripts e Cálculos em Tempo Real -->
+    <!-- Scripts de Cálculo e Lógica Interativa -->
     <script>
         // CAPEX de partida do Projeto Executivo
         const CAPEX_CONSTRUCAO = 9435476.43;
         const CAPEX_MAQUINARIO = 11120526.28;
         const CAPEX_AUTOMOVEIS = 1850000.00;
-        const CAPEX_TOTAL = CAPEX_CONSTRUCAO + CAPEX_MAQUINARIO + CAPEX_AUTOMOVEIS; // ~R$ 22.405.976,43
+        const CAPEX_TOTAL = CAPEX_CONSTRUCAO + CAPEX_MAQUINARIO + CAPEX_AUTOMOVEIS; // R$ 22.405.976,43
 
         const AVES_CONTIGENTE = 160000;
         const POSTURA_MEDIA_MENSAL = 26; // ovos por ave/mês
 
         let myChart = null;
+        let activeDREYear = 1; // 1: Ano 1 com carência, 2: Ano Pleno 160k, 3: Expansão 320k
 
-        // Estruturas de memória dos cenários calculados para exportação PDF
+        // Objetos de memória completa para exportação e exibição dos cenários
         let cenario1Dados = {};
         let cenario2Dados = {};
         let cenario3Dados = {};
 
-        // Função de alteração de ABAS
+        // Troca de ABAS Principais
         function switchTab(tabId) {
-            document.getElementById('tab_dashboard').classList.add('hidden');
-            document.getElementById('tab_dre').classList.add('hidden');
-            document.getElementById('tab_por_ave').classList.add('hidden');
-            document.getElementById('tab_pdf_relatorios').classList.add('hidden');
-
-            document.getElementById('btn_tab_dashboard').className = 'flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-50 shrink-0';
-            document.getElementById('btn_tab_dre').className = 'flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-50 shrink-0';
-            document.getElementById('btn_tab_por_ave').className = 'flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-50 shrink-0';
-            document.getElementById('btn_tab_pdf_relatorios').className = 'flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-50 shrink-0';
+            ['dashboard', 'dre', 'por_ave', 'pdf_relatorios'].forEach(id => {
+                const el = document.getElementById('tab_' + id);
+                const btn = document.getElementById('btn_tab_' + id);
+                if(el) el.classList.add('hidden');
+                if(btn) btn.className = 'flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-50 shrink-0';
+            });
 
             document.getElementById('tab_' + tabId).classList.remove('hidden');
             document.getElementById('btn_tab_' + tabId).className = 'flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 bg-emerald-600 text-white shadow-sm shrink-0';
         }
 
-        // Função principal de cálculo em tempo real
+        // Troca de Ano no DRE Mês a Mês
+        function switchDREYear(yearNum) {
+            activeDREYear = yearNum;
+            [1, 2, 3].forEach(y => {
+                const btn = document.getElementById(`btn_dre_ano${y}`);
+                if (btn) {
+                    btn.className = y === yearNum
+                        ? 'px-3 py-1.5 text-xs font-extrabold rounded-lg transition-all bg-emerald-600 text-white shadow-sm'
+                        : 'px-3 py-1.5 text-xs font-extrabold rounded-lg transition-all text-slate-600 hover:bg-slate-200';
+                }
+            });
+
+            const badge = document.getElementById('dre_year_badge');
+            if (badge) {
+                if (yearNum === 1) badge.innerHTML = `<span>Exibindo: Ano 1 com Carência Biológica (160.000 Aves)</span><span class="text-[10px] text-emerald-700 font-normal">Valores em R$ recalculados em tempo real</span>`;
+                if (yearNum === 2) badge.innerHTML = `<span>Exibindo: Ano 2 - Operação Plena de 12 Meses (160.000 Aves)</span><span class="text-[10px] text-emerald-700 font-normal">Valores em R$ recalculados em tempo real</span>`;
+                if (yearNum === 3) badge.innerHTML = `<span>Exibindo: Ano 3 - Expansão de Plantel (320.000 Aves)</span><span class="text-[10px] text-emerald-700 font-normal">Valores em R$ recalculados em tempo real</span>`;
+            }
+
+            atualizarTabelaDOM();
+        }
+
+        // Função de Cálculo Geral em Tempo Real
         function recalcular() {
-            // Inputs das premissas comerciais
+            // Entradas dos sliders e inputs
             const precoDuria = parseFloat(document.getElementById('input_preco_duzia').value);
             const mesInicioPostura = parseInt(document.getElementById('input_mes_inicio').value);
             const parcelaFinanciamento = parseFloat(document.getElementById('input_financiamento').value) || 0;
             const cdiTaxaAnual = parseFloat(document.getElementById('input_cdi_fundo').value) / 100;
 
-            // Benefícios Sociais
             const planoSaudeHead = parseFloat(document.getElementById('input_plano_saude').value) || 0;
             const valeAlimentacaoHead = parseFloat(document.getElementById('input_vale_alimentacao').value) || 0;
             const beneficioTotalHead = planoSaudeHead + valeAlimentacaoHead;
@@ -831,11 +904,9 @@
             document.getElementById('lbl_beneficio_total_head').innerText = 'R$ ' + beneficioTotalHead.toFixed(2).replace('.', ',') + ' / func / mês';
             document.getElementById('card_cost_beneficios').innerText = 'R$ ' + beneficioTotalHead.toFixed(2).replace('.', ',') + ' / func / mês';
 
-            // Bonificação PLR (%)
             const plrPercent = parseFloat(document.getElementById('input_plr_percent').value) / 100;
             document.getElementById('val_plr_percent').innerText = (plrPercent * 100).toFixed(1) + '%';
 
-            // Quantitativos de pessoal
             const qtyAreaSuja = parseInt(document.getElementById('qty_area_suja').value) || 0;
             const qtyAreaLimpa = parseInt(document.getElementById('qty_area_limpa').value) || 0;
             const qtyCozinha = parseInt(document.getElementById('qty_cozinha').value) || 0;
@@ -843,350 +914,366 @@
             const qtyMotoristas = parseInt(document.getElementById('qty_motoristas').value) || 0;
             const qtyCampo = parseInt(document.getElementById('qty_campo').value) || 0;
             const qtyAdm = parseInt(document.getElementById('qty_adm').value) || 0;
-            const qtyApoio = 3; // RT, TI e Jardineiro
+            const qtyApoio = 3;
 
             const totalFuncionarios = qtyAreaSuja + qtyAreaLimpa + qtyCozinha + qtyLimpeza + qtyMotoristas + qtyCampo + qtyAdm + qtyApoio;
             document.getElementById('badge_func_count').innerText = totalFuncionarios + ' Func.';
 
-            // Custos Invisíveis/Provisões
             const taxPerda = parseFloat(document.getElementById('select_perdas').value);
             const checkTurnover = document.getElementById('check_turnover').checked;
             const checkMRO = document.getElementById('check_mro').checked;
 
-            // Atualização de legendas visuais
             document.getElementById('val_preco_duzia').innerText = 'R$ ' + precoDuria.toFixed(2).replace('.', ',');
             document.getElementById('val_preco_caixa').innerText = 'Equivale a R$ ' + (precoDuria * 30).toFixed(2).replace('.', ',') + ' por caixa de 30 dz';
             document.getElementById('val_mes_inicio').innerText = 'Mês ' + mesInicioPostura;
             document.getElementById('val_cdi_fundo').innerText = (cdiTaxaAnual * 100).toFixed(1) + '%';
 
-            // Estrutura da folha de pagamento + Benefícios
             const salarioMedio = 2100;
-            const encargos = 0.75; // 75%
+            const encargos = 0.75;
             const folhaCompletaMensal = (totalFuncionarios * salarioMedio * (1 + encargos)) + (totalFuncionarios * beneficioTotalHead);
-            const folhaReduzidaMensal = (10 * salarioMedio * (1 + encargos)) + (10 * beneficioTotalHead); // 10 func na recria
+            const folhaReduzidaMensal = (10 * salarioMedio * (1 + encargos)) + (10 * beneficioTotalHead);
 
-            // Depreciação contábil mensal
             const depreciacaoMensal = (CAPEX_CONSTRUCAO / 120) + (CAPEX_MAQUINARIO / 60) + (CAPEX_AUTOMOVEIS / 60);
-
-            // ==========================================
-            // CÁLCULO CENÁRIO 1: ANO 1 COM CARÊNCIA
-            // ==========================================
-            let volumeVendido = [];
-            let receitaBruta = [];
-            let rendimentoFundoCDI = [];
-            let opexInsumos = [];
-            let opexHR = [];
-            let depreciacaoContabil = [];
-            let resultadoAntesIR = [];
-            let prejuizoLALURAcumulado = 0;
-            let impostoLucroReal = [];
-            let ebitdaOperacional = [];
-            let parcelaBanco = [];
-            let fluxoCaixaLiquido = [];
-            let caixaAcumulado = [];
-
-            let saldoFundoOPEX = 9070000;
             const taxaCDIMensal = cdiTaxaAnual / 12;
 
-            let totalVolume = 0;
-            let totalReceita = 0;
-            let totalRendimentoFundo = 0;
-            let totalInsumos = 0;
-            let totalHR = 0;
-            let totalDepreciacao = 0;
-            let totalResultadoFiscal = 0;
-            let totalImpostos = 0;
-            let totalEbitda = 0;
-            let totalBanco = 0;
-            let totalNetCash = 0;
+            // ==========================================
+            // CÁLCULO MÊS A MÊS - CENÁRIO 1 (ANO 1 COM CARÊNCIA)
+            // ==========================================
+            let c1 = {
+                volume: [], receita: [], rendimentoCDI: [], insumos: [], hr: [],
+                plr: Array(12).fill(0), depreciacao: [], resultadoFiscal: [],
+                impostos: [], ebitda: [], parcelaBanco: [], netCash: [], caixaAcumulado: []
+            };
 
-            // Simulação pré-PLR para base tributável
-            let lucroPrePLR = 0;
+            let saldoCaixaAtual = 9070000; // Reserva de giro inicial
+            let prejuizoLALURAcumulado = 0;
+            let lucroPrePLR1 = 0;
 
-            for(let m = 1; m <= 12; m++) {
-                let vol = 0;
-                let rec = 0;
-                if (m >= mesInicioPostura) {
-                    vol = (AVES_CONTIGENTE * POSTURA_MEDIA_MENSAL) / 12;
-                    rec = vol * precoDuria * (1 - taxPerda);
-                }
-                volumeVendido.push(vol);
-                receitaBruta.push(rec);
-                totalVolume += vol;
-                totalReceita += rec;
-
-                let rendimentoMes = saldoFundoOPEX * taxaCDIMensal;
-                rendimentoFundoCDI.push(rendimentoMes);
-                totalRendimentoFundo += rendimentoMes;
-
-                let insumo = 0;
-                if (m === 1) {
-                    insumo = 1000000;
-                } else if (m < mesInicioPostura) {
-                    insumo = 150000 + (m * 40000);
-                } else {
-                    insumo = 978000;
-                }
+            // Primeira passagem: apura resultado pré-PLR
+            for (let m = 1; m <= 12; m++) {
+                let vol = (m >= mesInicioPostura) ? (AVES_CONTIGENTE * POSTURA_MEDIA_MENSAL) / 12 : 0;
+                let rec = vol * precoDuria * (1 - taxPerda);
+                
+                let rendCDI = saldoCaixaAtual * taxaCDIMensal;
+                
+                let insumo = (m === 1) ? 1000000 : (m < mesInicioPostura ? 150000 + (m * 40000) : 978000);
                 if (checkMRO && m >= mesInicioPostura) insumo += 15000;
-                opexInsumos.push(insumo);
-                totalInsumos += insumo;
 
-                let hr = 0;
-                if (m < (mesInicioPostura - 1)) {
-                    hr = folhaReduzidaMensal;
+                let hr = (m < mesInicioPostura - 1) ? folhaReduzidaMensal : folhaCompletaMensal;
+                if (checkTurnover && m >= mesInicioPostura) hr += (totalFuncionarios * 120);
+
+                let custFisc = insumo + hr + depreciacaoMensal;
+                lucroPrePLR1 += (rec + rendCDI - custFisc);
+            }
+
+            let bonificacaoPLR1 = lucroPrePLR1 > 0 ? lucroPrePLR1 * plrPercent : 0;
+
+            // Segunda passagem: apura DRE e Fluxo com Acumulação REAL de Caixa
+            saldoCaixaAtual = 9070000; // Reinicia saldo para apuração
+            prejuizoLALURAcumulado = 0;
+
+            for (let m = 1; m <= 12; m++) {
+                let vol = (m >= mesInicioPostura) ? (AVES_CONTIGENTE * POSTURA_MEDIA_MENSAL) / 12 : 0;
+                let rec = vol * precoDuria * (1 - taxPerda);
+                
+                // Rendimento CDI calculado sobre o SALDO INICIAL do mês
+                let rendCDI = saldoCaixaAtual * taxaCDIMensal;
+                
+                let insumo = (m === 1) ? 1000000 : (m < mesInicioPostura ? 150000 + (m * 40000) : 978000);
+                if (checkMRO && m >= mesInicioPostura) insumo += 15000;
+
+                let hr = (m < mesInicioPostura - 1) ? folhaReduzidaMensal : folhaCompletaMensal;
+                if (checkTurnover && m >= mesInicioPostura) hr += (totalFuncionarios * 120);
+
+                let plrMes = (m === 12) ? bonificacaoPLR1 : 0;
+                
+                let dep = depreciacaoMensal;
+                let receitaTotal = rec + rendCDI;
+                let custoTotalFiscal = insumo + hr + dep + plrMes;
+                
+                let resFiscal = receitaTotal - custoTotalFiscal;
+                
+                // Compensação LALUR de Prejuízo Fiscal
+                let imposto = 0;
+                if (resFiscal < 0) {
+                    prejuizoLALURAcumulado += Math.abs(resFiscal);
                 } else {
-                    hr = folhaCompletaMensal;
-                    if (checkTurnover) hr += (totalFuncionarios * 120);
+                    if (prejuizoLALURAcumulado > 0) {
+                        if (resFiscal >= prejuizoLALURAcumulado) {
+                            let baseCalc = resFiscal - prejuizoLALURAcumulado;
+                            prejuizoLALURAcumulado = 0;
+                            imposto = baseCalc * 0.34;
+                        } else {
+                            prejuizoLALURAcumulado -= resFiscal;
+                            imposto = 0;
+                        }
+                    } else {
+                        imposto = resFiscal * 0.34;
+                    }
                 }
-                opexHR.push(hr);
-                totalHR += hr;
 
-                depreciacaoContabil.push(depreciacaoMensal);
-                totalDepreciacao += depreciacaoMensal;
+                let ebitdaMes = receitaTotal - (insumo + hr + plrMes);
+                let netCashMes = ebitdaMes - imposto - parcelaFinanciamento;
 
-                let custoDedutivelFiscal = insumo + hr + depreciacaoMensal;
-                let receitaTotalTributavel = rec + rendimentoMes;
-                let resMês = receitaTotalTributavel - custoDedutivelFiscal;
-                lucroPrePLR += resMês;
+                saldoCaixaAtual += netCashMes;
+
+                c1.volume.push(vol);
+                c1.receita.push(rec);
+                c1.rendimentoCDI.push(rendCDI);
+                c1.insumos.push(insumo);
+                c1.hr.push(hr);
+                c1.plr[m-1] = plrMes;
+                c1.depreciacao.push(dep);
+                c1.resultadoFiscal.push(resFiscal);
+                c1.impostos.push(imposto);
+                c1.ebitda.push(ebitdaMes);
+                c1.parcelaBanco.push(parcelaFinanciamento);
+                c1.netCash.push(netCashMes);
+                c1.caixaAcumulado.push(saldoCaixaAtual);
             }
 
-            // PLR em M12
-            let bonificacaoPLRTotal = 0;
-            if (lucroPrePLR > 0) {
-                bonificacaoPLRTotal = lucroPrePLR * plrPercent;
+            const totalRec1 = c1.receita.reduce((a,b)=>a+b, 0);
+            const totalCDI1 = c1.rendimentoCDI.reduce((a,b)=>a+b, 0);
+            const totalEbitda1 = c1.ebitda.reduce((a,b)=>a+b, 0);
+            const totalFisc1 = c1.resultadoFiscal.reduce((a,b)=>a+b, 0);
+            const totalImp1 = c1.impostos.reduce((a,b)=>a+b, 0);
+            const totalBanco1 = c1.parcelaBanco.reduce((a,b)=>a+b, 0);
+            const totalNet1 = c1.netCash.reduce((a,b)=>a+b, 0);
+            const lucroLiq1 = totalFisc1 - totalImp1;
+            const roiAno1 = (lucroLiq1 / CAPEX_TOTAL) * 100;
+
+            cenario1Dados = {
+                ...c1, faturamento: totalRec1, ebitda: totalEbitda1, roi: roiAno1,
+                lucroLiquido: lucroLiq1, impostos: totalImp1, plr: bonificacaoPLR1,
+                rendimentoTotalCDI: totalCDI1, totalNetCash: totalNet1, totalBanco: totalBanco1
+            };
+
+            // ==========================================
+            // CÁLCULO MÊS A MÊS - CENÁRIO 2 (ANO 2 - OPERAÇÃO PLENA 160k)
+            // ==========================================
+            let c2 = {
+                volume: [], receita: [], rendimentoCDI: [], insumos: [], hr: [],
+                plr: Array(12).fill(0), depreciacao: [], resultadoFiscal: [],
+                impostos: [], ebitda: [], parcelaBanco: [], netCash: [], caixaAcumulado: []
+            };
+
+            const volM2 = (AVES_CONTIGENTE * POSTURA_MEDIA_MENSAL) / 12;
+            const recM2 = volM2 * precoDuria * (1 - taxPerda);
+            const insM2 = 978000 + (checkMRO ? 15000 : 0);
+            const hrM2 = folhaCompletaMensal + (checkTurnover ? (totalFuncionarios * 120) : 0);
+
+            let ebitdaBruto2 = (recM2 - insM2 - hrM2) * 12;
+            let bonificacaoPLR2 = ebitdaBruto2 > 0 ? (ebitdaBruto2 - (depreciacaoMensal * 12)) * plrPercent : 0;
+            if (bonificacaoPLR2 < 0) bonificacaoPLR2 = 0;
+
+            let saldoCaixa2 = c1.caixaAcumulado[11]; // Começa com o saldo do fim do Ano 1
+
+            for (let m = 1; m <= 12; m++) {
+                let rendCDI = saldoCaixa2 * taxaCDIMensal;
+                let plrMes = (m === 12) ? bonificacaoPLR2 : 0;
+                let dep = depreciacaoMensal;
+                
+                let recTot = recM2 + rendCDI;
+                let custTot = insM2 + hrM2 + dep + plrMes;
+                let resFiscal = recTot - custTot;
+                let imp = resFiscal > 0 ? resFiscal * 0.34 : 0;
+                let ebit = recTot - (insM2 + hrM2 + plrMes);
+                let netCash = ebit - imp - parcelaFinanciamento;
+
+                saldoCaixa2 += netCash;
+
+                c2.volume.push(volM2);
+                c2.receita.push(recM2);
+                c2.rendimentoCDI.push(rendCDI);
+                c2.insumos.push(insM2);
+                c2.hr.push(hrM2);
+                c2.plr[m-1] = plrMes;
+                c2.depreciacao.push(dep);
+                c2.resultadoFiscal.push(resFiscal);
+                c2.impostos.push(imp);
+                c2.ebitda.push(ebit);
+                c2.parcelaBanco.push(parcelaFinanciamento);
+                c2.netCash.push(netCash);
+                c2.caixaAcumulado.push(saldoCaixa2);
             }
 
-            const bonusMedioPorFunc = totalFuncionarios > 0 ? (bonificacaoPLRTotal / totalFuncionarios) : 0;
+            const totalRec2 = c2.receita.reduce((a,b)=>a+b, 0);
+            const totalEbitda2 = c2.ebitda.reduce((a,b)=>a+b, 0);
+            const totalFisc2 = c2.resultadoFiscal.reduce((a,b)=>a+b, 0);
+            const totalImp2 = c2.impostos.reduce((a,b)=>a+b, 0);
+            const lucroLiq2 = totalFisc2 - totalImp2;
+            const roiAno2 = (lucroLiq2 / CAPEX_TOTAL) * 100;
+
+            cenario2Dados = {
+                ...c2, faturamento: totalRec2, ebitda: totalEbitda2, roi: roiAno2,
+                lucroLiquido: lucroLiq2, impostos: totalImp2, plr: bonificacaoPLR2
+            };
+
+            // ==========================================
+            // CÁLCULO MÊS A MÊS - CENÁRIO 3 (ANO 3 - EXPANSÃO 320k AVES)
+            // ==========================================
+            let c3 = {
+                volume: [], receita: [], rendimentoCDI: [], insumos: [], hr: [],
+                plr: Array(12).fill(0), depreciacao: [], resultadoFiscal: [],
+                impostos: [], ebitda: [], parcelaBanco: [], netCash: [], caixaAcumulado: []
+            };
+
+            const aves320k = 320000;
+            const volM3 = (aves320k * POSTURA_MEDIA_MENSAL) / 12;
+            const recM3 = volM3 * precoDuria * (1 - taxPerda);
+            const insM3 = (978000 * 2) + (checkMRO ? 30000 : 0);
+            const hrM3 = (folhaCompletaMensal * 1.6) + (checkTurnover ? (totalFuncionarios * 1.6 * 120) : 0);
+            
+            const capexIncremental = 13500000;
+            const capexTotal3 = CAPEX_TOTAL + capexIncremental;
+            const depM3 = depreciacaoMensal + (capexIncremental / 120);
+
+            let ebitdaBruto3 = (recM3 - insM3 - hrM3) * 12;
+            let bonificacaoPLR3 = ebitdaBruto3 > 0 ? (ebitdaBruto3 - (depM3 * 12)) * plrPercent : 0;
+            if (bonificacaoPLR3 < 0) bonificacaoPLR3 = 0;
+
+            let saldoCaixa3 = c2.caixaAcumulado[11]; // Começa com o saldo do fim do Ano 2
+
+            for (let m = 1; m <= 12; m++) {
+                let rendCDI = saldoCaixa3 * taxaCDIMensal;
+                let plrMes = (m === 12) ? bonificacaoPLR3 : 0;
+                let dep = depM3;
+                
+                let recTot = recM3 + rendCDI;
+                let custTot = insM3 + hrM3 + dep + plrMes;
+                let resFiscal = recTot - custTot;
+                let imp = resFiscal > 0 ? resFiscal * 0.34 : 0;
+                let ebit = recTot - (insM3 + hrM3 + plrMes);
+                let netCash = ebit - imp - parcelaFinanciamento;
+
+                saldoCaixa3 += netCash;
+
+                c3.volume.push(volM3);
+                c3.receita.push(recM3);
+                c3.rendimentoCDI.push(rendCDI);
+                c3.insumos.push(insM3);
+                c3.hr.push(hrM3);
+                c3.plr[m-1] = plrMes;
+                c3.depreciacao.push(dep);
+                c3.resultadoFiscal.push(resFiscal);
+                c3.impostos.push(imp);
+                c3.ebitda.push(ebit);
+                c3.parcelaBanco.push(parcelaFinanciamento);
+                c3.netCash.push(netCash);
+                c3.caixaAcumulado.push(saldoCaixa3);
+            }
+
+            const totalRec3 = c3.receita.reduce((a,b)=>a+b, 0);
+            const totalEbitda3 = c3.ebitda.reduce((a,b)=>a+b, 0);
+            const totalFisc3 = c3.resultadoFiscal.reduce((a,b)=>a+b, 0);
+            const totalImp3 = c3.impostos.reduce((a,b)=>a+b, 0);
+            const lucroLiq3 = totalFisc3 - totalImp3;
+            const roiAno3 = (lucroLiq3 / capexTotal3) * 100;
+
+            cenario3Dados = {
+                ...c3, faturamento: totalRec3, ebitda: totalEbitda3, roi: roiAno3,
+                lucroLiquido: lucroLiq3, impostos: totalImp3, plr: bonificacaoPLR3
+            };
+
+            // Atualiza KPIs da Tela (Ano 1)
+            document.getElementById('kpi_roi').innerText = roiAno1.toFixed(2) + '%';
+            document.getElementById('kpi_ebitda').innerText = 'R$ ' + Math.round(totalEbitda1).toLocaleString('pt-BR');
+            document.getElementById('kpi_total_plr').innerText = 'R$ ' + Math.round(bonificacaoPLR1).toLocaleString('pt-BR');
+            document.getElementById('top_rendimento_fundo').innerText = '+ R$ ' + Math.round(totalCDI1).toLocaleString('pt-BR');
+
+            const bonusMedioPorFunc = totalFuncionarios > 0 ? (bonificacaoPLR1 / totalFuncionarios) : 0;
             const equivalenciaSalarios = salarioMedio > 0 ? (bonusMedioPorFunc / salarioMedio) : 0;
-
-            document.getElementById('kpi_total_plr').innerText = 'R$ ' + Math.round(bonificacaoPLRTotal).toLocaleString('pt-BR');
             document.getElementById('lbl_bonus_medio_func').innerText = 'R$ ' + Math.round(bonusMedioPorFunc).toLocaleString('pt-BR');
             document.getElementById('lbl_bonus_meses_sal').innerText = equivalenciaSalarios.toFixed(1).replace('.', ',') + ' Salários';
             document.getElementById('card_bonus_por_func').innerText = 'R$ ' + Math.round(bonusMedioPorFunc).toLocaleString('pt-BR') + ' / ano';
 
-            // DRE Definitiva do Cenário 1
-            for(let m = 1; m <= 12; m++) {
-                let rec = receitaBruta[m-1];
-                let rendimentoMes = rendimentoFundoCDI[m-1];
-                let insumo = opexInsumos[m-1];
-                let hr = opexHR[m-1];
-                let dep = depreciacaoContabil[m-1];
-
-                let custoDedutivelFiscal = insumo + hr + dep;
-                if (m === 12) custoDedutivelFiscal += bonificacaoPLRTotal;
-
-                let receitaTotalTributavel = rec + rendimentoMes;
-                let resultadoFiscalMês = receitaTotalTributavel - custoDedutivelFiscal;
-                resultadoAntesIR.push(resultadoFiscalMês);
-                totalResultadoFiscal += resultadoFiscalMês;
-
-                let imposto = 0;
-                if (resultadoFiscalMês < 0) {
-                    prejuizoLALURAcumulado += Math.abs(resultadoFiscalMês);
-                } else {
-                    if (prejuizoLALURAcumulado > 0) {
-                        if (resultadoFiscalMês >= prejuizoLALURAcumulado) {
-                            let baseCalculoAjustada = resultadoFiscalMês - prejuizoLALURAcumulado;
-                            prejuizoLALURAcumulado = 0;
-                            imposto = baseCalculoAjustada * 0.34;
-                        } else {
-                            prejuizoLALURAcumulado -= resultadoFiscalMês;
-                            imposto = 0;
-                        }
-                    } else {
-                        imposto = resultadoFiscalMês * 0.34;
-                    }
-                }
-                impostoLucroReal.push(imposto);
-                totalImpostos += imposto;
-
-                let ebitdaMês = (rec + rendimentoMes) - (insumo + hr);
-                if (m === 12) ebitdaMês -= bonificacaoPLRTotal;
-                ebitdaOperacional.push(ebitdaMês);
-                totalEbitda += ebitdaMês;
-
-                parcelaBanco.push(parcelaFinanciamento);
-                totalBanco += parcelaFinanciamento;
-
-                let netCashMês = ebitdaMês - imposto - parcelaFinanciamento;
-                fluxoCaixaLiquido.push(netCashMês);
-                totalNetCash += netCashMês;
-
-                if (netCashMês < 0) {
-                    saldoFundoOPEX -= Math.abs(netCashMês);
-                    if (saldoFundoOPEX < 0) saldoFundoOPEX = 0;
-                } else {
-                    saldoFundoOPEX += netCashMês;
-                }
-                caixaAcumulado.push(saldoFundoOPEX);
-            }
-
-            // Atualização de tabela DRE na tela
-            for(let m = 1; m <= 12; m++) {
-                document.getElementById(`val_vol_m${m}`).innerText = Math.round(volumeVendido[m-1]).toLocaleString('pt-BR');
-                document.getElementById(`val_rec_m${m}`).innerText = Math.round(receitaBruta[m-1]).toLocaleString('pt-BR');
-                document.getElementById(`val_fundo_m${m}`).innerText = Math.round(rendimentoFundoCDI[m-1]).toLocaleString('pt-BR');
-                document.getElementById(`val_ins_m${m}`).innerText = Math.round(opexInsumos[m-1]).toLocaleString('pt-BR');
-                document.getElementById(`val_hr_m${m}`).innerText = Math.round(opexHR[m-1]).toLocaleString('pt-BR');
-                document.getElementById(`val_fisc_m${m}`).innerText = Math.round(resultadoAntesIR[m-1]).toLocaleString('pt-BR');
-                document.getElementById(`val_tax_m${m}`).innerText = Math.round(impostoLucroReal[m-1]).toLocaleString('pt-BR');
-                document.getElementById(`val_ebit_m${m}`).innerText = Math.round(ebitdaOperacional[m-1]).toLocaleString('pt-BR');
-                document.getElementById(`val_div_m${m}`).innerText = Math.round(parcelaBanco[m-1]).toLocaleString('pt-BR');
-                document.getElementById(`val_net_m${m}`).innerText = Math.round(fluxoCaixaLiquido[m-1]).toLocaleString('pt-BR');
-                
-                alterarCorTexto(`val_fisc_m${m}`, resultadoAntesIR[m-1]);
-                alterarCorTexto(`val_ebit_m${m}`, ebitdaOperacional[m-1]);
-                alterarCorTexto(`val_net_m${m}`, fluxoCaixaLiquido[m-1]);
-            }
-
-            document.getElementById('val_plr_m12').innerText = Math.round(bonificacaoPLRTotal).toLocaleString('pt-BR');
-            document.getElementById('val_plr_total').innerText = Math.round(bonificacaoPLRTotal).toLocaleString('pt-BR');
-
-            // Totais
-            document.getElementById('val_vol_total').innerText = Math.round(totalVolume).toLocaleString('pt-BR');
-            document.getElementById('val_rec_total').innerText = 'R$ ' + Math.round(totalReceita).toLocaleString('pt-BR');
-            document.getElementById('val_fundo_total').innerText = 'R$ ' + Math.round(totalRendimentoFundo).toLocaleString('pt-BR');
-            document.getElementById('top_rendimento_fundo').innerText = '+ R$ ' + Math.round(totalRendimentoFundo).toLocaleString('pt-BR');
-            document.getElementById('val_ins_total').innerText = 'R$ ' + Math.round(totalInsumos).toLocaleString('pt-BR');
-            document.getElementById('val_hr_total').innerText = 'R$ ' + Math.round(totalHR).toLocaleString('pt-BR');
-            document.getElementById('val_fisc_total').innerText = 'R$ ' + Math.round(totalResultadoFiscal).toLocaleString('pt-BR');
-            document.getElementById('val_tax_total').innerText = 'R$ ' + Math.round(totalImpostos).toLocaleString('pt-BR');
-            document.getElementById('val_ebit_total').innerText = 'R$ ' + Math.round(totalEbitda).toLocaleString('pt-BR');
-            document.getElementById('val_div_total').innerText = 'R$ ' + Math.round(totalBanco).toLocaleString('pt-BR');
-            document.getElementById('val_net_total').innerText = 'R$ ' + Math.round(totalNetCash).toLocaleString('pt-BR');
-
-            alterarCorTexto('val_fisc_total', totalResultadoFiscal);
-            alterarCorTexto('val_ebit_total', totalEbitda);
-            alterarCorTexto('val_net_total', totalNetCash);
-
-            // KPIs do Cenário 1
-            const lucroContabilReal = totalResultadoFiscal - totalImpostos;
-            const roiAno1 = (lucroContabilReal / CAPEX_TOTAL) * 100;
-            document.getElementById('kpi_roi').innerText = roiAno1.toFixed(2) + '%';
-            document.getElementById('kpi_ebitda').innerText = 'R$ ' + Math.round(totalEbitda).toLocaleString('pt-BR');
-
-            const dscrMedio = totalBanco > 0 ? (totalEbitda / totalBanco) : 0;
+            const dscrMedio = totalBanco1 > 0 ? (totalEbitda1 / totalBanco1) : 0;
             document.getElementById('kpi_dscr').innerText = dscrMedio.toFixed(2) + 'x';
-            if (dscrMedio < 1.3) {
-                document.getElementById('kpi_dscr').className = "text-xl md:text-2xl font-black my-2 text-rose-600";
-            } else {
-                document.getElementById('kpi_dscr').className = "text-xl md:text-2xl font-black my-2 text-emerald-600";
-            }
+            document.getElementById('kpi_dscr').className = dscrMedio < 1.3 ? "text-xl md:text-2xl font-black my-2 text-rose-600" : "text-xl md:text-2xl font-black my-2 text-emerald-600";
 
             const paybackReal = mesInicioPostura + 6;
             document.getElementById('kpi_payback').innerText = paybackReal + ' Meses';
 
-            // Custo por Ave na Guia 3
+            // Custo por Ave
             const opexMensalPostura = 978000 + folhaCompletaMensal + 15000;
             const custoMensalPorAve = opexMensalPostura / AVES_CONTIGENTE;
             document.getElementById('cost_postura_mensal').innerText = 'R$ ' + custoMensalPorAve.toFixed(2).replace('.', ',') + ' / ave / mês';
             document.getElementById('cost_postura_anual').innerText = 'R$ ' + (custoMensalPorAve * 12).toFixed(2).replace('.', ',') + ' / ave / ano';
 
-            // Guarda objeto de dados do Cenário 1
-            cenario1Dados = {
-                faturamento: totalReceita,
-                ebitda: totalEbitda,
-                roi: roiAno1,
-                lucroLiquido: lucroContabilReal,
-                impostos: totalImpostos,
-                plr: bonificacaoPLRTotal,
-                receitaBruta: receitaBruta,
-                opexInsumos: opexInsumos,
-                opexHR: opexHR,
-                depreciacao: depreciacaoContabil,
-                resultadoFiscal: resultadoAntesIR,
-                impostoLucroReal: impostoLucroReal
-            };
-
-            // ==========================================
-            // CÁLCULO CENÁRIO 2: ANO PLENO (160k AVES - 12 MESES POSTURA)
-            // ==========================================
-            const volMensalPleno = (AVES_CONTIGENTE * POSTURA_MEDIA_MENSAL) / 12;
-            const recMensalPleno = volMensalPleno * precoDuria * (1 - taxPerda);
-            const recAnualPleno = recMensalPleno * 12;
-            const opexInsumosPleno = (978000 + (checkMRO ? 15000 : 0)) * 12;
-            const opexHRPleno = folhaCompletaMensal * 12;
-            const depAnualPleno = depreciacaoMensal * 12;
-            
-            let ebitdaPlenoBruto = recAnualPleno - (opexInsumosPleno + opexHRPleno);
-            let plrPleno = ebitdaPlenoBruto > 0 ? (ebitdaPlenoBruto - depAnualPleno) * plrPercent : 0;
-            if (plrPleno < 0) plrPleno = 0;
-            
-            let ebitdaPleno = ebitdaPlenoBruto - plrPleno;
-            let resultadoFiscalPleno = recAnualPleno - (opexInsumosPleno + opexHRPleno + depAnualPleno + plrPleno);
-            let impostoPleno = resultadoFiscalPleno > 0 ? resultadoFiscalPleno * 0.34 : 0;
-            let lucroLiquidoPleno = resultadoFiscalPleno - impostoPleno;
-            let roiPleno = (lucroLiquidoPleno / CAPEX_TOTAL) * 100;
-
-            cenario2Dados = {
-                faturamento: recAnualPleno,
-                ebitda: ebitdaPleno,
-                roi: roiPleno,
-                lucroLiquido: lucroLiquidoPleno,
-                impostos: impostoPleno,
-                plr: plrPleno
-            };
-
-            // ==========================================
-            // CÁLCULO CENÁRIO 3: EXPANSÃO 320.000 AVES
-            // ==========================================
-            const aves320k = 320000;
-            const vol320kMensal = (aves320k * POSTURA_MEDIA_MENSAL) / 12;
-            const rec320kMensal = vol320kMensal * precoDuria * (1 - taxPerda);
-            const rec320kAnual = rec320kMensal * 12;
-
-            // Ração escala 1:1, Mão de Obra escala 60% por conta do ganho de escala na infraestrutura
-            const opexInsumos320k = (978000 * 2 + (checkMRO ? 30000 : 0)) * 12;
-            const opexHR320k = (folhaCompletaMensal * 1.6) * 12;
-            const capexIncremental = 13500000; // CAPEX apenas para galpão/gaiolas adicionais
-            const capexTotal320k = CAPEX_TOTAL + capexIncremental;
-            const depAnual320k = depAnualPleno + (capexIncremental / 120);
-
-            let ebitda320kBruto = rec320kAnual - (opexInsumos320k + opexHR320k);
-            let plr320k = ebitda320kBruto > 0 ? (ebitda320kBruto - depAnual320k) * plrPercent : 0;
-            if (plr320k < 0) plr320k = 0;
-
-            let ebitda320k = ebitda320kBruto - plr320k;
-            let resultadoFiscal320k = rec320kAnual - (opexInsumos320k + opexHR320k + depAnual320k + plr320k);
-            let imposto320k = resultadoFiscal320k > 0 ? resultadoFiscal320k * 0.34 : 0;
-            let lucroLiquido320k = resultadoFiscal320k - imposto320k;
-            let roi320k = (lucroLiquido320k / capexTotal320k) * 100;
-
-            cenario3Dados = {
-                faturamento: rec320kAnual,
-                ebitda: ebitda320k,
-                roi: roi320k,
-                lucroLiquido: lucroLiquido320k,
-                impostos: imposto320k,
-                plr: plr320k
-            };
-
-            // Atualização dos textos da Guia de PDF/Cenários
-            document.getElementById('cen1_fat').innerText = 'R$ ' + (totalReceita / 1000000).toFixed(1) + 'M';
-            document.getElementById('cen1_ebit').innerText = 'R$ ' + (totalEbitda / 1000000).toFixed(1) + 'M';
+            // Atualiza Cards dos 3 Cenários
+            document.getElementById('cen1_fat').innerText = 'R$ ' + (totalRec1 / 1000000).toFixed(1) + 'M';
+            document.getElementById('cen1_ebit').innerText = 'R$ ' + (totalEbitda1 / 1000000).toFixed(1) + 'M';
             document.getElementById('cen1_roi').innerText = roiAno1.toFixed(2) + '%';
 
-            document.getElementById('cen2_fat').innerText = 'R$ ' + (recAnualPleno / 1000000).toFixed(1) + 'M';
-            document.getElementById('cen2_ebit').innerText = 'R$ ' + (ebitdaPleno / 1000000).toFixed(1) + 'M';
-            document.getElementById('cen2_roi').innerText = roiPleno.toFixed(2) + '%';
+            document.getElementById('cen2_fat').innerText = 'R$ ' + (totalRec2 / 1000000).toFixed(1) + 'M';
+            document.getElementById('cen2_ebit').innerText = 'R$ ' + (totalEbitda2 / 1000000).toFixed(1) + 'M';
+            document.getElementById('cen2_roi').innerText = roiAno2.toFixed(2) + '%';
 
-            document.getElementById('cen3_fat').innerText = 'R$ ' + (rec320kAnual / 1000000).toFixed(1) + 'M';
-            document.getElementById('cen3_ebit').innerText = 'R$ ' + (ebitda320k / 1000000).toFixed(1) + 'M';
-            document.getElementById('cen3_roi').innerText = roi320k.toFixed(2) + '%';
+            document.getElementById('cen3_fat').innerText = 'R$ ' + (totalRec3 / 1000000).toFixed(1) + 'M';
+            document.getElementById('cen3_ebit').innerText = 'R$ ' + (totalEbitda3 / 1000000).toFixed(1) + 'M';
+            document.getElementById('cen3_roi').innerText = roiAno3.toFixed(2) + '%';
 
-            // Narrativa do Pitch
+            // Pitch Narrative
             const pitchText = `
-                "Buscamos captação para a Granja Avilândia Golden Eggs. Simulando o preço de venda da dúzia em **R$ ${precoDuria.toFixed(2).replace('.', ',')}** com início das vendas no **Mês ${mesInicioPostura}** (respeitando a recria biológica de pintainhas), o projeto inclui o pacote social de saúde/alimentação e fundo de PLR para a equipe de ${totalFuncionarios} colaboradores. 
-                Durante os primeiros meses sem faturamento, a aplicação no fundo CDI gera **R$ ${Math.round(totalRendimentoFundo).toLocaleString('pt-BR')}** em receitas financeiras. Na postura ativa, nossa margem EBITDA ultrapassa **70%**, entregando um **ROI no Ano 1 de ${roiAno1.toFixed(2)}%** com distribuição de **R$ ${Math.round(bonificacaoPLRTotal).toLocaleString('pt-BR')}** em PLR (100% dedutível no LALUR) e cobertura da dívida DSCR de **${dscrMedio.toFixed(2)}x**. No **Ano Pleno**, o faturamento atinge **R$ ${(recAnualPleno/1000000).toFixed(1)}M** com ROI de **${roiPleno.toFixed(2)}%**."
+                "Buscamos captação para a Granja Avilândia Golden Eggs. Simulando o preço de venda da dúzia em <strong>R$ ${precoDuria.toFixed(2).replace('.', ',')}</strong> com início de vendas no <strong>Mês ${mesInicioPostura}</strong> (respeitando a recria biológica de pintainhas), o projeto inclui pacote social e PLR para ${totalFuncionarios} colaboradores. 
+                Durante a carência, o fundo CDI gera <strong>R$ ${Math.round(totalCDI1).toLocaleString('pt-BR')}</strong> em receitas financeiras. Na postura ativa, nossa margem EBITDA atinge altos patamares, entregando um <strong>ROI no Ano 1 de ${roiAno1.toFixed(2)}%</strong> com distribuição de <strong>R$ ${Math.round(bonificacaoPLR1).toLocaleString('pt-BR')}</strong> em PLR (100% dedutível no LALUR) e cobertura DSCR de <strong>${dscrMedio.toFixed(2)}x</strong>. No Ano Pleno, o faturamento alcança <strong>R$ ${(totalRec2/1000000).toFixed(1)}M</strong> com ROI de <strong>${roiAno2.toFixed(2)}%</strong>."
             `;
             document.getElementById('pitch_narrative').innerHTML = pitchText;
 
-            atualizarGrafico(caixaAcumulado);
+            atualizarTabelaDOM();
+            atualizarGrafico(c1.caixaAcumulado);
+        }
+
+        // Atualiza Células da Tabela DRE conforme o Ano Selecionado
+        function atualizarTabelaDOM() {
+            let dadosRef = (activeDREYear === 1) ? cenario1Dados : (activeDREYear === 2 ? cenario2Dados : cenario3Dados);
+            if (!dadosRef || !dadosRef.volume) return;
+
+            for (let m = 1; m <= 12; m++) {
+                document.getElementById(`val_vol_m${m}`).innerText = Math.round(dadosRef.volume[m-1]).toLocaleString('pt-BR');
+                document.getElementById(`val_rec_m${m}`).innerText = Math.round(dadosRef.receita[m-1]).toLocaleString('pt-BR');
+                document.getElementById(`val_fundo_m${m}`).innerText = Math.round(dadosRef.rendimentoCDI[m-1]).toLocaleString('pt-BR');
+                document.getElementById(`val_ins_m${m}`).innerText = Math.round(dadosRef.insumos[m-1]).toLocaleString('pt-BR');
+                document.getElementById(`val_hr_m${m}`).innerText = Math.round(dadosRef.hr[m-1]).toLocaleString('pt-BR');
+                document.getElementById(`val_plr_m${m}`).innerText = Math.round(dadosRef.plr[m-1]).toLocaleString('pt-BR');
+                document.getElementById(`val_dep_m${m}`).innerText = Math.round(dadosRef.depreciacao[m-1]).toLocaleString('pt-BR');
+                document.getElementById(`val_fisc_m${m}`).innerText = Math.round(dadosRef.resultadoFiscal[m-1]).toLocaleString('pt-BR');
+                document.getElementById(`val_tax_m${m}`).innerText = Math.round(dadosRef.impostos[m-1]).toLocaleString('pt-BR');
+                document.getElementById(`val_ebit_m${m}`).innerText = Math.round(dadosRef.ebitda[m-1]).toLocaleString('pt-BR');
+                document.getElementById(`val_div_m${m}`).innerText = Math.round(dadosRef.parcelaBanco[m-1]).toLocaleString('pt-BR');
+                document.getElementById(`val_net_m${m}`).innerText = Math.round(dadosRef.netCash[m-1]).toLocaleString('pt-BR');
+                document.getElementById(`val_caixa_m${m}`).innerText = Math.round(dadosRef.caixaAcumulado[m-1]).toLocaleString('pt-BR');
+
+                alterarCorTexto(`val_fisc_m${m}`, dadosRef.resultadoFiscal[m-1]);
+                alterarCorTexto(`val_ebit_m${m}`, dadosRef.ebitda[m-1]);
+                alterarCorTexto(`val_net_m${m}`, dadosRef.netCash[m-1]);
+            }
+
+            // Totais
+            const sum = arr => arr.reduce((a,b)=>a+b, 0);
+            document.getElementById('val_vol_total').innerText = Math.round(sum(dadosRef.volume)).toLocaleString('pt-BR');
+            document.getElementById('val_rec_total').innerText = 'R$ ' + Math.round(sum(dadosRef.receita)).toLocaleString('pt-BR');
+            document.getElementById('val_fundo_total').innerText = 'R$ ' + Math.round(sum(dadosRef.rendimentoCDI)).toLocaleString('pt-BR');
+            document.getElementById('val_ins_total').innerText = 'R$ ' + Math.round(sum(dadosRef.insumos)).toLocaleString('pt-BR');
+            document.getElementById('val_hr_total').innerText = 'R$ ' + Math.round(sum(dadosRef.hr)).toLocaleString('pt-BR');
+            document.getElementById('val_plr_total').innerText = 'R$ ' + Math.round(sum(dadosRef.plr)).toLocaleString('pt-BR');
+            document.getElementById('val_dep_total').innerText = 'R$ ' + Math.round(sum(dadosRef.depreciacao)).toLocaleString('pt-BR');
+            document.getElementById('val_fisc_total').innerText = 'R$ ' + Math.round(sum(dadosRef.resultadoFiscal)).toLocaleString('pt-BR');
+            document.getElementById('val_tax_total').innerText = 'R$ ' + Math.round(sum(dadosRef.impostos)).toLocaleString('pt-BR');
+            document.getElementById('val_ebit_total').innerText = 'R$ ' + Math.round(sum(dadosRef.ebitda)).toLocaleString('pt-BR');
+            document.getElementById('val_div_total').innerText = 'R$ ' + Math.round(sum(dadosRef.parcelaBanco)).toLocaleString('pt-BR');
+            document.getElementById('val_net_total').innerText = 'R$ ' + Math.round(sum(dadosRef.netCash)).toLocaleString('pt-BR');
+            document.getElementById('val_caixa_total').innerText = 'R$ ' + Math.round(dadosRef.caixaAcumulado[11]).toLocaleString('pt-BR');
+
+            alterarCorTexto('val_fisc_total', sum(dadosRef.resultadoFiscal));
+            alterarCorTexto('val_ebit_total', sum(dadosRef.ebitda));
+            alterarCorTexto('val_net_total', sum(dadosRef.netCash));
         }
 
         function alterarCorTexto(id, valor) {
             const el = document.getElementById(id);
-            if(valor < 0) {
+            if(!el) return;
+            if (valor < 0) {
                 el.classList.add('text-rose-600');
                 el.classList.remove('text-emerald-700');
             } else {
@@ -1195,6 +1282,7 @@
             }
         }
 
+        // Gráfico Chart.js
         function atualizarGrafico(dadosCaixa) {
             const ctx = document.getElementById('chart_fluxo').getContext('2d');
             if (myChart) { myChart.destroy(); }
@@ -1204,7 +1292,7 @@
                 data: {
                     labels: ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'],
                     datasets: [{
-                        label: 'Saldo Fundo OPEX + Caixa (R$)',
+                        label: 'Saldo de Caixa Acumulado + Fundo CDI (R$)',
                         data: dadosCaixa,
                         borderColor: '#059669',
                         backgroundColor: 'rgba(5, 150, 105, 0.08)',
@@ -1245,27 +1333,24 @@
                 range = document.createRange(); sel = window.getSelection(); sel.removeAllRanges();
                 try { range.selectNodeContents(el); sel.addRange(range); } 
                 catch (e) { range.selectNode(el); sel.addRange(range); }
-            } else if (body.createTextRange) {
-                range = body.createTextRange(); range.moveToElementText(el); range.select();
             }
             document.execCommand("copy");
             window.getSelection().removeAllRanges();
             
             const btn = document.querySelector('button[onclick="copiarTabela()"]');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-check text-emerald-600"></i> Copiado!';
-            setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+            if (btn) {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check text-emerald-600"></i> Copiado!';
+                setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+            }
         }
 
-        // =========================================================================
-        // FUNÇÕES DE GERAÇÃO DE PDF DO LALUR USANDO JSPDF & AUTOTABLE
-        // =========================================================================
-
+        // Geração de PDF por Cenário Individual
         function gerarPDFCenario(numeroCenario) {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-
             const dataHoje = new Date().toLocaleDateString('pt-BR');
+
             let tituloCenario = "";
             let dadosRef = {};
 
@@ -1273,7 +1358,7 @@
                 tituloCenario = "CENÁRIO 1: ANO 1 COM CARÊNCIA BIOLÓGICA (160.000 AVES)";
                 dadosRef = cenario1Dados;
             } else if (numeroCenario === 2) {
-                tituloCenario = "CENÁRIO 2: PRIMEIRO ANO PLENO SEM CARÊNCIA (160.000 AVES - 12m POSTURA)";
+                tituloCenario = "CENÁRIO 2: ANO PLENO DE OPERAÇÃO (160.000 AVES - 12m POSTURA)";
                 dadosRef = cenario2Dados;
             } else {
                 tituloCenario = "CENÁRIO 3: EXPANSÃO DOBRADA PARA 320.000 AVES (12m POSTURA)";
@@ -1281,9 +1366,9 @@
             }
 
             // Cabeçalho PDF
-            doc.setFillColor(15, 23, 42); // slate-900
+            doc.setFillColor(15, 23, 42);
             doc.rect(0, 0, 297, 22, 'F');
-            doc.setTextColor(245, 158, 11); // amber-500
+            doc.setTextColor(245, 158, 11);
             doc.setFontSize(14);
             doc.setFont('helvetica', 'bold');
             doc.text("GRANJA AVILÂNDIA GOLDEN EGGS", 14, 10);
@@ -1294,21 +1379,20 @@
             doc.text("LIVRO DE APURAÇÃO DO LUCRO REAL (LALUR) & DRE EXECUTIVO", 14, 16);
 
             doc.setFontSize(8);
-            doc.text(`Data de Emissão: ${dataHoje}`, 235, 16);
+            doc.text(`Emissão: ${dataHoje}`, 240, 16);
 
-            // Subtítulo do Cenário
             doc.setTextColor(15, 23, 42);
             doc.setFontSize(11);
             doc.setFont('helvetica', 'bold');
             doc.text(tituloCenario, 14, 30);
 
-            // Tabela Resumo Executivo
+            // Resumo Executivo
             const resumoBody = [
-                ['Faturamento Bruto', 'R$ ' + Math.round(dadosRef.faturamento).toLocaleString('pt-BR')],
+                ['Faturamento Bruto Anual', 'R$ ' + Math.round(dadosRef.faturamento).toLocaleString('pt-BR')],
                 ['EBITDA Operacional', 'R$ ' + Math.round(dadosRef.ebitda).toLocaleString('pt-BR')],
                 ['Impostos IRPJ/CSLL (Lucro Real)', 'R$ ' + Math.round(dadosRef.impostos).toLocaleString('pt-BR')],
                 ['Bonificação PLR / 14º Salário (Dedutível)', 'R$ ' + Math.round(dadosRef.plr).toLocaleString('pt-BR')],
-                ['Lucro Líquido Real', 'R$ ' + Math.round(dadosRef.lucroLiquido).toLocaleString('pt-BR')],
+                ['Lucro Líquido do Exercício', 'R$ ' + Math.round(dadosRef.lucroLiquido).toLocaleString('pt-BR')],
                 ['Retorno sobre o Investimento (ROI)', dadosRef.roi.toFixed(2) + '%']
             ];
 
@@ -1322,51 +1406,55 @@
                 margin: { left: 14, right: 150 }
             });
 
-            // Se for o Cenário 1, incluir a Tabela Mês a Mês completa
-            if (numeroCenario === 1 && cenario1Dados.receitaBruta) {
-                const headMês = [['Rubrica DRE / LALUR', 'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12', 'Total Ano 1']];
-                
-                const bodyMês = [
-                    ['Receita Bruta (R$)', ...cenario1Dados.receitaBruta.map(v => Math.round(v).toLocaleString('pt-BR')), Math.round(cenario1Dados.faturamento).toLocaleString('pt-BR')],
-                    ['(-) Insumos / Ração', ...cenario1Dados.opexInsumos.map(v => Math.round(v).toLocaleString('pt-BR')), '7.570.000'],
-                    ['(-) Mão de Obra + Benefícios', ...cenario1Dados.opexHR.map(v => Math.round(v).toLocaleString('pt-BR')), '1.258.175'],
-                    ['(-) Depreciação Contábil', ...cenario1Dados.depreciacao.map(v => Math.round(v).toLocaleString('pt-BR')), '1.596.478'],
-                    ['Resultado Fiscal Antes IR', ...cenario1Dados.resultadoFiscal.map(v => Math.round(v).toLocaleString('pt-BR')), '7.079.097'],
-                    ['(-) IRPJ / CSLL (LALUR)', ...cenario1Dados.impostoLucroReal.map(v => Math.round(v).toLocaleString('pt-BR')), Math.round(cenario1Dados.impostos).toLocaleString('pt-BR')]
+            // Tabela Mês a Mês Completa no PDF
+            if (dadosRef.receita) {
+                const headMes = [['Rubrica DRE / LALUR', 'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12', 'Total Ano']];
+                const sum = arr => arr.reduce((a,b)=>a+b, 0);
+
+                const bodyMes = [
+                    ['Receita Bruta (R$)', ...dadosRef.receita.map(v => Math.round(v).toLocaleString('pt-BR')), Math.round(sum(dadosRef.receita)).toLocaleString('pt-BR')],
+                    ['(+) Rendimento CDI (R$)', ...dadosRef.rendimentoCDI.map(v => Math.round(v).toLocaleString('pt-BR')), Math.round(sum(dadosRef.rendimentoCDI)).toLocaleString('pt-BR')],
+                    ['(-) Insumos / Ração', ...dadosRef.insumos.map(v => Math.round(v).toLocaleString('pt-BR')), Math.round(sum(dadosRef.insumos)).toLocaleString('pt-BR')],
+                    ['(-) Mão de Obra + Benefícios', ...dadosRef.hr.map(v => Math.round(v).toLocaleString('pt-BR')), Math.round(sum(dadosRef.hr)).toLocaleString('pt-BR')],
+                    ['(-) Bonificação PLR (14º Sal.)', ...dadosRef.plr.map(v => Math.round(v).toLocaleString('pt-BR')), Math.round(sum(dadosRef.plr)).toLocaleString('pt-BR')],
+                    ['(-) Depreciação Contábil', ...dadosRef.depreciacao.map(v => Math.round(v).toLocaleString('pt-BR')), Math.round(sum(dadosRef.depreciacao)).toLocaleString('pt-BR')],
+                    ['Resultado Fiscal LALUR', ...dadosRef.resultadoFiscal.map(v => Math.round(v).toLocaleString('pt-BR')), Math.round(sum(dadosRef.resultadoFiscal)).toLocaleString('pt-BR')],
+                    ['(-) IRPJ / CSLL Devido', ...dadosRef.impostos.map(v => Math.round(v).toLocaleString('pt-BR')), Math.round(sum(dadosRef.impostos)).toLocaleString('pt-BR')],
+                    ['Fluxo de Caixa Líquido', ...dadosRef.netCash.map(v => Math.round(v).toLocaleString('pt-BR')), Math.round(sum(dadosRef.netCash)).toLocaleString('pt-BR')],
+                    ['Saldo Caixa Acumulado', ...dadosRef.caixaAcumulado.map(v => Math.round(v).toLocaleString('pt-BR')), Math.round(dadosRef.caixaAcumulado[11]).toLocaleString('pt-BR')]
                 ];
 
-                doc.text("Detalhamento Mês a Mês do Livro LALUR (Ano 1 com Carência Biológica)", 14, 85);
+                doc.text("Detalhamento Mês a Mês do Livro LALUR & Caixa Acumulado", 14, 82);
 
                 doc.autoTable({
-                    startY: 88,
-                    head: headMês,
-                    body: bodyMês,
+                    startY: 85,
+                    head: headMes,
+                    body: bodyMes,
                     theme: 'striped',
                     headStyles: { fillColor: [15, 23, 42], textColor: [255, 255, 255], fontStyle: 'bold' },
-                    styles: { fontSize: 7, cellPadding: 1.5, halign: 'center' },
-                    columnStyles: { 0: { halign: 'left', fontStyle: 'bold', cellWidth: 45 } },
+                    styles: { fontSize: 6.5, cellPadding: 1.5, halign: 'center' },
+                    columnStyles: { 0: { halign: 'left', fontStyle: 'bold', cellWidth: 42 } },
                     margin: { left: 14, right: 14 }
                 });
             }
 
-            // Rodapé
             const pageCount = doc.internal.getNumberOfPages();
             for (let i = 1; i <= pageCount; i++) {
                 doc.setPage(i);
                 doc.setFontSize(7);
                 doc.setTextColor(100, 116, 139);
-                doc.text(`Granja Avilândia Golden Eggs - Documento Fiscal / Financeiro Estritamente Confidencial - Página ${i} de ${pageCount}`, 14, 202);
+                doc.text(`Granja Avilândia Golden Eggs - Documento Fiscal Confidencial - Página ${i} de ${pageCount}`, 14, 202);
             }
 
             doc.save(`LALUR_Avilandia_Cenario_${numeroCenario}.pdf`);
         }
 
+        // Geração de PDF Consolidado (Todos os Cenários)
         function gerarPDFConsolidado() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
             const dataHoje = new Date().toLocaleDateString('pt-BR');
 
-            // Cabeçalho PDF
             doc.setFillColor(15, 23, 42);
             doc.rect(0, 0, 297, 22, 'F');
             doc.setTextColor(245, 158, 11);
@@ -1385,17 +1473,19 @@
             doc.setTextColor(15, 23, 42);
             doc.setFontSize(11);
             doc.setFont('helvetica', 'bold');
-            doc.text("Estudo Comparativo: Ano 1 com Carência vs. Ano Pleno vs. Expansão 320k Galinhas", 14, 30);
+            doc.text("Estudo Comparativo: Ano 1 (Carência) vs. Ano Pleno (160k) vs. Expansão (320k Aves)", 14, 30);
 
             const headComparativo = [['Métrica Financeira / LALUR', 'Cenário 1: Ano 1 com Carência (160k)', 'Cenário 2: Ano Pleno (160k - 12m)', 'Cenário 3: Expansão (320k Aves)']];
             
             const bodyComparativo = [
                 ['Faturamento Bruto Anual', 'R$ ' + Math.round(cenario1Dados.faturamento).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.faturamento).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.faturamento).toLocaleString('pt-BR')],
                 ['EBITDA Operacional', 'R$ ' + Math.round(cenario1Dados.ebitda).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.ebitda).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.ebitda).toLocaleString('pt-BR')],
-                ['Bônus PLR / Equipe (Dedutível)', 'R$ ' + Math.round(cenario1Dados.plr).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.plr).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.plr).toLocaleString('pt-BR')],
+                ['Rendimento Fundo CDI', 'R$ ' + Math.round(cenario1Dados.rendimentoTotalCDI).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.rendimentoCDI.reduce((a,b)=>a+b,0)).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.rendimentoCDI.reduce((a,b)=>a+b,0)).toLocaleString('pt-BR')],
+                ['Bônus PLR / Equipe (14º Sal. Dedutível)', 'R$ ' + Math.round(cenario1Dados.plr).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.plr).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.plr).toLocaleString('pt-BR')],
                 ['IRPJ / CSLL Devido (Lucro Real)', 'R$ ' + Math.round(cenario1Dados.impostos).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.impostos).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.impostos).toLocaleString('pt-BR')],
                 ['Lucro Líquido do Exercício', 'R$ ' + Math.round(cenario1Dados.lucroLiquido).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.lucroLiquido).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.lucroLiquido).toLocaleString('pt-BR')],
-                ['ROI Ajustado (%)', cenario1Dados.roi.toFixed(2) + '%', cenario2Dados.roi.toFixed(2) + '%', cenario3Dados.roi.toFixed(2) + '%']
+                ['ROI Ajustado (%)', cenario1Dados.roi.toFixed(2) + '%', cenario2Dados.roi.toFixed(2) + '%', cenario3Dados.roi.toFixed(2) + '%'],
+                ['Saldo Final de Caixa Acumulado', 'R$ ' + Math.round(cenario1Dados.caixaAcumulado[11]).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.caixaAcumulado[11]).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.caixaAcumulado[11]).toLocaleString('pt-BR')]
             ];
 
             doc.autoTable({
@@ -1404,25 +1494,24 @@
                 body: bodyComparativo,
                 theme: 'grid',
                 headStyles: { fillColor: [16, 185, 129], textColor: [255, 255, 255], fontStyle: 'bold' },
-                styles: { fontSize: 8.5, cellPadding: 3, halign: 'center' },
+                styles: { fontSize: 8.5, cellPadding: 2.5, halign: 'center' },
                 columnStyles: { 0: { halign: 'left', fontStyle: 'bold', cellWidth: 70 } },
                 margin: { left: 14, right: 14 }
             });
 
-            // Notas Explicativas
             doc.setFontSize(9);
             doc.setFont('helvetica', 'bold');
-            doc.text("Notas Explicativas do Livro de Apuração do Lucro Real (LALUR):", 14, 95);
+            doc.text("Notas Explicativas da Apuração Fiscal e Trabalhista (LALUR & PLR):", 14, 105);
 
             doc.setFontSize(8);
             doc.setFont('helvetica', 'normal');
             const notas = [
-                "1. Isenção Inicial de Impostos: O prejuízo fiscal apurado nos meses de cria/recria do Cenário 1 é integralmente compensado no LALUR, zerando o imposto nos primeiros meses de faturamento.",
-                "2. Dedutibilidade da PLR: O valor alocado ao Programa de Lucros e Resultados (14º Salário da equipe) é abaratado como despesa operacional dedutível da base do IRPJ e da CSLL (Lei 10.101/00).",
-                "3. Pacote Social de Mão de Obra: Plano de Saúde e Vale Alimentação estão computados no OPEX dedutível, gerando retenção de talentos e estabilidade operacional no entreposto S.I.F."
+                "1. Compensação de Prejuízos LALUR: O prejuízo fiscal apurado nos meses de recria é integralmente absorvido no LALUR, reduzindo IRPJ/CSLL na fase inicial.",
+                "2. Isenção e Dedutibilidade da PLR (14º Salário): O programa de bonificação (Lei 10.101/00) é 100% dedutível no LALUR e isento de encargos sociais patronais.",
+                "3. Pacote Social e Retenção: Planos de saúde e refeições no entreposto integram o OPEX dedutível, promovendo retenção de talentos e estabilidade técnica."
             ];
 
-            let yPos = 101;
+            let yPos = 111;
             notas.forEach(nota => {
                 doc.text(nota, 14, yPos);
                 yPos += 5;
@@ -1435,32 +1524,25 @@
             doc.save("LALUR_Avilandia_Relatorio_Consolidado.pdf");
         }
 
-        // Listeners de atualização instantânea em tempo real
-        document.getElementById('input_preco_duzia').addEventListener('input', recalcular);
-        document.getElementById('input_mes_inicio').addEventListener('input', recalcular);
-        document.getElementById('input_financiamento').addEventListener('input', recalcular);
-        document.getElementById('input_cdi_fundo').addEventListener('input', recalcular);
+        // Attach Event Listeners para Atualização Instantânea
+        ['input_preco_duzia', 'input_mes_inicio', 'input_financiamento', 'input_cdi_fundo',
+         'input_plano_saude', 'input_vale_alimentacao', 'input_plr_percent'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', recalcular);
+        });
 
-        document.getElementById('input_plano_saude').addEventListener('input', recalcular);
-        document.getElementById('input_vale_alimentacao').addEventListener('input', recalcular);
-        document.getElementById('input_plr_percent').addEventListener('input', recalcular);
+        ['qty_area_suja', 'qty_area_limpa', 'qty_cozinha', 'qty_limpeza',
+         'qty_motoristas', 'qty_campo', 'qty_adm', 'select_perdas', 'check_turnover', 'check_mro'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('change', recalcular);
+                el.addEventListener('input', recalcular);
+            }
+        });
 
-        document.getElementById('qty_area_suja').addEventListener('change', recalcular);
-        document.getElementById('qty_area_limpa').addEventListener('change', recalcular);
-        document.getElementById('qty_cozinha').addEventListener('change', recalcular);
-        document.getElementById('qty_limpeza').addEventListener('change', recalcular);
-        document.getElementById('qty_motoristas').addEventListener('change', recalcular);
-        document.getElementById('qty_campo').addEventListener('change', recalcular);
-        document.getElementById('qty_adm').addEventListener('change', recalcular);
-
-        document.getElementById('select_perdas').addEventListener('change', recalcular);
-        document.getElementById('check_turnover').addEventListener('change', recalcular);
-        document.getElementById('check_mro').addEventListener('change', recalcular);
-
-        // Inicialização na carga da página
         window.onload = function() {
             recalcular();
-        }
+        };
     </script>
 </body>
 </html>
