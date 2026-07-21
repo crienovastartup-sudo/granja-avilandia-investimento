@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Granja Avilândia - Simulador Financeiro Executivo e DRE (Lucro Real)</title>
-    <!-- Tailwind CSS para design responsivo e executivo -->
+    <title>Granja Avilândia - Simulador Financeiro e Relatórios PDF LALUR</title>
+    <!-- Tailwind CSS para design executivo e responsivo -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js para gráficos de fluxo de caixa e retorno -->
+    <!-- Chart.js para gráficos interativos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- FontAwesome para ícones técnicos -->
+    <!-- jsPDF e jsPDF-AutoTable para geração nativa de PDF do LALUR -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <!-- FontAwesome para ícones executivos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts - Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -33,13 +36,13 @@
         }
 
         @media print {
-            header, section.lg\:col-span-4, .flex-tabs, .alert-box-buttons button {
+            header, section.lg\:col-span-4, .flex-tabs, button {
                 display: none !important;
             }
             body {
                 background-color: #ffffff !important;
                 color: #000000 !important;
-                font-size: 9pt;
+                font-size: 8pt;
             }
             main {
                 max-width: 100% !important;
@@ -47,6 +50,9 @@
             }
             section.lg\:col-span-8 {
                 width: 100% !important;
+            }
+            .no-print {
+                display: none !important;
             }
         }
     </style>
@@ -62,12 +68,12 @@
                 </div>
                 <div>
                     <h1 class="text-xl md:text-2xl font-black tracking-tight">AVILÂNDIA <span class="text-amber-400">GOLDEN EGGS</span></h1>
-                    <p class="text-xs text-emerald-300 font-semibold">Simulador Executivo Agroindustrial (Lucro Real & PLR Integrada)</p>
+                    <p class="text-xs text-emerald-300 font-semibold">Simulador Agroindustrial e Gerador de PDF LALUR (Lucro Real & PLR Integrada)</p>
                 </div>
             </div>
             <div class="flex items-center gap-2 bg-emerald-950/80 px-4 py-2 rounded-xl border border-emerald-500/30">
-                <i class="fa-solid fa-chart-pie text-emerald-400 text-sm"></i>
-                <span class="text-xs md:text-sm font-semibold text-emerald-200">Projeto Executivo - 160k a 320k Aves</span>
+                <i class="fa-solid fa-file-pdf text-emerald-400 text-sm"></i>
+                <span class="text-xs md:text-sm font-semibold text-emerald-200">Relatórios LALUR em PDF Automáticos</span>
             </div>
         </div>
     </header>
@@ -81,7 +87,7 @@
                 <div>
                     <h4 class="font-extrabold text-amber-400 text-sm md:text-base">Mecanismo Financeiro, Benefícios & Retenção de Talentos</h4>
                     <p class="text-xs md:text-sm text-slate-300 mt-1 leading-relaxed">
-                        Durante a recria (10 func. na carência), o entreposto e a frota não operam. O saldo do **OPEX (R$ 9,07M)** fica aplicado em fundo **CDI**, gerando receitas financeiras. O modelo inclui **Plano de Saúde, Vale Alimentação** e **PLR (14º Salário/Bonificação)** dedutível no Lucro Real (LALUR), otimizando a retenção da equipe.
+                        Cálculos executados em tempo real! Inclui **Plano de Saúde, Vale Alimentação** e **PLR (14º Salário/Bonificação)** dedutível no Lucro Real (LALUR). Durante a recria (10 func. na carência), o saldo de giro mantido em fundo **CDI** gera receitas financeiras para neutralizar amortizações.
                     </p>
                 </div>
             </div>
@@ -172,7 +178,7 @@
                                 <input type="number" id="input_vale_alimentacao" value="350" min="0" max="1000" step="10" class="w-full px-2 py-1 bg-slate-900 border border-slate-700 rounded-md text-xs font-bold text-emerald-300 focus:ring-emerald-500">
                             </div>
                         </div>
-                        <span class="text-[10px] text-slate-400 block">Total médio em benefícios: <strong class="text-amber-300" id="lbl_beneficio_total_head">R$ 630,00 / func / mês</strong></span>
+                        <span class="text-[10px] text-slate-400 block">Total em benefícios: <strong class="text-amber-300" id="lbl_beneficio_total_head">R$ 630,00 / func / mês</strong></span>
                     </div>
 
                     <!-- Quantitativos por Área -->
@@ -284,13 +290,14 @@
                     </div>
                 </div>
 
-                <!-- Botão de Ação Principal -->
-                <div>
-                    <button id="btn_calcular" class="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black rounded-2xl shadow-xl shadow-emerald-950/50 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3 border border-emerald-400/30 text-base">
-                        <i class="fa-solid fa-calculator text-lg" id="icon_calc_btn"></i>
-                        <span id="text_calc_btn">GERAR PROJEÇÕES FINANCEIRAS</span>
+                <!-- Botão de Ação do Gerador PDF -->
+                <div class="bg-slate-850 p-4 rounded-2xl border border-emerald-500/30 space-y-2">
+                    <h4 class="text-xs font-extrabold text-emerald-400 uppercase tracking-wider text-center">Exportação do Relatório Fiscal LALUR</h4>
+                    <button onclick="gerarPDFConsolidado()" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black rounded-xl shadow-lg shadow-emerald-950/50 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2.5 text-sm">
+                        <i class="fa-solid fa-file-pdf text-lg"></i>
+                        <span>BAIXAR RELATÓRIO PDF LALUR</span>
                     </button>
-                    <p class="text-[10px] text-slate-400 text-center mt-2 font-medium">Clique para rodar o DRE, LALUR, Bonificação PLR e ROI ajustado.</p>
+                    <p class="text-[10px] text-slate-400 text-center font-medium">Gera arquivo PDF executivo contendo os 3 cenários operacionais.</p>
                 </div>
 
             </section>
@@ -307,7 +314,10 @@
                         <i class="fa-solid fa-file-invoice-dollar"></i> DRE & LALUR (Mês a Mês)
                     </button>
                     <button onclick="switchTab('por_ave')" id="btn_tab_por_ave" class="flex-1 py-2.5 px-3 text-xs font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-400 hover:bg-slate-800 shrink-0">
-                        <i class="fa-solid fa-feather"></i> Custo / Ave, Benefícios & Expansão
+                        <i class="fa-solid fa-feather"></i> Custo / Ave & Benefícios
+                    </button>
+                    <button onclick="switchTab('pdf_relatorios')" id="btn_tab_pdf_relatorios" class="flex-1 py-2.5 px-3 text-xs font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-400 hover:bg-slate-800 shrink-0">
+                        <i class="fa-solid fa-file-pdf"></i> Cenários & PDF LALUR
                     </button>
                 </div>
 
@@ -351,7 +361,7 @@
                             <div class="p-3 bg-amber-500/20 text-amber-400 rounded-xl text-xl shrink-0"><i class="fa-solid fa-trophy"></i></div>
                             <div>
                                 <h4 class="text-xs font-bold text-amber-300 uppercase">Fundo de Bonificação / PLR do Ano 1 (14º Salário)</h4>
-                                <p class="text-xs text-slate-300 mt-0.5">Distribuído entre a equipe de 45 colaboradores para manutenção de engajamento e produtividade.</p>
+                                <p class="text-xs text-slate-300 mt-0.5">Distribuído entre a equipe de colaboradores para manutenção de engajamento e produtividade.</p>
                             </div>
                         </div>
                         <div class="text-right shrink-0">
@@ -379,7 +389,7 @@
                             <h4>PITCH EXECUTIVO CUSTOMIZADO</h4>
                         </div>
                         <p class="text-xs md:text-sm text-slate-300 leading-relaxed font-medium" id="pitch_narrative">
-                            *Aguardando geração do cenário. Clique no botão "Gerar Projeções Financeiras" para consolidar a apresentação.*
+                            *Carregando análise do cenário...*
                         </p>
                     </div>
 
@@ -395,6 +405,9 @@
                         <div class="flex gap-2">
                             <button onclick="copiarTabela()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors border border-slate-700">
                                 <i class="fa-solid fa-copy"></i> Copiar Tabela
+                            </button>
+                            <button onclick="gerarPDFCenario(1)" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors border border-emerald-400/30">
+                                <i class="fa-solid fa-file-pdf"></i> PDF Ano 1
                             </button>
                         </div>
                     </div>
@@ -618,11 +631,11 @@
                     </div>
                 </div>
 
-                <!-- CONTEÚDO DA GUIA 3: CUSTO POR AVE, BENEFÍCIOS & EXPANSÃO (320k) -->
+                <!-- CONTEÚDO DA GUIA 3: CUSTO POR AVE & BENEFÍCIOS -->
                 <div id="tab_por_ave" class="hidden bg-slate-850 rounded-2xl p-6 shadow-lg border border-slate-800 space-y-6">
                     <div>
-                        <h4 class="font-bold text-slate-100 text-sm md:text-base">Análise de Custo Unitário por Galinha, Benefícios & Expansão</h4>
-                        <p class="text-xs text-slate-400">Detalhamento dos benefícios (Saúde/Alimentação), bônus de produção e projeção dobrando para 320 mil galinhas.</p>
+                        <h4 class="font-bold text-slate-100 text-sm md:text-base">Análise de Custo Unitário por Galinha & Benefícios Sociais</h4>
+                        <p class="text-xs text-slate-400">Detalhamento dos benefícios (Saúde/Alimentação), bônus de produção e pacotes por ave.</p>
                     </div>
 
                     <!-- Métricas de Benefícios e Custo por Ave -->
@@ -644,54 +657,108 @@
                         </div>
                     </div>
 
-                    <!-- Estudo de Expansão: Ano Pleno 160k vs. Dobrando para 320k Aves -->
-                    <div class="bg-gradient-to-br from-slate-800 to-slate-850 p-6 rounded-2xl border border-emerald-800/30 space-y-4">
-                        <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                    <div class="bg-slate-800/80 p-5 rounded-2xl border border-slate-700 space-y-3">
+                        <h4 class="text-xs font-extrabold text-amber-400 uppercase tracking-wider">Custo de Formação da Poedeira (Cria / Recria até 26ª semana)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="p-3 bg-slate-900 rounded-xl border border-slate-750">
+                                <span class="text-slate-400 block font-semibold mb-1">Custo de Alojamento + Ração na Recria:</span>
+                                <span class="font-bold text-slate-200 text-sm">R$ 18,37 por ave acumulado</span>
+                            </div>
+                            <div class="p-3 bg-slate-900 rounded-xl border border-slate-750">
+                                <span class="text-slate-400 block font-semibold mb-1">Custo Anual da Ave em Postura Ativa:</span>
+                                <span class="font-bold text-emerald-400 text-sm" id="cost_postura_anual">R$ 87,84 / ave / ano</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTEÚDO DA GUIA 4: CENÁRIOS E GERADOR DE PDF DO LALUR -->
+                <div id="tab_pdf_relatorios" class="hidden bg-slate-850 rounded-2xl p-6 shadow-lg border border-slate-800 space-y-6">
+                    <div>
+                        <h4 class="font-bold text-slate-100 text-sm md:text-base">Centro de Exportação de PDF & Comparativo de Cenários LALUR</h4>
+                        <p class="text-xs text-slate-400">Gere relatórios executivos em PDF com apuração oficial do Lucro Real e LALUR para conselho e investidores.</p>
+                    </div>
+
+                    <!-- Cards dos 3 Cenários -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        
+                        <!-- Cenário 1: Ano 1 com Carência -->
+                        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-700 flex flex-col justify-between space-y-4">
                             <div>
-                                <h4 class="font-extrabold text-amber-400 text-sm md:text-base">Evolução do Negócio: Ano Pleno vs. Expansão para 320.000 Aves</h4>
-                                <p class="text-xs text-slate-400">Aproveitamento de infraestrutura (fábrica de ração, saúde ocupacional e escritório) reduzindo o CAPEX marginal.</p>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-amber-400 text-xs font-bold uppercase">Cenário 1</span>
+                                    <span class="bg-amber-950/80 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-800/40">160k Aves</span>
+                                </div>
+                                <h3 class="text-sm font-extrabold text-slate-100">Ano 1 com Carência</h3>
+                                <p class="text-[11px] text-slate-400 mt-1">Inclui 7 meses de recria sem receita, rendimento CDI de giro e aproveitamento do prejuízo no LALUR.</p>
                             </div>
-                            <span class="bg-amber-900/50 text-amber-300 text-xs font-bold px-3 py-1 rounded-lg border border-amber-800/40">Ganhos de Escala</span>
+                            
+                            <div class="space-y-1.5 text-xs font-medium border-t border-slate-800 pt-3">
+                                <div class="flex justify-between"><span>Faturamento:</span> <span class="font-bold text-slate-200" id="cen1_fat">R$ 17,3M</span></div>
+                                <div class="flex justify-between"><span>EBITDA:</span> <span class="font-bold text-emerald-400" id="cen1_ebit">R$ 7,15M</span></div>
+                                <div class="flex justify-between"><span>ROI:</span> <span class="font-bold text-amber-300" id="cen1_roi">20,94%</span></div>
+                            </div>
+
+                            <button onclick="gerarPDFCenario(1)" class="w-full py-2.5 bg-slate-800 hover:bg-slate-750 text-emerald-400 border border-emerald-500/30 font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-colors">
+                                <i class="fa-solid fa-file-pdf"></i> PDF Ano 1 com Carência
+                            </button>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                            <!-- Ano 1 com Carência -->
-                            <div class="bg-slate-900 p-4 rounded-xl border border-slate-750">
-                                <span class="text-slate-400 font-bold uppercase text-[10px] block mb-2">Ano 1 (160k Aves com Carência)</span>
-                                <div class="space-y-1.5 font-medium">
-                                    <div class="flex justify-between"><span>Faturamento:</span> <span class="font-bold text-slate-200">R$ 17,3M</span></div>
-                                    <div class="flex justify-between"><span>EBITDA:</span> <span class="font-bold text-emerald-400">R$ 7,15M</span></div>
-                                    <div class="flex justify-between"><span>ROI:</span> <span class="font-bold text-amber-300">20,94%</span></div>
-                                    <div class="flex justify-between"><span>Margem EBITDA:</span> <span class="font-bold text-slate-200">41,2%</span></div>
+                        <!-- Cenário 2: Ano Pleno (12m Postura - 160k Aves) -->
+                        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-700 flex flex-col justify-between space-y-4">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-emerald-400 text-xs font-bold uppercase">Cenário 2</span>
+                                    <span class="bg-emerald-950/80 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-800/40">160k Aves</span>
                                 </div>
+                                <h3 class="text-sm font-extrabold text-slate-100">Ano Pleno (12 Meses)</h3>
+                                <p class="text-[11px] text-slate-400 mt-1">12 meses completos de postura ativa a 160 mil galinhas. Apuração cheia de IR/CSLL e PLR.</p>
+                            </div>
+                            
+                            <div class="space-y-1.5 text-xs font-medium border-t border-slate-800 pt-3">
+                                <div class="flex justify-between"><span>Faturamento:</span> <span class="font-bold text-slate-200" id="cen2_fat">R$ 41,6M</span></div>
+                                <div class="flex justify-between"><span>EBITDA:</span> <span class="font-bold text-emerald-400" id="cen2_ebit">R$ 27,2M</span></div>
+                                <div class="flex justify-between"><span>ROI Anualizado:</span> <span class="font-bold text-amber-300" id="cen2_roi">63,20%</span></div>
                             </div>
 
-                            <!-- Ano Pleno 160k (12 Meses Postura) -->
-                            <div class="bg-slate-900 p-4 rounded-xl border border-slate-750">
-                                <span class="text-emerald-400 font-bold uppercase text-[10px] block mb-2">Ano Pleno (160k Aves - 12m)</span>
-                                <div class="space-y-1.5 font-medium">
-                                    <div class="flex justify-between"><span>Faturamento:</span> <span class="font-bold text-slate-200">R$ 41,6M</span></div>
-                                    <div class="flex justify-between"><span>EBITDA:</span> <span class="font-bold text-emerald-400">R$ 27,2M</span></div>
-                                    <div class="flex justify-between"><span>ROI Anualizado:</span> <span class="font-bold text-amber-300">63,20%</span></div>
-                                    <div class="flex justify-between"><span>Margem EBITDA:</span> <span class="font-bold text-slate-200">65,3%</span></div>
-                                </div>
-                            </div>
-
-                            <!-- Dobrando para 320k Aves -->
-                            <div class="bg-gradient-to-br from-emerald-950 to-slate-900 p-4 rounded-xl border border-emerald-700/50">
-                                <span class="text-amber-300 font-bold uppercase text-[10px] block mb-2">Expansão (320k Aves - Ano 2)</span>
-                                <div class="space-y-1.5 font-medium">
-                                    <div class="flex justify-between"><span>Faturamento:</span> <span class="font-bold text-slate-100">R$ 83,2M</span></div>
-                                    <div class="flex justify-between"><span>EBITDA:</span> <span class="font-bold text-emerald-300">R$ 58,1M</span></div>
-                                    <div class="flex justify-between"><span>ROI Consolidado:</span> <span class="font-bold text-amber-300">110,20%</span></div>
-                                    <div class="flex justify-between"><span>Margem EBITDA:</span> <span class="font-bold text-emerald-300">69,8%</span></div>
-                                </div>
-                            </div>
+                            <button onclick="gerarPDFCenario(2)" class="w-full py-2.5 bg-slate-800 hover:bg-slate-750 text-emerald-400 border border-emerald-500/30 font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-colors">
+                                <i class="fa-solid fa-file-pdf"></i> PDF Ano Pleno (160k)
+                            </button>
                         </div>
 
-                        <div class="text-[11px] text-slate-400 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-750">
-                            💡 <strong>Ganhos de Retenção e Produtividade:</strong> O investimento no pacote social (Plano de Saúde R$ 280 + Vale Alimentação R$ 350) e a distribuição da PLR/Bonificação reduzem a rotatividade (turnover) para menos de 2%, evitando o custo de treinamento contínuo no entreposto e aumentando a integridade da embalagem de ovos no transporte.
+                        <!-- Cenário 3: Expansão Dobrada (320k Aves) -->
+                        <div class="bg-gradient-to-br from-emerald-950 to-slate-900 p-5 rounded-2xl border border-emerald-700/50 flex flex-col justify-between space-y-4">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-amber-300 text-xs font-bold uppercase">Cenário 3</span>
+                                    <span class="bg-amber-900/50 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-800/40">320k Aves</span>
+                                </div>
+                                <h3 class="text-sm font-extrabold text-slate-100">Expansão para 320k Aves</h3>
+                                <p class="text-[11px] text-slate-300 mt-1">Plantel dobrado aproveitando fábrica de ração, saúde ocupacional e administrativo existente.</p>
+                            </div>
+                            
+                            <div class="space-y-1.5 text-xs font-medium border-t border-emerald-800/40 pt-3">
+                                <div class="flex justify-between"><span>Faturamento:</span> <span class="font-bold text-slate-100" id="cen3_fat">R$ 83,2M</span></div>
+                                <div class="flex justify-between"><span>EBITDA:</span> <span class="font-bold text-emerald-300" id="cen3_ebit">R$ 58,1M</span></div>
+                                <div class="flex justify-between"><span>ROI Consolidado:</span> <span class="font-bold text-amber-300" id="cen3_roi">110,20%</span></div>
+                            </div>
+
+                            <button onclick="gerarPDFCenario(3)" class="w-full py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl text-xs flex items-center justify-center gap-2 transition-colors">
+                                <i class="fa-solid fa-file-pdf"></i> PDF Expansão (320k)
+                            </button>
                         </div>
+
+                    </div>
+
+                    <!-- Botão do Documento PDF Completo Consolidação -->
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-emerald-500/30 flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div>
+                            <h4 class="text-sm font-extrabold text-slate-100">Relatório Executivo Completo em PDF (Todos os 3 Cenários)</h4>
+                            <p class="text-xs text-slate-400 mt-0.5">Gera um relatório PDF único e consolidado de apuração LALUR e DRE comparativo de 3 cenários operacionais.</p>
+                        </div>
+                        <button onclick="gerarPDFConsolidado()" class="py-3 px-6 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black rounded-xl text-sm flex items-center gap-2 shadow-lg shrink-0">
+                            <i class="fa-solid fa-download text-lg"></i> Download Relatório Consolidado (PDF)
+                        </button>
                     </div>
 
                 </div>
@@ -715,21 +782,28 @@
 
         let myChart = null;
 
+        // Estruturas de memória dos cenários calculados para exportação PDF
+        let cenario1Dados = {};
+        let cenario2Dados = {};
+        let cenario3Dados = {};
+
         // Função de alteração de ABAS
         function switchTab(tabId) {
             document.getElementById('tab_dashboard').classList.add('hidden');
             document.getElementById('tab_dre').classList.add('hidden');
             document.getElementById('tab_por_ave').classList.add('hidden');
+            document.getElementById('tab_pdf_relatorios').classList.add('hidden');
 
             document.getElementById('btn_tab_dashboard').className = 'flex-1 py-2.5 px-3 text-xs font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-400 hover:bg-slate-800 shrink-0';
             document.getElementById('btn_tab_dre').className = 'flex-1 py-2.5 px-3 text-xs font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-400 hover:bg-slate-800 shrink-0';
             document.getElementById('btn_tab_por_ave').className = 'flex-1 py-2.5 px-3 text-xs font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-400 hover:bg-slate-800 shrink-0';
+            document.getElementById('btn_tab_pdf_relatorios').className = 'flex-1 py-2.5 px-3 text-xs font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-400 hover:bg-slate-800 shrink-0';
 
             document.getElementById('tab_' + tabId).classList.remove('hidden');
             document.getElementById('btn_tab_' + tabId).className = 'flex-1 py-2.5 px-3 text-xs font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 bg-emerald-600 text-white shadow-sm shrink-0';
         }
 
-        // Função principal de cálculo
+        // Função principal de cálculo em tempo real
         function recalcular() {
             // Inputs das premissas comerciais
             const precoDuria = parseFloat(document.getElementById('input_preco_duzia').value);
@@ -782,7 +856,9 @@
             // Depreciação contábil mensal
             const depreciacaoMensal = (CAPEX_CONSTRUCAO / 120) + (CAPEX_MAQUINARIO / 60) + (CAPEX_AUTOMOVEIS / 60);
 
-            // Vetores de simulação dos 12 meses
+            // ==========================================
+            // CÁLCULO CENÁRIO 1: ANO 1 COM CARÊNCIA
+            // ==========================================
             let volumeVendido = [];
             let receitaBruta = [];
             let rendimentoFundoCDI = [];
@@ -797,7 +873,6 @@
             let fluxoCaixaLiquido = [];
             let caixaAcumulado = [];
 
-            // Variáveis de saldo do fundo
             let saldoFundoOPEX = 9070000;
             const taxaCDIMensal = cdiTaxaAnual / 12;
 
@@ -813,7 +888,7 @@
             let totalBanco = 0;
             let totalNetCash = 0;
 
-            // Primeiro passo: simular operação sem PLR para achar a base do lucro distribuível
+            // Simulação pré-PLR para base tributável
             let lucroPrePLR = 0;
 
             for(let m = 1; m <= 12; m++) {
@@ -863,13 +938,12 @@
                 lucroPrePLR += resMês;
             }
 
-            // Cálculo do Fundo de Bonificação PLR (dedutível no Mês 12 / LALUR)
+            // PLR em M12
             let bonificacaoPLRTotal = 0;
             if (lucroPrePLR > 0) {
                 bonificacaoPLRTotal = lucroPrePLR * plrPercent;
             }
 
-            // Atualização dos indicadores de PLR nos cards
             const bonusMedioPorFunc = totalFuncionarios > 0 ? (bonificacaoPLRTotal / totalFuncionarios) : 0;
             const equivalenciaSalarios = salarioMedio > 0 ? (bonusMedioPorFunc / salarioMedio) : 0;
 
@@ -878,7 +952,7 @@
             document.getElementById('lbl_bonus_meses_sal').innerText = equivalenciaSalarios.toFixed(1).replace('.', ',') + ' Salários';
             document.getElementById('card_bonus_por_func').innerText = 'R$ ' + Math.round(bonusMedioPorFunc).toLocaleString('pt-BR') + ' / ano';
 
-            // Segundo passo: rodar DRE definitiva integrando a dedução do PLR no Mês 12
+            // DRE Definitiva do Cenário 1
             for(let m = 1; m <= 12; m++) {
                 let rec = receitaBruta[m-1];
                 let rendimentoMes = rendimentoFundoCDI[m-1];
@@ -887,9 +961,7 @@
                 let dep = depreciacaoContabil[m-1];
 
                 let custoDedutivelFiscal = insumo + hr + dep;
-                if (m === 12) {
-                    custoDedutivelFiscal += bonificacaoPLRTotal; // Dedução do PLR no LALUR no M12
-                }
+                if (m === 12) custoDedutivelFiscal += bonificacaoPLRTotal;
 
                 let receitaTotalTributavel = rec + rendimentoMes;
                 let resultadoFiscalMês = receitaTotalTributavel - custoDedutivelFiscal;
@@ -916,7 +988,6 @@
                 impostoLucroReal.push(imposto);
                 totalImpostos += imposto;
 
-                // EBITDA Operacional
                 let ebitdaMês = (rec + rendimentoMes) - (insumo + hr);
                 if (m === 12) ebitdaMês -= bonificacaoPLRTotal;
                 ebitdaOperacional.push(ebitdaMês);
@@ -938,7 +1009,7 @@
                 caixaAcumulado.push(saldoFundoOPEX);
             }
 
-            // Atualização dinâmica dos elementos na tabela DRE
+            // Atualização de tabela DRE na tela
             for(let m = 1; m <= 12; m++) {
                 document.getElementById(`val_vol_m${m}`).innerText = Math.round(volumeVendido[m-1]).toLocaleString('pt-BR');
                 document.getElementById(`val_rec_m${m}`).innerText = Math.round(receitaBruta[m-1]).toLocaleString('pt-BR');
@@ -976,13 +1047,13 @@
             alterarCorTexto('val_ebit_total', totalEbitda);
             alterarCorTexto('val_net_total', totalNetCash);
 
-            // Cálculos dos KPIs
+            // KPIs do Cenário 1
             const lucroContabilReal = totalResultadoFiscal - totalImpostos;
             const roiAno1 = (lucroContabilReal / CAPEX_TOTAL) * 100;
             document.getElementById('kpi_roi').innerText = roiAno1.toFixed(2) + '%';
             document.getElementById('kpi_ebitda').innerText = 'R$ ' + Math.round(totalEbitda).toLocaleString('pt-BR');
 
-            const dscrMedio = totalEbitda / totalBanco;
+            const dscrMedio = totalBanco > 0 ? (totalEbitda / totalBanco) : 0;
             document.getElementById('kpi_dscr').innerText = dscrMedio.toFixed(2) + 'x';
             if (dscrMedio < 1.3) {
                 document.getElementById('kpi_dscr').className = "text-xl md:text-2xl font-black my-2 text-rose-400";
@@ -997,11 +1068,104 @@
             const opexMensalPostura = 978000 + folhaCompletaMensal + 15000;
             const custoMensalPorAve = opexMensalPostura / AVES_CONTIGENTE;
             document.getElementById('cost_postura_mensal').innerText = 'R$ ' + custoMensalPorAve.toFixed(2).replace('.', ',') + ' / ave / mês';
+            document.getElementById('cost_postura_anual').innerText = 'R$ ' + (custoMensalPorAve * 12).toFixed(2).replace('.', ',') + ' / ave / ano';
+
+            // Guarda objeto de dados do Cenário 1
+            cenario1Dados = {
+                faturamento: totalReceita,
+                ebitda: totalEbitda,
+                roi: roiAno1,
+                lucroLiquido: lucroContabilReal,
+                impostos: totalImpostos,
+                plr: bonificacaoPLRTotal,
+                receitaBruta: receitaBruta,
+                opexInsumos: opexInsumos,
+                opexHR: opexHR,
+                depreciacao: depreciacaoContabil,
+                resultadoFiscal: resultadoAntesIR,
+                impostoLucroReal: impostoLucroReal
+            };
+
+            // ==========================================
+            // CÁLCULO CENÁRIO 2: ANO PLENO (160k AVES - 12 MESES POSTURA)
+            // ==========================================
+            const volMensalPleno = (AVES_CONTIGENTE * POSTURA_MEDIA_MENSAL) / 12;
+            const recMensalPleno = volMensalPleno * precoDuria * (1 - taxPerda);
+            const recAnualPleno = recMensalPleno * 12;
+            const opexInsumosPleno = (978000 + (checkMRO ? 15000 : 0)) * 12;
+            const opexHRPleno = folhaCompletaMensal * 12;
+            const depAnualPleno = depreciacaoMensal * 12;
+            
+            let ebitdaPlenoBruto = recAnualPleno - (opexInsumosPleno + opexHRPleno);
+            let plrPleno = ebitdaPlenoBruto > 0 ? (ebitdaPlenoBruto - depAnualPleno) * plrPercent : 0;
+            if (plrPleno < 0) plrPleno = 0;
+            
+            let ebitdaPleno = ebitdaPlenoBruto - plrPleno;
+            let resultadoFiscalPleno = recAnualPleno - (opexInsumosPleno + opexHRPleno + depAnualPleno + plrPleno);
+            let impostoPleno = resultadoFiscalPleno > 0 ? resultadoFiscalPleno * 0.34 : 0;
+            let lucroLiquidoPleno = resultadoFiscalPleno - impostoPleno;
+            let roiPleno = (lucroLiquidoPleno / CAPEX_TOTAL) * 100;
+
+            cenario2Dados = {
+                faturamento: recAnualPleno,
+                ebitda: ebitdaPleno,
+                roi: roiPleno,
+                lucroLiquido: lucroLiquidoPleno,
+                impostos: impostoPleno,
+                plr: plrPleno
+            };
+
+            // ==========================================
+            // CÁLCULO CENÁRIO 3: EXPANSÃO 320.000 AVES
+            // ==========================================
+            const aves320k = 320000;
+            const vol320kMensal = (aves320k * POSTURA_MEDIA_MENSAL) / 12;
+            const rec320kMensal = vol320kMensal * precoDuria * (1 - taxPerda);
+            const rec320kAnual = rec320kMensal * 12;
+
+            // Ração escala 1:1, Mão de Obra escala 60% por conta do ganho de escala na infraestrutura
+            const opexInsumos320k = (978000 * 2 + (checkMRO ? 30000 : 0)) * 12;
+            const opexHR320k = (folhaCompletaMensal * 1.6) * 12;
+            const capexIncremental = 13500000; // CAPEX apenas para galpão/gaiolas adicionais
+            const capexTotal320k = CAPEX_TOTAL + capexIncremental;
+            const depAnual320k = depAnualPleno + (capexIncremental / 120);
+
+            let ebitda320kBruto = rec320kAnual - (opexInsumos320k + opexHR320k);
+            let plr320k = ebitda320kBruto > 0 ? (ebitda320kBruto - depAnual320k) * plrPercent : 0;
+            if (plr320k < 0) plr320k = 0;
+
+            let ebitda320k = ebitda320kBruto - plr320k;
+            let resultadoFiscal320k = rec320kAnual - (opexInsumos320k + opexHR320k + depAnual320k + plr320k);
+            let imposto320k = resultadoFiscal320k > 0 ? resultadoFiscal320k * 0.34 : 0;
+            let lucroLiquido320k = resultadoFiscal320k - imposto320k;
+            let roi320k = (lucroLiquido320k / capexTotal320k) * 100;
+
+            cenario3Dados = {
+                faturamento: rec320kAnual,
+                ebitda: ebitda320k,
+                roi: roi320k,
+                lucroLiquido: lucroLiquido320k,
+                impostos: imposto320k,
+                plr: plr320k
+            };
+
+            // Atualização dos textos da Guia de PDF/Cenários
+            document.getElementById('cen1_fat').innerText = 'R$ ' + (totalReceita / 1000000).toFixed(1) + 'M';
+            document.getElementById('cen1_ebit').innerText = 'R$ ' + (totalEbitda / 1000000).toFixed(1) + 'M';
+            document.getElementById('cen1_roi').innerText = roiAno1.toFixed(2) + '%';
+
+            document.getElementById('cen2_fat').innerText = 'R$ ' + (recAnualPleno / 1000000).toFixed(1) + 'M';
+            document.getElementById('cen2_ebit').innerText = 'R$ ' + (ebitdaPleno / 1000000).toFixed(1) + 'M';
+            document.getElementById('cen2_roi').innerText = roiPleno.toFixed(2) + '%';
+
+            document.getElementById('cen3_fat').innerText = 'R$ ' + (rec320kAnual / 1000000).toFixed(1) + 'M';
+            document.getElementById('cen3_ebit').innerText = 'R$ ' + (ebitda320k / 1000000).toFixed(1) + 'M';
+            document.getElementById('cen3_roi').innerText = roi320k.toFixed(2) + '%';
 
             // Narrativa do Pitch
             const pitchText = `
-                "Buscamos captação de **R$ 31,4 milhões** para implementação da Granja Avilândia. Simulando o preço de venda em **R$ ${precoDuria.toFixed(2).replace('.', ',')}** por dúzia com início no **Mês ${mesInicioPostura}** (respeitando a recria biológica), o projeto inclui o pacote social de saúde/alimentação e fundo de PLR para retenção da equipe de ${totalFuncionarios} colaboradores. 
-                Durante os primeiros meses, o fundo CDI gera **R$ ${Math.round(totalRendimentoFundo).toLocaleString('pt-BR')}** em receitas financeiras. Na postura ativa, nossa margem EBITDA atinge mais de **70%**, entregando um **ROI ajustado de ${roiAno1.toFixed(2)}%** com distribuição de **R$ ${Math.round(bonificacaoPLRTotal).toLocaleString('pt-BR')}** em bônus para a equipe (100% dedutível do Lucro Real no LALUR) e cobertura de dívida DSCR de **${dscrMedio.toFixed(2)}x**."
+                "Buscamos captação para a Granja Avilândia Golden Eggs. Simulando o preço de venda da dúzia em **R$ ${precoDuria.toFixed(2).replace('.', ',')}** com início das vendas no **Mês ${mesInicioPostura}** (respeitando a recria biológica de pintainhas), o projeto inclui o pacote social de saúde/alimentação e fundo de PLR para a equipe de ${totalFuncionarios} colaboradores. 
+                Durante os primeiros meses sem faturamento, a aplicação no fundo CDI gera **R$ ${Math.round(totalRendimentoFundo).toLocaleString('pt-BR')}** em receitas financeiras. Na postura ativa, nossa margem EBITDA ultrapassa **70%**, entregando um **ROI no Ano 1 de ${roiAno1.toFixed(2)}%** com distribuição de **R$ ${Math.round(bonificacaoPLRTotal).toLocaleString('pt-BR')}** em PLR (100% dedutível no LALUR) e cobertura da dívida DSCR de **${dscrMedio.toFixed(2)}x**. No **Ano Pleno**, o faturamento atinge **R$ ${(recAnualPleno/1000000).toFixed(1)}M** com ROI de **${roiPleno.toFixed(2)}%**."
             `;
             document.getElementById('pitch_narrative').innerHTML = pitchText;
 
@@ -1081,27 +1245,185 @@
             setTimeout(() => { btn.innerHTML = originalText; }, 2000);
         }
 
-        // Listener do Botão de Cálculo com Feedback
-        document.getElementById('btn_calcular').addEventListener('click', function() {
-            const btn = this;
-            const icon = document.getElementById('icon_calc_btn');
-            const text = document.getElementById('text_calc_btn');
+        // =========================================================================
+        // FUNÇÕES DE GERAÇÃO DE PDF DO LALUR USANDO JSPDF & AUTOTABLE
+        // =========================================================================
 
-            btn.disabled = true;
-            btn.classList.add('opacity-80', 'cursor-not-allowed');
-            icon.className = "fa-solid fa-circle-notch animate-spin text-lg";
-            text.innerText = "CALCULANDO CENÁRIO...";
+        function gerarPDFCenario(numeroCenario) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
 
-            setTimeout(() => {
-                recalcular();
-                btn.disabled = false;
-                btn.classList.remove('opacity-80', 'cursor-not-allowed');
-                icon.className = "fa-solid fa-calculator text-lg";
-                text.innerText = "GERAR PROJEÇÕES FINANCEIRAS";
-            }, 600);
-        });
+            const dataHoje = new Date().toLocaleDateString('pt-BR');
+            let tituloCenario = "";
+            let dadosRef = {};
 
-        // Event listeners de atualização dinâmica
+            if (numeroCenario === 1) {
+                tituloCenario = "CENÁRIO 1: ANO 1 COM CARÊNCIA BIOLÓGICA (160.000 AVES)";
+                dadosRef = cenario1Dados;
+            } else if (numeroCenario === 2) {
+                tituloCenario = "CENÁRIO 2: PRIMEIRO ANO PLENO SEM CARÊNCIA (160.000 AVES - 12m POSTURA)";
+                dadosRef = cenario2Dados;
+            } else {
+                tituloCenario = "CENÁRIO 3: EXPANSÃO DOBRADA PARA 320.000 AVES (12m POSTURA)";
+                dadosRef = cenario3Dados;
+            }
+
+            // Cabeçalho PDF
+            doc.setFillColor(15, 23, 42); // slate-900
+            doc.rect(0, 0, 297, 22, 'F');
+            doc.setTextColor(245, 158, 11); // amber-500
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text("GRANJA AVILÂNDIA GOLDEN EGGS", 14, 10);
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.text("LIVRO DE APURAÇÃO DO LUCRO REAL (LALUR) & DRE EXECUTIVO", 14, 16);
+
+            doc.setFontSize(8);
+            doc.text(`Data de Emissão: ${dataHoje}`, 235, 16);
+
+            // Subtítulo do Cenário
+            doc.setTextColor(15, 23, 42);
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'bold');
+            doc.text(tituloCenario, 14, 30);
+
+            // Tabela Resumo Executivo
+            const resumoBody = [
+                ['Faturamento Bruto', 'R$ ' + Math.round(dadosRef.faturamento).toLocaleString('pt-BR')],
+                ['EBITDA Operacional', 'R$ ' + Math.round(dadosRef.ebitda).toLocaleString('pt-BR')],
+                ['Impostos IRPJ/CSLL (Lucro Real)', 'R$ ' + Math.round(dadosRef.impostos).toLocaleString('pt-BR')],
+                ['Bonificação PLR / 14º Salário (Dedutível)', 'R$ ' + Math.round(dadosRef.plr).toLocaleString('pt-BR')],
+                ['Lucro Líquido Real', 'R$ ' + Math.round(dadosRef.lucroLiquido).toLocaleString('pt-BR')],
+                ['Retorno sobre o Investimento (ROI)', dadosRef.roi.toFixed(2) + '%']
+            ];
+
+            doc.autoTable({
+                startY: 34,
+                head: [['Métrica Financeira / Fiscal', 'Valor Projetado']],
+                body: resumoBody,
+                theme: 'grid',
+                headStyles: { fillColor: [16, 185, 129], textColor: [255, 255, 255], fontStyle: 'bold' },
+                styles: { fontSize: 8, cellPadding: 2 },
+                margin: { left: 14, right: 150 }
+            });
+
+            // Se for o Cenário 1, incluir a Tabela Mês a Mês completa
+            if (numeroCenario === 1 && cenario1Dados.receitaBruta) {
+                const headMês = [['Rubrica DRE / LALUR', 'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12', 'Total Ano 1']];
+                
+                const bodyMês = [
+                    ['Receita Bruta (R$)', ...cenario1Dados.receitaBruta.map(v => Math.round(v).toLocaleString('pt-BR')), Math.round(cenario1Dados.faturamento).toLocaleString('pt-BR')],
+                    ['(-) Insumos / Ração', ...cenario1Dados.opexInsumos.map(v => Math.round(v).toLocaleString('pt-BR')), '7.570.000'],
+                    ['(-) Mão de Obra + Benefícios', ...cenario1Dados.opexHR.map(v => Math.round(v).toLocaleString('pt-BR')), '1.258.175'],
+                    ['(-) Depreciação Contábil', ...cenario1Dados.depreciacao.map(v => Math.round(v).toLocaleString('pt-BR')), '1.596.478'],
+                    ['Resultado Fiscal Antes IR', ...cenario1Dados.resultadoFiscal.map(v => Math.round(v).toLocaleString('pt-BR')), '7.079.097'],
+                    ['(-) IRPJ / CSLL (LALUR)', ...cenario1Dados.impostoLucroReal.map(v => Math.round(v).toLocaleString('pt-BR')), Math.round(cenario1Dados.impostos).toLocaleString('pt-BR')]
+                ];
+
+                doc.text("Detalhamento Mês a Mês do Livro LALUR (Ano 1 com Carência Biológica)", 14, 85);
+
+                doc.autoTable({
+                    startY: 88,
+                    head: headMês,
+                    body: bodyMês,
+                    theme: 'striped',
+                    headStyles: { fillColor: [15, 23, 42], textColor: [255, 255, 255], fontStyle: 'bold' },
+                    styles: { fontSize: 7, cellPadding: 1.5, halign: 'center' },
+                    columnStyles: { 0: { halign: 'left', fontStyle: 'bold', cellWidth: 45 } },
+                    margin: { left: 14, right: 14 }
+                });
+            }
+
+            // Rodapé
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFontSize(7);
+                doc.setTextColor(100, 116, 139);
+                doc.text(`Granja Avilândia Golden Eggs - Documento Fiscal / Financeiro Estritamente Confidencial - Página ${i} de ${pageCount}`, 14, 202);
+            }
+
+            doc.save(`LALUR_Avilandia_Cenario_${numeroCenario}.pdf`);
+        }
+
+        function gerarPDFConsolidado() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+            const dataHoje = new Date().toLocaleDateString('pt-BR');
+
+            // Cabeçalho PDF
+            doc.setFillColor(15, 23, 42);
+            doc.rect(0, 0, 297, 22, 'F');
+            doc.setTextColor(245, 158, 11);
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text("GRANJA AVILÂNDIA GOLDEN EGGS", 14, 10);
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.text("RELATÓRIO CONSOLIDADO COMPARATIVO DE CENÁRIOS FISCAIS (LALUR & DRE)", 14, 16);
+
+            doc.setFontSize(8);
+            doc.text(`Data: ${dataHoje}`, 245, 16);
+
+            doc.setTextColor(15, 23, 42);
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'bold');
+            doc.text("Estudo Comparativo: Ano 1 com Carência vs. Ano Pleno vs. Expansão 320k Galinhas", 14, 30);
+
+            const headComparativo = [['Métrica Financeira / LALUR', 'Cenário 1: Ano 1 com Carência (160k)', 'Cenário 2: Ano Pleno (160k - 12m)', 'Cenário 3: Expansão (320k Aves)']];
+            
+            const bodyComparativo = [
+                ['Faturamento Bruto Anual', 'R$ ' + Math.round(cenario1Dados.faturamento).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.faturamento).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.faturamento).toLocaleString('pt-BR')],
+                ['EBITDA Operacional', 'R$ ' + Math.round(cenario1Dados.ebitda).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.ebitda).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.ebitda).toLocaleString('pt-BR')],
+                ['Bônus PLR / Equipe (Dedutível)', 'R$ ' + Math.round(cenario1Dados.plr).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.plr).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.plr).toLocaleString('pt-BR')],
+                ['IRPJ / CSLL Devido (Lucro Real)', 'R$ ' + Math.round(cenario1Dados.impostos).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.impostos).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.impostos).toLocaleString('pt-BR')],
+                ['Lucro Líquido do Exercício', 'R$ ' + Math.round(cenario1Dados.lucroLiquido).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.lucroLiquido).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.lucroLiquido).toLocaleString('pt-BR')],
+                ['ROI Ajustado (%)', cenario1Dados.roi.toFixed(2) + '%', cenario2Dados.roi.toFixed(2) + '%', cenario3Dados.roi.toFixed(2) + '%']
+            ];
+
+            doc.autoTable({
+                startY: 35,
+                head: headComparativo,
+                body: bodyComparativo,
+                theme: 'grid',
+                headStyles: { fillColor: [16, 185, 129], textColor: [255, 255, 255], fontStyle: 'bold' },
+                styles: { fontSize: 8.5, cellPadding: 3, halign: 'center' },
+                columnStyles: { 0: { halign: 'left', fontStyle: 'bold', cellWidth: 70 } },
+                margin: { left: 14, right: 14 }
+            });
+
+            // Notas Explicativas
+            doc.setFontSize(9);
+            doc.setFont('helvetica', 'bold');
+            doc.text("Notas Explicativas do Livro de Apuração do Lucro Real (LALUR):", 14, 95);
+
+            doc.setFontSize(8);
+            doc.setFont('helvetica', 'normal');
+            const notas = [
+                "1. Isenção Inicial de Impostos: O prejuízo fiscal apurado nos meses de cria/recria do Cenário 1 é integralmente compensado no LALUR, zerando o imposto nos primeiros meses de faturamento.",
+                "2. Dedutibilidade da PLR: O valor alocado ao Programa de Lucros e Resultados (14º Salário da equipe) é abaratado como despesa operacional dedutível da base do IRPJ e da CSLL (Lei 10.101/00).",
+                "3. Pacote Social de Mão de Obra: Plano de Saúde e Vale Alimentação estão computados no OPEX dedutível, gerando retenção de talentos e estabilidade operacional no entreposto S.I.F."
+            ];
+
+            let yPos = 101;
+            notas.forEach(nota => {
+                doc.text(nota, 14, yPos);
+                yPos += 5;
+            });
+
+            doc.setFontSize(7);
+            doc.setTextColor(100, 116, 139);
+            doc.text("Granja Avilândia Golden Eggs - Relatório Consolidado Executivo - Página 1 de 1", 14, 202);
+
+            doc.save("LALUR_Avilandia_Relatorio_Consolidado.pdf");
+        }
+
+        // Listeners de atualização instantânea em tempo real
         document.getElementById('input_preco_duzia').addEventListener('input', recalcular);
         document.getElementById('input_mes_inicio').addEventListener('input', recalcular);
         document.getElementById('input_financiamento').addEventListener('input', recalcular);
@@ -1123,6 +1445,7 @@
         document.getElementById('check_turnover').addEventListener('change', recalcular);
         document.getElementById('check_mro').addEventListener('change', recalcular);
 
+        // Inicialização na carga da página
         window.onload = function() {
             recalcular();
         }
