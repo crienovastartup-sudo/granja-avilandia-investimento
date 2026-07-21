@@ -871,6 +871,8 @@
                     if (myChart) {
                         myChart.resize();
                         myChart.update();
+                    } else if (cenario1Dados && cenario1Dados.caixaAcumulado) {
+                        atualizarGrafico(cenario1Dados.caixaAcumulado);
                     }
                 }, 50);
             }
@@ -1052,9 +1054,16 @@
             const roiAno1 = (lucroLiq1 / CAPEX_TOTAL) * 100;
 
             cenario1Dados = {
-                ...c1, faturamento: totalRec1, ebitda: totalEbitda1, roi: roiAno1,
-                lucroLiquido: lucroLiq1, impostos: totalImp1, plr: bonificacaoPLR1,
-                rendimentoTotalCDI: totalCDI1, totalNetCash: totalNet1, totalBanco: totalBanco1
+                ...c1,
+                faturamento: totalRec1,
+                totalEbitda: totalEbitda1,
+                roi: roiAno1,
+                lucroLiquido: lucroLiq1,
+                totalImpostos: totalImp1,
+                totalPLR: bonificacaoPLR1,
+                rendimentoTotalCDI: totalCDI1,
+                totalNetCash: totalNet1,
+                totalBanco: totalBanco1
             };
 
             // ==========================================
@@ -1114,8 +1123,13 @@
             const roiAno2 = (lucroLiq2 / CAPEX_TOTAL) * 100;
 
             cenario2Dados = {
-                ...c2, faturamento: totalRec2, ebitda: totalEbitda2, roi: roiAno2,
-                lucroLiquido: lucroLiq2, impostos: totalImp2, plr: bonificacaoPLR2
+                ...c2,
+                faturamento: totalRec2,
+                totalEbitda: totalEbitda2,
+                roi: roiAno2,
+                lucroLiquido: lucroLiq2,
+                totalImpostos: totalImp2,
+                totalPLR: bonificacaoPLR2
             };
 
             // ==========================================
@@ -1180,8 +1194,13 @@
             const roiAno3 = (lucroLiq3 / capexTotal3) * 100;
 
             cenario3Dados = {
-                ...c3, faturamento: totalRec3, ebitda: totalEbitda3, roi: roiAno3,
-                lucroLiquido: lucroLiq3, impostos: totalImp3, plr: bonificacaoPLR3
+                ...c3,
+                faturamento: totalRec3,
+                totalEbitda: totalEbitda3,
+                roi: roiAno3,
+                lucroLiquido: lucroLiq3,
+                totalImpostos: totalImp3,
+                totalPLR: bonificacaoPLR3
             };
 
             // Atualiza KPIs da Tela (Ano 1)
@@ -1224,7 +1243,7 @@
 
             // Pitch Narrative
             const pitchText = `
-                "Buscamos captação para a Granja Avilândia Golden Eggs. Simulando o preço de venda da dúzia em <strong>R$ ${precoDuria.toFixed(2).replace('.', ',')}</strong> com início de vendas no <strong>Mês ${mesInicioPostura}</strong> (respeitando a recria biológica de pintainhas), o projeto inclui pacote social e PLR para ${totalFuncionarios} colaboradores. 
+                "Projeto Executivo Granja Avilândia Golden Eggs. Simulando o preço de venda da dúzia em <strong>R$ ${precoDuria.toFixed(2).replace('.', ',')}</strong> com início de vendas no <strong>Mês ${mesInicioPostura}</strong> (respeitando a recria biológica de pintainhas), o projeto inclui pacote social e PLR para ${totalFuncionarios} colaboradores. 
                 Durante a carência, o fundo CDI gera <strong>R$ ${Math.round(totalCDI1).toLocaleString('pt-BR')}</strong> em receitas financeiras. Na postura ativa, nossa margem EBITDA atinge altos patamares, entregando um <strong>ROI no Ano 1 de ${roiAno1.toFixed(2)}%</strong> com distribuição de <strong>R$ ${Math.round(bonificacaoPLR1).toLocaleString('pt-BR')}</strong> em PLR (100% dedutível no LALUR) e cobertura DSCR de <strong>${dscrMedio.toFixed(2)}x</strong>. No Ano Pleno, o faturamento alcança <strong>R$ ${(totalRec2/1000000).toFixed(1)}M</strong> com ROI de <strong>${roiAno2.toFixed(2)}%</strong>."
             `;
             document.getElementById('pitch_narrative').innerHTML = pitchText;
@@ -1295,6 +1314,7 @@
         function atualizarGrafico(dadosCaixa) {
             if (typeof Chart === 'undefined') {
                 console.warn('Chart.js ainda não foi carregado.');
+                setTimeout(() => atualizarGrafico(dadosCaixa), 200);
                 return;
             }
 
@@ -1409,9 +1429,9 @@
             // Resumo Executivo
             const resumoBody = [
                 ['Faturamento Bruto Anual', 'R$ ' + Math.round(dadosRef.faturamento).toLocaleString('pt-BR')],
-                ['EBITDA Operacional', 'R$ ' + Math.round(dadosRef.ebitda).toLocaleString('pt-BR')],
-                ['Impostos IRPJ/CSLL (Lucro Real)', 'R$ ' + Math.round(dadosRef.impostos).toLocaleString('pt-BR')],
-                ['Bonificação PLR / 14º Salário (Dedutível)', 'R$ ' + Math.round(dadosRef.plr).toLocaleString('pt-BR')],
+                ['EBITDA Operacional', 'R$ ' + Math.round(dadosRef.totalEbitda !== undefined ? dadosRef.totalEbitda : (dadosRef.ebitda ? dadosRef.ebitda.reduce((a,b)=>a+b,0) : 0)).toLocaleString('pt-BR')],
+                ['Impostos IRPJ/CSLL (Lucro Real)', 'R$ ' + Math.round(dadosRef.totalImpostos !== undefined ? dadosRef.totalImpostos : (dadosRef.impostos ? dadosRef.impostos.reduce((a,b)=>a+b,0) : 0)).toLocaleString('pt-BR')],
+                ['Bonificação PLR / 14º Salário (Dedutível)', 'R$ ' + Math.round(dadosRef.totalPLR !== undefined ? dadosRef.totalPLR : (dadosRef.plr ? dadosRef.plr.reduce((a,b)=>a+b,0) : 0)).toLocaleString('pt-BR')],
                 ['Lucro Líquido do Exercício', 'R$ ' + Math.round(dadosRef.lucroLiquido).toLocaleString('pt-BR')],
                 ['Retorno sobre o Investimento (ROI)', dadosRef.roi.toFixed(2) + '%']
             ];
@@ -1499,10 +1519,10 @@
             
             const bodyComparativo = [
                 ['Faturamento Bruto Anual', 'R$ ' + Math.round(cenario1Dados.faturamento).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.faturamento).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.faturamento).toLocaleString('pt-BR')],
-                ['EBITDA Operacional', 'R$ ' + Math.round(cenario1Dados.ebitda).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.ebitda).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.ebitda).toLocaleString('pt-BR')],
+                ['EBITDA Operacional', 'R$ ' + Math.round(cenario1Dados.totalEbitda).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.totalEbitda).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.totalEbitda).toLocaleString('pt-BR')],
                 ['Rendimento Fundo CDI', 'R$ ' + Math.round(cenario1Dados.rendimentoTotalCDI).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.rendimentoCDI.reduce((a,b)=>a+b,0)).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.rendimentoCDI.reduce((a,b)=>a+b,0)).toLocaleString('pt-BR')],
-                ['Bônus PLR / Equipe (14º Sal. Dedutível)', 'R$ ' + Math.round(cenario1Dados.plr).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.plr).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.plr).toLocaleString('pt-BR')],
-                ['IRPJ / CSLL Devido (Lucro Real)', 'R$ ' + Math.round(cenario1Dados.impostos).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.impostos).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.impostos).toLocaleString('pt-BR')],
+                ['Bônus PLR / Equipe (14º Sal. Dedutível)', 'R$ ' + Math.round(cenario1Dados.totalPLR).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.totalPLR).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.totalPLR).toLocaleString('pt-BR')],
+                ['IRPJ / CSLL Devido (Lucro Real)', 'R$ ' + Math.round(cenario1Dados.totalImpostos).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.totalImpostos).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.totalImpostos).toLocaleString('pt-BR')],
                 ['Lucro Líquido do Exercício', 'R$ ' + Math.round(cenario1Dados.lucroLiquido).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.lucroLiquido).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.lucroLiquido).toLocaleString('pt-BR')],
                 ['ROI Ajustado (%)', cenario1Dados.roi.toFixed(2) + '%', cenario2Dados.roi.toFixed(2) + '%', cenario3Dados.roi.toFixed(2) + '%'],
                 ['Saldo Final de Caixa Acumulado', 'R$ ' + Math.round(cenario1Dados.caixaAcumulado[11]).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.caixaAcumulado[11]).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.caixaAcumulado[11]).toLocaleString('pt-BR')]
