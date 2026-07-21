@@ -391,7 +391,7 @@
                         <div class="absolute -top-10 -right-10 text-emerald-500/10 text-9xl pointer-events-none"><i class="fa-solid fa-comments"></i></div>
                         <div class="flex items-center gap-2 text-emerald-400 font-extrabold text-sm md:text-base">
                             <i class="fa-solid fa-play text-amber-400"></i>
-                            <h4>PITCH EXECUTIVO CUSTOMIZADO</h4>
+                            <h4>VISÃO MACRO ECONOMICA</h4>
                         </div>
                         <p class="text-xs md:text-sm text-slate-200 leading-relaxed font-medium" id="pitch_narrative">
                             *Carregando análise do cenário...*
@@ -1243,7 +1243,7 @@
 
             // Pitch Narrative
             const pitchText = `
-                "Buscamos captação para a Granja Avilândia Golden Eggs. Simulando o preço de venda da dúzia em <strong>R$ ${precoDuria.toFixed(2).replace('.', ',')}</strong> com início de vendas no <strong>Mês ${mesInicioPostura}</strong> (respeitando a recria biológica de pintainhas), o projeto inclui pacote social e PLR para ${totalFuncionarios} colaboradores. 
+                "Projeto Executivo para a Granja Avilândia Golden Eggs. Simulando o preço de venda da dúzia em <strong>R$ ${precoDuria.toFixed(2).replace('.', ',')}</strong> com início de vendas no <strong>Mês ${mesInicioPostura}</strong> (respeitando a recria biológica de pintainhas), o projeto inclui pacote social e PLR para ${totalFuncionarios} colaboradores. 
                 Durante a carência, o fundo CDI gera <strong>R$ ${Math.round(totalCDI1).toLocaleString('pt-BR')}</strong> em receitas financeiras. Na postura ativa, nossa margem EBITDA atinge altos patamares, entregando um <strong>ROI no Ano 1 de ${roiAno1.toFixed(2)}%</strong> com distribuição de <strong>R$ ${Math.round(bonificacaoPLR1).toLocaleString('pt-BR')}</strong> em PLR (100% dedutível no LALUR) e cobertura DSCR de <strong>${dscrMedio.toFixed(2)}x</strong>. No Ano Pleno, o faturamento alcança <strong>R$ ${(totalRec2/1000000).toFixed(1)}M</strong> com ROI de <strong>${roiAno2.toFixed(2)}%</strong>."
             `;
             document.getElementById('pitch_narrative').innerHTML = pitchText;
