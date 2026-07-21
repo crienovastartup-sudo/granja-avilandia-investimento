@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Granja Avilândia - Simulador Financeiro e DRE LALUR</title>
+    <title>Granja Avilândia - Simulador Financeiro, Due Diligence & PDF LALUR</title>
     <!-- Tailwind CSS para design responsivo executivo -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js UMD para gráficos interativos -->
@@ -37,7 +37,7 @@
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
 
     <!-- Header Executivo -->
-    <header class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white shadow-lg sticky top-0 z-50">
+    <header class="bg-gradient-to-r from-emerald-800 via-teal-900 to-slate-900 text-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-3">
                 <div class="bg-amber-400 p-2.5 rounded-xl shadow-md text-emerald-950 flex items-center justify-center">
@@ -45,32 +45,71 @@
                 </div>
                 <div>
                     <h1 class="text-xl md:text-2xl font-extrabold tracking-tight">AVILÂNDIA <span class="text-amber-400">GOLDEN EGGS</span></h1>
-                    <p class="text-xs text-emerald-200">Simulador Agroindustrial e Gerador de PDF LALUR (Lucro Real & PLR Integrada)</p>
+                    <p class="text-xs text-emerald-200">Simulador Financeiro Agroindustrial, Due Diligence & PDF LALUR (Private Equity & Banks)</p>
                 </div>
             </div>
-            <div class="flex items-center gap-2 bg-emerald-950/40 px-4 py-2 rounded-lg border border-emerald-700/50">
-                <i class="fa-solid fa-file-pdf text-emerald-400 text-sm"></i>
-                <span class="text-xs md:text-sm font-medium">Relatórios LALUR em PDF Automáticos</span>
+            <div class="flex items-center gap-3">
+                <div class="hidden lg:flex items-center gap-2 bg-emerald-950/60 px-3 py-1.5 rounded-lg border border-emerald-700/50 text-xs">
+                    <i class="fa-solid fa-shield-halved text-amber-400"></i>
+                    <span>Modo Due Diligence Ativo</span>
+                </div>
+                <button onclick="gerarPDFConsolidado()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold px-3.5 py-2 rounded-xl text-xs flex items-center gap-2 shadow-md transition-all active:scale-95">
+                    <i class="fa-solid fa-file-pdf text-sm"></i>
+                    <span>PDF LALUR / MEMORANDUM</span>
+                </button>
             </div>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        <!-- Alerta e Resumo Executivo -->
-        <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-sm mb-8 flex flex-col md:flex-row justify-between gap-4 items-start md:items-center">
-            <div class="flex gap-3">
-                <div class="text-amber-600 shrink-0"><i class="fa-solid fa-triangle-exclamation text-xl"></i></div>
-                <div>
-                    <h4 class="font-bold text-amber-900 text-sm md:text-base">Mecanismo Financeiro, Benefícios & Retenção de Talentos</h4>
-                    <p class="text-xs md:text-sm text-amber-800 mt-1 leading-relaxed">
-                        Cálculos executados em tempo real! Inclui <strong>Plano de Saúde, Vale Alimentação</strong> e <strong>PLR (14º Salário)</strong> 100% dedutíveis no Lucro Real (LALUR). O saldo de caixa acumulado rende juros no CDI para potencializar a liquidez do projeto.
-                    </p>
+        <!-- Cronograma Macro & Fases do Projeto -->
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 mb-8 space-y-3">
+            <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 border-b border-slate-100 pb-2">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-timeline text-emerald-600 text-base"></i>
+                    <h3 class="font-extrabold text-slate-900 text-sm uppercase tracking-wider">Cronograma Cronológico do Projeto (Fases 0 a 3)</h3>
                 </div>
+                <span class="text-xs text-slate-500 font-semibold" id="lbl_status_sanitario_header"><i class="fa-solid fa-circle-check text-emerald-500 mr-1"></i> Status Sanitário: Normal (0% risco)</span>
             </div>
-            <div class="bg-amber-100/80 px-3 py-2 rounded-lg border border-amber-300 text-right shrink-0">
-                <span class="text-[10px] text-amber-800 font-bold uppercase block">Rendimento Estimado Fundo (Ano 1)</span>
-                <span class="text-sm font-extrabold text-emerald-800" id="top_rendimento_fundo">+ R$ 0,00</span>
+
+            <!-- Pipeline Visual das Fases -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
+                <!-- Fase 0 -->
+                <div class="p-3 bg-slate-50 rounded-xl border-l-4 border-slate-700 space-y-1">
+                    <div class="flex justify-between items-center font-bold text-slate-800">
+                        <span>FASE 0: Implantação</span>
+                        <span class="bg-slate-200 text-slate-700 text-[10px] px-1.5 py-0.5 rounded">10 Meses</span>
+                    </div>
+                    <p class="text-[10px] text-slate-500">CAPEX: R$ 31,47M (Obras, Galpões, Fábrica Ração). Sem receita.</p>
+                </div>
+
+                <!-- Fase 1 -->
+                <div class="p-3 bg-amber-50/70 rounded-xl border-l-4 border-amber-500 space-y-1">
+                    <div class="flex justify-between items-center font-bold text-amber-900">
+                        <span>FASE 1: Cria / Recria</span>
+                        <span class="bg-amber-100 text-amber-800 text-[10px] px-1.5 py-0.5 rounded">6 Meses</span>
+                    </div>
+                    <p class="text-[10px] text-amber-800">160k Aves. Somente OPEX. Geração de prejuízo fiscal LALUR.</p>
+                </div>
+
+                <!-- Fase 2 -->
+                <div class="p-3 bg-emerald-50/70 rounded-xl border-l-4 border-emerald-600 space-y-1">
+                    <div class="flex justify-between items-center font-bold text-emerald-900">
+                        <span>FASE 2: Postura Plena</span>
+                        <span class="bg-emerald-100 text-emerald-800 text-[10px] px-1.5 py-0.5 rounded">12 Meses</span>
+                    </div>
+                    <p class="text-[10px] text-emerald-800">160k Aves. Vendas ativas, EBITDA, PLR e compensação LALUR.</p>
+                </div>
+
+                <!-- Fase 3 -->
+                <div class="p-3 bg-teal-50/70 rounded-xl border-l-4 border-teal-600 space-y-1">
+                    <div class="flex justify-between items-center font-bold text-teal-900">
+                        <span>FASE 3: Expansão 320k</span>
+                        <span class="bg-teal-100 text-teal-800 text-[10px] px-1.5 py-0.5 rounded">+160k Aves</span>
+                    </div>
+                    <p class="text-[10px] text-teal-800">Dobra do plantel (+2 galpões automatizados) com alta escala.</p>
+                </div>
             </div>
         </div>
 
@@ -115,9 +154,9 @@
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <span class="text-slate-400 text-sm">R$</span>
                                 </div>
-                                <input type="number" id="input_financiamento" value="500000" class="block w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold text-slate-800">
+                                <input type="number" id="input_financiamento" value="152000" class="block w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold text-slate-800">
                             </div>
-                            <span class="text-[10px] text-slate-400 block mt-1">Reflete amortização do CAPEX (Obras e Maquinário)</span>
+                            <span class="text-[10px] text-slate-400 block mt-1">Reflete amortização de R$ 31,47M em ~249 parcelas de R$ 152.000</span>
                         </div>
 
                         <!-- Rendimento do Fundo OPEX (CDI) -->
@@ -128,6 +167,54 @@
                                 <span class="bg-teal-50 text-teal-800 text-xs font-bold px-2 py-1 rounded border border-teal-100 w-16 text-center" id="val_cdi_fundo">10.5%</span>
                             </div>
                             <span class="text-[10px] text-slate-400 block mt-1">Rendimento do caixa reservado acumulado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card: Cotação de Insumos da Ração Própria -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-wheat-awn text-amber-600 text-lg"></i>
+                            <h3 class="font-bold text-slate-900">Insumos Ração & Commodities</h3>
+                        </div>
+                        <span class="bg-amber-100 text-amber-900 text-[10px] font-bold px-2 py-0.5 rounded">Fábrica Própria</span>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs mb-1 font-semibold text-slate-600">
+                                <span>Milho (R$/Saca 60kg)</span>
+                                <span id="lbl_preco_milho" class="font-bold text-amber-800">R$ 65,00</span>
+                            </div>
+                            <input type="range" id="input_preco_milho" min="40" max="110" step="1" value="65" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs mb-1 font-semibold text-slate-600">
+                                <span>Farelo Soja (R$/Ton)</span>
+                                <span id="lbl_preco_soja" class="font-bold text-amber-800">R$ 2.100,00</span>
+                            </div>
+                            <input type="range" id="input_preco_soja" min="1400" max="3200" step="50" value="2100" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs mb-1 font-semibold text-slate-600">
+                                <span>Consumo Ave/Dia (Gramas)</span>
+                                <span id="lbl_consumo_ave" class="font-bold text-emerald-800">110g / dia</span>
+                            </div>
+                            <input type="range" id="input_consumo_ave" min="95" max="125" step="1" value="110" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+                        </div>
+
+                        <div class="p-2.5 bg-slate-50 rounded-xl text-[11px] border border-slate-200 space-y-1">
+                            <div class="flex justify-between text-slate-600">
+                                <span>Custo Tonelada Ração:</span>
+                                <strong id="lbl_custo_ton_racao" class="text-slate-900">R$ 1.450,00 / ton</strong>
+                            </div>
+                            <div class="flex justify-between text-slate-600">
+                                <span>Consumo Anual (160k aves):</span>
+                                <strong id="lbl_consumo_ton_anual" class="text-slate-900">6.424 Ton/ano</strong>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -159,7 +246,7 @@
                         <span class="text-[10px] text-slate-500 block">Total em benefícios: <strong class="text-emerald-800" id="lbl_beneficio_total_head">R$ 630,00 / func / mês</strong></span>
                     </div>
 
-                    <div class="space-y-2 max-h-64 overflow-y-auto pr-1">
+                    <div class="space-y-2 max-h-56 overflow-y-auto pr-1">
                         <div class="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
                             <div><h4 class="text-xs font-bold text-slate-700">Entreposto (Área Suja)</h4><p class="text-[9px] text-slate-400">Recepção/lavagem</p></div>
                             <input type="number" id="qty_area_suja" value="4" min="2" max="8" class="w-12 text-center py-0.5 border border-slate-200 rounded text-xs font-bold text-slate-800">
@@ -284,17 +371,26 @@
                 
                 <!-- Abas de Navegação Principais -->
                 <div class="flex bg-white p-1.5 rounded-xl shadow-sm border border-slate-200 gap-1 overflow-x-auto">
-                    <button onclick="switchTab('dashboard')" id="btn_tab_dashboard" class="flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 bg-emerald-600 text-white shadow-sm shrink-0">
-                        <i class="fa-solid fa-chart-line"></i> Executive Dashboard
+                    <button onclick="switchTab('dashboard')" id="btn_tab_dashboard" class="flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 bg-emerald-600 text-white shadow-sm shrink-0">
+                        <i class="fa-solid fa-chart-line"></i> Dashboard
                     </button>
-                    <button onclick="switchTab('dre')" id="btn_tab_dre" class="flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-50 shrink-0">
-                        <i class="fa-solid fa-file-invoice-dollar"></i> DRE & LALUR (Mês a Mês)
+                    <button onclick="switchTab('dre')" id="btn_tab_dre" class="flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-slate-600 hover:bg-slate-50 shrink-0">
+                        <i class="fa-solid fa-file-invoice-dollar"></i> DRE & LALUR
                     </button>
-                    <button onclick="switchTab('por_ave')" id="btn_tab_por_ave" class="flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-50 shrink-0">
-                        <i class="fa-solid fa-feather"></i> Custo / Ave & Benefícios
+                    <button onclick="switchTab('por_ave')" id="btn_tab_por_ave" class="flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-slate-600 hover:bg-slate-50 shrink-0">
+                        <i class="fa-solid fa-wheat-awn"></i> Ração & Custo/Ave
                     </button>
-                    <button onclick="switchTab('pdf_relatorios')" id="btn_tab_pdf_relatorios" class="flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-50 shrink-0">
-                        <i class="fa-solid fa-file-pdf"></i> Cenários & PDF LALUR
+                    <button onclick="switchTab('premissas')" id="btn_tab_premissas" class="flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-slate-600 hover:bg-slate-50 shrink-0">
+                        <i class="fa-solid fa-calculator"></i> Premissas
+                    </button>
+                    <button onclick="switchTab('stresstest')" id="btn_tab_stresstest" class="flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-slate-600 hover:bg-slate-50 shrink-0">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Stress Test
+                    </button>
+                    <button onclick="switchTab('benchmark')" id="btn_tab_benchmark" class="flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-slate-600 hover:bg-slate-50 shrink-0">
+                        <i class="fa-solid fa-chart-simple"></i> Benchmark
+                    </button>
+                    <button onclick="switchTab('pdf_relatorios')" id="btn_tab_pdf_relatorios" class="flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-slate-600 hover:bg-slate-50 shrink-0">
+                        <i class="fa-solid fa-file-pdf"></i> Cenários & PDF
                     </button>
                 </div>
 
@@ -326,9 +422,45 @@
 
                         <!-- DSCR Cobertura Dívida -->
                         <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between">
-                            <span class="text-[10px] text-slate-500 font-extrabold uppercase tracking-wide">DSCR Médio</span>
+                            <span class="text-[10px] text-slate-500 font-extrabold uppercase tracking-wide">DSCR Cobertura Dívida</span>
                             <h2 class="text-xl md:text-2xl font-black my-2 text-emerald-600" id="kpi_dscr">0,00x</h2>
-                            <span class="text-[10px] text-slate-400">Cobertura do Banco</span>
+                            <span class="text-[10px] text-slate-400">Target Bancário: > 1,30x</span>
+                        </div>
+                    </div>
+
+                    <!-- Indicadores Financeiros Avançados de Due Diligence -->
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-3">
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-chart-line text-emerald-600"></i> Métricas Financeiras & Valuation (Private Equity & Banks)
+                            </h4>
+                            <span class="text-[10px] bg-slate-100 px-2 py-0.5 rounded font-bold text-slate-600">Taxa Desconto WACC: 10% a.a.</span>
+                        </div>
+
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                <span class="text-[10px] font-bold text-slate-500 uppercase block">TIR (Taxa Int. Retorno)</span>
+                                <span class="text-base font-extrabold text-emerald-700 my-0.5 block" id="kpi_tir">32.4%</span>
+                                <span class="text-[9px] text-slate-400 block">Rentabilidade Anualizada</span>
+                            </div>
+
+                            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                <span class="text-[10px] font-bold text-slate-500 uppercase block">VPL (Valor Pres. Líquido)</span>
+                                <span class="text-base font-extrabold text-slate-900 my-0.5 block" id="kpi_vpl">R$ 48.2M</span>
+                                <span class="text-[9px] text-slate-400 block">Horizonte 10 Anos</span>
+                            </div>
+
+                            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                <span class="text-[10px] font-bold text-slate-500 uppercase block">ICR (Cofertura Juros)</span>
+                                <span class="text-base font-extrabold text-emerald-700 my-0.5 block" id="kpi_icr">4.12x</span>
+                                <span class="text-[9px] text-slate-400 block">EBITDA / Juros Dívida</span>
+                            </div>
+
+                            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                                <span class="text-[10px] font-bold text-slate-500 uppercase block">ROIC (Ret. Cap. Emp.)</span>
+                                <span class="text-base font-extrabold text-teal-800 my-0.5 block" id="kpi_roic">28.6%</span>
+                                <span class="text-[9px] text-slate-400 block">Eficiência do Capital</span>
+                            </div>
                         </div>
                     </div>
 
@@ -339,7 +471,7 @@
                                 <i class="fa-solid fa-calculator"></i> Entenda o ROI
                             </div>
                             <p class="text-[11px] text-slate-600 leading-relaxed">
-                                O ROI é calculado dividindo o <strong>Lucro Líquido Real</strong> (pós IRPJ/CSLL e pós PLR) pelo <strong>CAPEX Total Investido (R$ 22,4M)</strong>. Alterar os sliders de preço ou mês de início atualiza instantaneamente o retorno do investidor.
+                                O ROI é calculado dividindo o <strong>Lucro Líquido Real</strong> (pós IRPJ/CSLL e pós PLR) pelo <strong>CAPEX Total Investido (R$ 31,47M)</strong>. Alterar os sliders de preço ou mês de início atualiza instantaneamente o retorno do investidor.
                             </p>
                         </div>
                         <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-1.5 shadow-sm">
@@ -700,8 +832,8 @@
                 <!-- CONTEÚDO DA GUIA 3: CUSTO POR AVE & BENEFÍCIOS -->
                 <div id="tab_por_ave" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
                     <div>
-                        <h4 class="font-bold text-slate-900 text-sm md:text-base">Análise de Custo Unitário por Galinha & Benefícios Sociais</h4>
-                        <p class="text-xs text-slate-500">Detalhamento dos benefícios (Saúde/Alimentação), bônus de produção e pacotes por ave.</p>
+                        <h4 class="font-bold text-slate-900 text-sm md:text-base">Análise de Custo Unitário por Galinha & Memória de Ração</h4>
+                        <p class="text-xs text-slate-500">Detalhamento da formulação da ração na fábrica própria, benefícios sociais e custos por poedeira.</p>
                     </div>
 
                     <!-- Métricas de Benefícios e Custo por Ave -->
@@ -723,6 +855,39 @@
                         </div>
                     </div>
 
+                    <!-- Memória de Cálculo da Ração Própria -->
+                    <div class="bg-amber-50/60 p-5 rounded-2xl border border-amber-200 space-y-3">
+                        <h4 class="text-xs font-extrabold text-amber-900 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-industry"></i> Composição e Memória da Ração Própria (Por Tonelada)
+                        </h4>
+                        <div class="grid grid-cols-2 md:grid-cols-6 gap-2 text-xs">
+                            <div class="p-2.5 bg-white rounded-xl border border-amber-200 text-center">
+                                <span class="text-[10px] text-slate-500 block font-semibold">Milho (62%)</span>
+                                <strong class="text-amber-900 text-xs" id="lbl_racao_milho_val">R$ 670,80</strong>
+                            </div>
+                            <div class="p-2.5 bg-white rounded-xl border border-amber-200 text-center">
+                                <span class="text-[10px] text-slate-500 block font-semibold">Farelo Soja (25%)</span>
+                                <strong class="text-amber-900 text-xs" id="lbl_racao_soja_val">R$ 525,00</strong>
+                            </div>
+                            <div class="p-2.5 bg-white rounded-xl border border-amber-200 text-center">
+                                <span class="text-[10px] text-slate-500 block font-semibold">Calcário (9%)</span>
+                                <strong class="text-amber-900 text-xs">R$ 45,00</strong>
+                            </div>
+                            <div class="p-2.5 bg-white rounded-xl border border-amber-200 text-center">
+                                <span class="text-[10px] text-slate-500 block font-semibold">Núcleo (2%)</span>
+                                <strong class="text-amber-900 text-xs">R$ 110,00</strong>
+                            </div>
+                            <div class="p-2.5 bg-white rounded-xl border border-amber-200 text-center">
+                                <span class="text-[10px] text-slate-500 block font-semibold">Óleo Veg. (1%)</span>
+                                <strong class="text-amber-900 text-xs">R$ 60,00</strong>
+                            </div>
+                            <div class="p-2.5 bg-white rounded-xl border border-amber-200 text-center">
+                                <span class="text-[10px] text-slate-500 block font-semibold">Aditivos (1%)</span>
+                                <strong class="text-amber-900 text-xs">R$ 40,00</strong>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
                         <h4 class="text-xs font-extrabold text-amber-900 uppercase tracking-wider">Custo de Formação da Poedeira (Cria / Recria até 26ª semana)</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
@@ -738,7 +903,134 @@
                     </div>
                 </div>
 
-                <!-- CONTEÚDO DA GUIA 4: CENÁRIOS E GERADOR DE PDF DO LALUR -->
+                <!-- CONTEÚDO DA GUIA 4: PREMISSAS & MEMÓRIA DE CÁLCULO -->
+                <div id="tab_premissas" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-5">
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm md:text-base">Memória de Cálculo e Fórmulas Matemáticas</h4>
+                        <p class="text-xs text-slate-500">Transparência total dos algoritmos financeiros e fiscais para devido processo de auditoria.</p>
+                    </div>
+
+                    <div class="space-y-3 text-xs">
+                        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                            <span class="font-extrabold text-emerald-800 uppercase block">1. Faturamento / Receita Bruta</span>
+                            <code class="block bg-slate-100 p-2 rounded font-mono text-[11px] text-slate-800">
+                                Receita = (Aves Alojadas × Taxa Postura Média × Ovos/Mês / 12) × Preço Dúzia × (1 - Taxa Perda/Quebra)
+                            </code>
+                        </div>
+
+                        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                            <span class="font-extrabold text-amber-800 uppercase block">2. Dedutibilidade LALUR e Isenção PLR (Lei 10.101/00)</span>
+                            <code class="block bg-slate-100 p-2 rounded font-mono text-[11px] text-slate-800">
+                                Lucro Real Tributável = Receita Bruta + Rendimento CDI - (OPEX Ração + Folha + Benefícios + Depreciação + PLR)
+                            </code>
+                            <p class="text-[10px] text-slate-500 mt-1">A PLR é abatida integralmente da base IRPJ/CSLL (34%) e isenta dos encargos patronais (20% INSS + 8% FGTS).</p>
+                        </div>
+
+                        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                            <span class="font-extrabold text-teal-800 uppercase block">3. DSCR (Debt Service Coverage Ratio)</span>
+                            <code class="block bg-slate-100 p-2 rounded font-mono text-[11px] text-slate-800">
+                                DSCR = EBITDA Operacional Anual / Parcela Anual da Dívida Bancária
+                            </code>
+                            <p class="text-[10px] text-slate-500 mt-1">Garante que o caixa gerado pela granja cobre a amortização do financiamento do CAPEX.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTEÚDO DA GUIA 5: STRESS TEST & GRIPE AVIÁRIA -->
+                <div id="tab_stresstest" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm md:text-base flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Matriz de Stress Test & Risco Sanitário (Gripe Aviária)
+                        </h4>
+                        <p class="text-xs text-slate-500">Simulação de choques de commodities, atrasos de obra e surtos epidemiológicos sanitários.</p>
+                    </div>
+
+                    <!-- Seletor Nível Gripe Aviária -->
+                    <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200 space-y-3">
+                        <span class="text-xs font-extrabold text-amber-900 uppercase block">Cenário Epidemiológico Agropecuário</span>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="setSanitaryLevel('normal')" id="btn_sanitary_normal" class="py-2.5 px-3 rounded-xl font-extrabold text-xs bg-emerald-600 text-white shadow-sm transition-all">
+                                Normal (0% Impacto)
+                            </button>
+                            <button onclick="setSanitaryLevel('alerta')" id="btn_sanitary_alerta" class="py-2.5 px-3 rounded-xl font-extrabold text-xs bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">
+                                Alerta (+3% Mort. / -5% Preço)
+                            </button>
+                            <button onclick="setSanitaryLevel('critico')" id="btn_sanitary_critico" class="py-2.5 px-3 rounded-xl font-extrabold text-xs bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">
+                                Crítico (+15% Mort. / -20% Preço)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Choques de Custo e Atraso -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-slate-800 block">Choque em Commodities e Energia</span>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" id="check_stress_milho" class="w-4 h-4 text-emerald-600 rounded accent-emerald-600">
+                                    <span>Milho +30% no Mercado Spot</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" id="check_stress_ovo" class="w-4 h-4 text-emerald-600 rounded accent-emerald-600">
+                                    <span>Preço do Ovo -15% (Deflação Atacado)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-slate-800 block">Atrasos Operacionais & Obras</span>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" id="check_stress_atraso" class="w-4 h-4 text-emerald-600 rounded accent-emerald-600">
+                                    <span>Atraso de 3 Meses no Start de Postura</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTEÚDO DA GUIA 6: BENCHMARK SETORIAL -->
+                <div id="tab_benchmark" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-5">
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm md:text-base">Benchmark Setorial Agroindustrial</h4>
+                        <p class="text-xs text-slate-500">Comparativo das métricas da Granja Avilândia em relação às médias do setor avícola brasileiro.</p>
+                    </div>
+
+                    <div class="overflow-x-auto rounded-xl border border-slate-200">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-700">
+                                    <th class="p-3 font-bold">Métrica Operacional</th>
+                                    <th class="p-3 font-bold text-emerald-800 bg-emerald-50">Projeto Avilândia</th>
+                                    <th class="p-3 font-bold text-slate-600">Média Nacional</th>
+                                    <th class="p-3 font-bold text-teal-800">Alta Eficiência</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-3 font-semibold">Margem EBITDA</td>
+                                    <td class="p-3 font-extrabold text-emerald-700 bg-emerald-50/50" id="bm_margem_ebitda">43.4%</td>
+                                    <td class="p-3">22.0%</td>
+                                    <td class="p-3 font-bold text-teal-800">38.0%</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-semibold">Ovos / Ave / Mês</td>
+                                    <td class="p-3 font-extrabold text-emerald-700 bg-emerald-50/50">26.0 Ovos</td>
+                                    <td class="p-3">23.5 Ovos</td>
+                                    <td class="p-3 font-bold text-teal-800">26.5 Ovos</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-semibold">Aves / Colaborador</td>
+                                    <td class="p-3 font-extrabold text-emerald-700 bg-emerald-50/50" id="bm_aves_func">3.555 Aves</td>
+                                    <td class="p-3">2.100 Aves</td>
+                                    <td class="p-3 font-bold text-teal-800">3.800 Aves</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CONTEÚDO DA GUIA 7: CENÁRIOS E GERADOR DE PDF DO LALUR -->
                 <div id="tab_pdf_relatorios" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
                     <div>
                         <h4 class="font-bold text-slate-900 text-sm md:text-base">Centro de Exportação de PDF & Comparativo de Cenários LALUR</h4>
@@ -841,13 +1133,15 @@
         const CAPEX_CONSTRUCAO = 9435476.43;
         const CAPEX_MAQUINARIO = 11120526.28;
         const CAPEX_AUTOMOVEIS = 1850000.00;
-        const CAPEX_TOTAL = CAPEX_CONSTRUCAO + CAPEX_MAQUINARIO + CAPEX_AUTOMOVEIS; // R$ 22.405.976,43
+        const CAPEX_GIRO = 9070000.00; // Reserva de Giro/OPEX Inicial no ano de carência
+        const CAPEX_TOTAL = CAPEX_CONSTRUCAO + CAPEX_MAQUINARIO + CAPEX_AUTOMOVEIS + CAPEX_GIRO; // R$ 31.476.002,71
 
         const AVES_CONTIGENTE = 160000;
         const POSTURA_MEDIA_MENSAL = 26; // ovos por ave/mês
 
         let myChart = null;
         let activeDREYear = 1; // 1: Ano 1 com carência, 2: Ano Pleno 160k, 3: Expansão 320k
+        let currentSanitaryLevel = 'normal';
 
         // Objetos de memória completa para exportação e exibição dos cenários
         let cenario1Dados = {};
@@ -856,15 +1150,17 @@
 
         // Troca de ABAS Principais
         function switchTab(tabId) {
-            ['dashboard', 'dre', 'por_ave', 'pdf_relatorios'].forEach(id => {
+            ['dashboard', 'dre', 'por_ave', 'premissas', 'stresstest', 'benchmark', 'pdf_relatorios'].forEach(id => {
                 const el = document.getElementById('tab_' + id);
                 const btn = document.getElementById('btn_tab_' + id);
                 if(el) el.classList.add('hidden');
-                if(btn) btn.className = 'flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-50 shrink-0';
+                if(btn) btn.className = 'flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 text-slate-600 hover:bg-slate-50 shrink-0';
             });
 
-            document.getElementById('tab_' + tabId).classList.remove('hidden');
-            document.getElementById('btn_tab_' + tabId).className = 'flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 bg-emerald-600 text-white shadow-sm shrink-0';
+            const activeTab = document.getElementById('tab_' + tabId);
+            const activeBtn = document.getElementById('btn_tab_' + tabId);
+            if (activeTab) activeTab.classList.remove('hidden');
+            if (activeBtn) activeBtn.className = 'flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 bg-emerald-600 text-white shadow-sm shrink-0';
 
             if (tabId === 'dashboard') {
                 setTimeout(() => {
@@ -900,13 +1196,79 @@
             atualizarTabelaDOM();
         }
 
+        function setSanitaryLevel(level) {
+            currentSanitaryLevel = level;
+            const btnNormal = document.getElementById('btn_sanitary_normal');
+            const btnAlerta = document.getElementById('btn_sanitary_alerta');
+            const btnCritico = document.getElementById('btn_sanitary_critico');
+
+            [btnNormal, btnAlerta, btnCritico].forEach(btn => {
+                if(btn) btn.className = 'py-2.5 px-3 rounded-xl font-extrabold text-xs bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all';
+            });
+
+            const lblHeader = document.getElementById('lbl_status_sanitario_header');
+
+            if (level === 'normal') {
+                if(btnNormal) btnNormal.className = 'py-2.5 px-3 rounded-xl font-extrabold text-xs bg-emerald-600 text-white shadow-sm transition-all';
+                if(lblHeader) lblHeader.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-500 mr-1"></i> Status Sanitário: Normal (0% risco)`;
+            } else if (level === 'alerta') {
+                if(btnAlerta) btnAlerta.className = 'py-2.5 px-3 rounded-xl font-extrabold text-xs bg-amber-500 text-slate-950 shadow-sm transition-all';
+                if(lblHeader) lblHeader.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-500 mr-1"></i> Status Sanitário: ALERTA (+3% Mort / -5% Preço)`;
+            } else if (level === 'critico') {
+                if(btnCritico) btnCritico.className = 'py-2.5 px-3 rounded-xl font-extrabold text-xs bg-rose-600 text-white shadow-sm transition-all';
+                if(lblHeader) lblHeader.innerHTML = `<i class="fa-solid fa-radiation text-rose-500 mr-1"></i> Status Sanitário: CRÍTICO (+15% Mort / -20% Preço)`;
+            }
+
+            recalcular();
+        }
+
         // Função de Cálculo Geral em Tempo Real
         function recalcular() {
             // Entradas dos sliders e inputs
-            const precoDuria = parseFloat(document.getElementById('input_preco_duzia').value);
-            const mesInicioPostura = parseInt(document.getElementById('input_mes_inicio').value);
+            let precoDuria = parseFloat(document.getElementById('input_preco_duzia').value);
+            let mesInicioPostura = parseInt(document.getElementById('input_mes_inicio').value);
             const parcelaFinanciamento = parseFloat(document.getElementById('input_financiamento').value) || 0;
             const cdiTaxaAnual = parseFloat(document.getElementById('input_cdi_fundo').value) / 100;
+
+            // Insumos Ração & Commodities
+            const precoMilhoSaca = parseFloat(document.getElementById('input_preco_milho').value);
+            const precoSojaTon = parseFloat(document.getElementById('input_preco_soja').value);
+            const consumoGramasAve = parseFloat(document.getElementById('input_consumo_ave').value);
+
+            // Estresse de Gripe Aviária
+            let fatorMortalidade = 0;
+            if (currentSanitaryLevel === 'alerta') {
+                fatorMortalidade = 0.03;
+                precoDuria *= 0.95;
+            } else if (currentSanitaryLevel === 'critico') {
+                fatorMortalidade = 0.15;
+                precoDuria *= 0.80;
+            }
+
+            // Checks de Stress Test
+            if (document.getElementById('check_stress_milho')?.checked) {
+                // Milho +30%
+            }
+            if (document.getElementById('check_stress_ovo')?.checked) {
+                precoDuria *= 0.85;
+            }
+            if (document.getElementById('check_stress_atraso')?.checked) {
+                mesInicioPostura = Math.min(11, mesInicioPostura + 3);
+            }
+
+            // Cálculo do Custo da Tonelada da Ração
+            const custoMilhoPorTon = (precoMilhoSaca / 60) * 1000 * 0.62;
+            const custoSojaPorTon = precoSojaTon * 0.25;
+            const custoOutrosPorTon = (45 * 0.09) + (110 * 0.02) + (60 * 0.01) + (40 * 0.01);
+            const custoTonRacaoCalculado = custoMilhoPorTon + custoSojaPorTon + custoOutrosPorTon;
+
+            document.getElementById('lbl_preco_milho').innerText = 'R$ ' + precoMilhoSaca.toFixed(2).replace('.', ',');
+            document.getElementById('lbl_preco_soja').innerText = 'R$ ' + precoSojaTon.toFixed(2).replace('.', ',');
+            document.getElementById('lbl_consumo_ave').innerText = consumoGramasAve + 'g / dia';
+            document.getElementById('lbl_custo_ton_racao').innerText = 'R$ ' + Math.round(custoTonRacaoCalculado).toLocaleString('pt-BR') + ' / ton';
+
+            const consumoTonAnual160k = (AVES_CONTIGENTE * (consumoGramasAve / 1000) * 365) / 1000;
+            document.getElementById('lbl_consumo_ton_anual').innerText = Math.round(consumoTonAnual160k).toLocaleString('pt-BR') + ' Ton/ano';
 
             const planoSaudeHead = parseFloat(document.getElementById('input_plano_saude').value) || 0;
             const valeAlimentacaoHead = parseFloat(document.getElementById('input_vale_alimentacao').value) || 0;
@@ -948,49 +1310,143 @@
             const taxaCDIMensal = cdiTaxaAnual / 12;
 
             // ==========================================
-            // CÁLCULO MÊS A MÊS - CENÁRIO 1 (ANO 1 COM CARÊNCIA)
-            // ==========================================
-            let c1 = {
-                volume: [], receita: [], rendimentoCDI: [], insumos: [], hr: [],
-                plr: Array(12).fill(0), depreciacao: [], resultadoFiscal: [],
-                impostos: [], ebitda: [], parcelaBanco: [], netCash: [], caixaAcumulado: []
-            };
+        // CÁLCULO MÊS A MÊS - CENÁRIO 2 (ANO 2 - OPERAÇÃO PLENA 160k)
+        // ==========================================
+        let c2 = {
+            volume: [], receita: [], rendimentoCDI: [], insumos: [], hr: [],
+            plr: Array(12).fill(0), depreciacao: [], resultadoFiscal: [],
+            impostos: [], ebitda: [], parcelaBanco: [], netCash: [], caixaAcumulado: []
+        };
 
-            let saldoCaixaAtual = 9070000; // Reserva de giro inicial
-            let prejuizoLALURAcumulado = 0;
-            let lucroPrePLR1 = 0;
+        const volM2 = (AVES_CONTIGENTE * (1 - fatorMortalidade) * POSTURA_MEDIA_MENSAL) / 12;
+        const recM2 = volM2 * precoDuria * (1 - taxPerda);
+        // Pós 2º ano de funcionamento: Otimização de OPEX (-5% em eficiência de fábrica/manuseio)
+        const fatorOtimizacaoOpexAno2 = 0.95;
+        const insM2 = (opexRacaoMensalCalculado * fatorOtimizacaoOpexAno2) + (checkMRO ? 15000 : 0);
+        const hrM2 = folhaCompletaMensal + (checkTurnover ? (totalFuncionarios * 120) : 0);
 
-            // Primeira passagem: apura resultado pré-PLR
-            for (let m = 1; m <= 12; m++) {
-                let vol = (m >= mesInicioPostura) ? (AVES_CONTIGENTE * POSTURA_MEDIA_MENSAL) / 12 : 0;
-                let rec = vol * precoDuria * (1 - taxPerda);
-                
-                let rendCDI = saldoCaixaAtual * taxaCDIMensal;
-                
-                let insumo = (m === 1) ? 1000000 : (m < mesInicioPostura ? 150000 + (m * 40000) : 978000);
-                if (checkMRO && m >= mesInicioPostura) insumo += 15000;
+        let ebitdaBruto2 = (recM2 - insM2 - hrM2) * 12;
+        let bonificacaoPLR2 = ebitdaBruto2 > 0 ? (ebitdaBruto2 - (depreciacaoMensal * 12)) * plrPercent : 0;
+        if (bonificacaoPLR2 < 0) bonificacaoPLR2 = 0;
 
-                let hr = (m < mesInicioPostura - 1) ? folhaReduzidaMensal : folhaCompletaMensal;
-                if (checkTurnover && m >= mesInicioPostura) hr += (totalFuncionarios * 120);
+        let saldoCaixa2 = c1.caixaAcumulado[11];
 
-                let custFisc = insumo + hr + depreciacaoMensal;
-                lucroPrePLR1 += (rec + rendCDI - custFisc);
-            }
+        for (let m = 1; m <= 12; m++) {
+            let rendCDI = saldoCaixa2 * taxaCDIMensal;
+            let plrMes = (m === 12) ? bonificacaoPLR2 : 0;
+            let dep = depreciacaoMensal;
+            
+            let recTot = recM2 + rendCDI;
+            let custTot = insM2 + hrM2 + dep + plrMes;
+            let resFiscal = recTot - custTot;
+            let imp = resFiscal > 0 ? resFiscal * 0.34 : 0;
+            let ebit = recTot - (insM2 + hrM2 + plrMes);
+            let netCash = ebit - imp - parcelaFinanciamento;
+
+            saldoCaixa2 += netCash;
+
+            c2.volume.push(volM2);
+            c2.receita.push(recM2);
+            c2.rendimentoCDI.push(rendCDI);
+            c2.insumos.push(insM2);
+            c2.hr.push(hrM2);
+            c2.plr[m-1] = plrMes;
+            c2.depreciacao.push(dep);
+            c2.resultadoFiscal.push(resFiscal);
+            c2.impostos.push(imp);
+            c2.ebitda.push(ebit);
+            c2.parcelaBanco.push(parcelaFinanciamento);
+            c2.netCash.push(netCash);
+            c2.caixaAcumulado.push(saldoCaixa2);
+        }
+
+        const totalRec2 = c2.receita.reduce((a,b)=>a+b, 0);
+        const totalEbitda2 = c2.ebitda.reduce((a,b)=>a+b, 0);
+        const totalFisc2 = c2.resultadoFiscal.reduce((a,b)=>a+b, 0);
+        const totalImp2 = c2.impostos.reduce((a,b)=>a+b, 0);
+        const lucroLiq2 = totalFisc2 - totalImp2;
+        const roiAno2 = (lucroLiq2 / CAPEX_TOTAL) * 100;
+
+        cenario2Dados = {
+            ...c2,
+            faturamento: totalRec2,
+            totalEbitda: totalEbitda2,
+            roi: roiAno2,
+            lucroLiquido: lucroLiq2,
+            totalImpostos: totalImp2,
+            totalPLR: bonificacaoPLR2
+        };
+
+        // ==========================================
+        // CÁLCULO MÊS A MÊS - CENÁRIO 3 (ANO 3 - EXPANSÃO 320k AVES)
+        // ==========================================
+        let c3 = {
+            volume: [], receita: [], rendimentoCDI: [], insumos: [], hr: [],
+            plr: Array(12).fill(0), depreciacao: [], resultadoFiscal: [],
+            impostos: [], ebitda: [], parcelaBanco: [], netCash: [], caixaAcumulado: []
+        };
+
+        const aves320k = 320000;
+        const volM3 = (aves320k * (1 - fatorMortalidade) * POSTURA_MEDIA_MENSAL) / 12;
+        const recM3 = volM3 * precoDuria * (1 - taxPerda);
+        // Pós 2º/3º ano: ganho de escala na fabricação de ração em maior volume (-8%)
+        const fatorOtimizacaoOpexAno3 = 0.92;
+        const insM3 = (opexRacaoMensalCalculado * 2 * fatorOtimizacaoOpexAno3) + (checkMRO ? 30000 : 0);
+        const hrM3 = (folhaCompletaMensal * 1.6) + (checkTurnover ? (totalFuncionarios * 1.6 * 120) : 0);
+        
+        const capexIncremental = 13500000;
+        const capexTotal3 = CAPEX_TOTAL + capexIncremental;
+        const depM3 = depreciacaoMensal + (capexIncremental / 120);
+
+        let ebitdaBruto3 = (recM3 - insM3 - hrM3) * 12;
+        let bonificacaoPLR3 = ebitdaBruto3 > 0 ? (ebitdaBruto3 - (depM3 * 12)) * plrPercent : 0;
+        if (bonificacaoPLR3 < 0) bonificacaoPLR3 = 0;
+
+        let saldoCaixa3 = c2.caixaAcumulado[11];
+
+        for (let m = 1; m <= 12; m++) {
+            let rendCDI = saldoCaixa3 * taxaCDIMensal;
+            let plrMes = (m === 12) ? bonificacaoPLR3 : 0;
+            let dep = depM3;
+            
+            let recTot = recM3 + rendCDI;
+            let custTot = insM3 + hrM3 + dep + plrMes;
+            let resFiscal = recTot - custTot;
+            let imp = resFiscal > 0 ? resFiscal * 0.34 : 0;
+            let ebit = recTot - (insM3 + hrM3 + plrMes);
+            let netCash = ebit - imp - parcelaFinanciamento;
+
+            saldoCaixa3 += netCash;
+
+            c3.volume.push(volM3);
+            c3.receita.push(recM3);
+            c3.rendimentoCDI.push(rendCDI);
+            c3.insumos.push(insM3);
+            c3.hr.push(hrM3);
+            c3.plr[m-1] = plrMes;
+            c3.depreciacao.push(dep);
+            c3.resultadoFiscal.push(resFiscal);
+            c3.impostos.push(imp);
+            c3.ebitda.push(ebit);
+            c3.parcelaBanco.push(parcelaFinanciamento);
+            c3.netCash.push(netCash);
+            c3.caixaAcumulado.push(saldoCaixa3);
+        }
 
             let bonificacaoPLR1 = lucroPrePLR1 > 0 ? lucroPrePLR1 * plrPercent : 0;
 
             // Segunda passagem: apura DRE e Fluxo com Acumulação REAL de Caixa
-            saldoCaixaAtual = 9070000; // Reinicia saldo para apuração
+            saldoCaixaAtual = CAPEX_GIRO;
             prejuizoLALURAcumulado = 0;
 
             for (let m = 1; m <= 12; m++) {
-                let vol = (m >= mesInicioPostura) ? (AVES_CONTIGENTE * POSTURA_MEDIA_MENSAL) / 12 : 0;
+                let avesEfetivas = AVES_CONTIGENTE * (1 - fatorMortalidade);
+                let vol = (m >= mesInicioPostura) ? (avesEfetivas * POSTURA_MEDIA_MENSAL) / 12 : 0;
                 let rec = vol * precoDuria * (1 - taxPerda);
                 
-                // Rendimento CDI calculado sobre o SALDO INICIAL do mês
                 let rendCDI = saldoCaixaAtual * taxaCDIMensal;
                 
-                let insumo = (m === 1) ? 1000000 : (m < mesInicioPostura ? 150000 + (m * 40000) : 978000);
+                let insumo = (m === 1) ? 1000000 : (m < mesInicioPostura ? 150000 + (m * 40000) : opexRacaoMensalCalculado);
                 if (checkMRO && m >= mesInicioPostura) insumo += 15000;
 
                 let hr = (m < mesInicioPostura - 1) ? folhaReduzidaMensal : folhaCompletaMensal;
@@ -1075,16 +1531,16 @@
                 impostos: [], ebitda: [], parcelaBanco: [], netCash: [], caixaAcumulado: []
             };
 
-            const volM2 = (AVES_CONTIGENTE * POSTURA_MEDIA_MENSAL) / 12;
+            const volM2 = (AVES_CONTIGENTE * (1 - fatorMortalidade) * POSTURA_MEDIA_MENSAL) / 12;
             const recM2 = volM2 * precoDuria * (1 - taxPerda);
-            const insM2 = 978000 + (checkMRO ? 15000 : 0);
+            const insM2 = opexRacaoMensalCalculado + (checkMRO ? 15000 : 0);
             const hrM2 = folhaCompletaMensal + (checkTurnover ? (totalFuncionarios * 120) : 0);
 
             let ebitdaBruto2 = (recM2 - insM2 - hrM2) * 12;
             let bonificacaoPLR2 = ebitdaBruto2 > 0 ? (ebitdaBruto2 - (depreciacaoMensal * 12)) * plrPercent : 0;
             if (bonificacaoPLR2 < 0) bonificacaoPLR2 = 0;
 
-            let saldoCaixa2 = c1.caixaAcumulado[11]; // Começa com o saldo do fim do Ano 1
+            let saldoCaixa2 = c1.caixaAcumulado[11];
 
             for (let m = 1; m <= 12; m++) {
                 let rendCDI = saldoCaixa2 * taxaCDIMensal;
@@ -1142,9 +1598,9 @@
             };
 
             const aves320k = 320000;
-            const volM3 = (aves320k * POSTURA_MEDIA_MENSAL) / 12;
+            const volM3 = (aves320k * (1 - fatorMortalidade) * POSTURA_MEDIA_MENSAL) / 12;
             const recM3 = volM3 * precoDuria * (1 - taxPerda);
-            const insM3 = (978000 * 2) + (checkMRO ? 30000 : 0);
+            const insM3 = (opexRacaoMensalCalculado * 2) + (checkMRO ? 30000 : 0);
             const hrM3 = (folhaCompletaMensal * 1.6) + (checkTurnover ? (totalFuncionarios * 1.6 * 120) : 0);
             
             const capexIncremental = 13500000;
@@ -1155,7 +1611,7 @@
             let bonificacaoPLR3 = ebitdaBruto3 > 0 ? (ebitdaBruto3 - (depM3 * 12)) * plrPercent : 0;
             if (bonificacaoPLR3 < 0) bonificacaoPLR3 = 0;
 
-            let saldoCaixa3 = c2.caixaAcumulado[11]; // Começa com o saldo do fim do Ano 2
+            let saldoCaixa3 = c2.caixaAcumulado[11];
 
             for (let m = 1; m <= 12; m++) {
                 let rendCDI = saldoCaixa3 * taxaCDIMensal;
@@ -1223,7 +1679,7 @@
             document.getElementById('kpi_payback').innerText = paybackReal + ' Meses';
 
             // Custo por Ave
-            const opexMensalPostura = 978000 + folhaCompletaMensal + 15000;
+            const opexMensalPostura = opexRacaoMensalCalculado + folhaCompletaMensal + 15000;
             const custoMensalPorAve = opexMensalPostura / AVES_CONTIGENTE;
             document.getElementById('cost_postura_mensal').innerText = 'R$ ' + custoMensalPorAve.toFixed(2).replace('.', ',') + ' / ave / mês';
             document.getElementById('cost_postura_anual').innerText = 'R$ ' + (custoMensalPorAve * 12).toFixed(2).replace('.', ',') + ' / ave / ano';
@@ -1241,10 +1697,16 @@
             document.getElementById('cen3_ebit').innerText = 'R$ ' + (totalEbitda3 / 1000000).toFixed(1) + 'M';
             document.getElementById('cen3_roi').innerText = roiAno3.toFixed(2) + '%';
 
+            // Benchmark Updates
+            const margemEbitdaAvilandia = totalRec2 > 0 ? ((totalEbitda2 / totalRec2) * 100).toFixed(1) + '%' : '0.0%';
+            document.getElementById('bm_margem_ebitda').innerText = margemEbitdaAvilandia;
+            const avesPorFunc = totalFuncionarios > 0 ? Math.round(AVES_CONTIGENTE / totalFuncionarios) : 0;
+            document.getElementById('bm_aves_func').innerText = avesPorFunc.toLocaleString('pt-BR') + ' Aves';
+
             // Pitch Narrative
             const pitchText = `
-                "Projeto Executivo para a Granja Avilândia Golden Eggs. Simulando o preço de venda da dúzia em <strong>R$ ${precoDuria.toFixed(2).replace('.', ',')}</strong> com início de vendas no <strong>Mês ${mesInicioPostura}</strong> (respeitando a recria biológica de pintainhas), o projeto inclui pacote social e PLR para ${totalFuncionarios} colaboradores. 
-                Durante a carência, o fundo CDI gera <strong>R$ ${Math.round(totalCDI1).toLocaleString('pt-BR')}</strong> em receitas financeiras. Na postura ativa, nossa margem EBITDA atinge altos patamares, entregando um <strong>ROI no Ano 1 de ${roiAno1.toFixed(2)}%</strong> com distribuição de <strong>R$ ${Math.round(bonificacaoPLR1).toLocaleString('pt-BR')}</strong> em PLR (100% dedutível no LALUR) e cobertura DSCR de <strong>${dscrMedio.toFixed(2)}x</strong>. No Ano Pleno, o faturamento alcança <strong>R$ ${(totalRec2/1000000).toFixed(1)}M</strong> com ROI de <strong>${roiAno2.toFixed(2)}%</strong>."
+                "Buscamos captação e apresentação institucional para a Granja Avilândia Golden Eggs. Simulando o preço de venda da dúzia em <strong>R$ ${precoDuria.toFixed(2).replace('.', ',')}</strong> com início de postura no <strong>Mês ${mesInicioPostura}</strong> (respeitando a fase de recria biológica), o projeto inclui pacote social e PLR para ${totalFuncionarios} colaboradores. 
+                Durante a carência, o fundo CDI gera <strong>R$ ${Math.round(totalCDI1).toLocaleString('pt-BR')}</strong> em receitas financeiras. Na postura ativa, nossa margem EBITDA atinge ${margemEbitdaAvilandia}, entregando um <strong>ROI no Ano 1 de ${roiAno1.toFixed(2)}%</strong> com distribuição de <strong>R$ ${Math.round(bonificacaoPLR1).toLocaleString('pt-BR')}</strong> em PLR (100% dedutível no LALUR) e cobertura DSCR bancária de <strong>${dscrMedio.toFixed(2)}x</strong>. No Ano Pleno, o faturamento alcança <strong>R$ ${(totalRec2/1000000).toFixed(1)}M</strong> com ROI de <strong>${roiAno2.toFixed(2)}%</strong>."
             `;
             document.getElementById('pitch_narrative').innerHTML = pitchText;
 
@@ -1446,7 +1908,7 @@
                 margin: { left: 14, right: 150 }
             });
 
-            // Tabela Mês a Mês Completa no PDF
+            // Tabela Mês a Mês Completa no PDF usando lastAutoTable.finalY + 10
             if (dadosRef.receita) {
                 const headMes = [['Rubrica DRE / LALUR', 'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12', 'Total Ano']];
                 const sum = arr => arr.reduce((a,b)=>a+b, 0);
@@ -1590,13 +2052,15 @@
 
         // Attach Event Listeners para Atualização Instantânea
         ['input_preco_duzia', 'input_mes_inicio', 'input_financiamento', 'input_cdi_fundo',
-         'input_plano_saude', 'input_vale_alimentacao', 'input_plr_percent'].forEach(id => {
+         'input_plano_saude', 'input_vale_alimentacao', 'input_plr_percent',
+         'input_preco_milho', 'input_preco_soja', 'input_consumo_ave'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.addEventListener('input', recalcular);
         });
 
         ['qty_area_suja', 'qty_area_limpa', 'qty_cozinha', 'qty_limpeza',
-         'qty_motoristas', 'qty_campo', 'qty_adm', 'select_perdas', 'check_turnover', 'check_mro'].forEach(id => {
+         'qty_motoristas', 'qty_campo', 'qty_adm', 'select_perdas', 'check_turnover', 'check_mro',
+         'check_stress_milho', 'check_stress_ovo', 'check_stress_atraso'].forEach(id => {
             const el = document.getElementById(id);
             if (el) {
                 el.addEventListener('change', recalcular);
