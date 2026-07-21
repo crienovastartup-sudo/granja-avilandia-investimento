@@ -6,8 +6,8 @@
     <title>Granja Avilândia - Simulador Financeiro e DRE LALUR</title>
     <!-- Tailwind CSS para design responsivo executivo -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js para gráficos interativos -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chart.js UMD para gráficos interativos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <!-- jsPDF e jsPDF-AutoTable para geração de relatórios PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
@@ -381,8 +381,8 @@
                             <h4 class="font-bold text-slate-900 text-sm md:text-base">Evolução Acumulada do Saldo de Caixa + Fundo CDI (Mês 1 ao 12)</h4>
                             <span class="bg-emerald-50 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded border border-emerald-100">Visão de Caixa Livre</span>
                         </div>
-                        <div class="relative h-64">
-                            <canvas id="chart_fluxo"></canvas>
+                        <div class="relative h-64 w-full">
+                            <canvas id="chart_fluxo" class="w-full h-full"></canvas>
                         </div>
                     </div>
 
@@ -865,6 +865,15 @@
 
             document.getElementById('tab_' + tabId).classList.remove('hidden');
             document.getElementById('btn_tab_' + tabId).className = 'flex-1 py-2.5 px-3 text-xs md:text-sm font-extrabold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 bg-emerald-600 text-white shadow-sm shrink-0';
+
+            if (tabId === 'dashboard') {
+                setTimeout(() => {
+                    if (myChart) {
+                        myChart.resize();
+                        myChart.update();
+                    }
+                }, 50);
+            }
         }
 
         // Troca de Ano no DRE Mês a Mês
@@ -1215,7 +1224,7 @@
 
             // Pitch Narrative
             const pitchText = `
-                "Projeto Executivo Granja Avilândia Golden Eggs. Simulando o preço de venda da dúzia em <strong>R$ ${precoDuria.toFixed(2).replace('.', ',')}</strong> com início de vendas no <strong>Mês ${mesInicioPostura}</strong> (respeitando a recria biológica de pintainhas), o projeto inclui pacote social e PLR para ${totalFuncionarios} colaboradores. 
+                "Buscamos captação para a Granja Avilândia Golden Eggs. Simulando o preço de venda da dúzia em <strong>R$ ${precoDuria.toFixed(2).replace('.', ',')}</strong> com início de vendas no <strong>Mês ${mesInicioPostura}</strong> (respeitando a recria biológica de pintainhas), o projeto inclui pacote social e PLR para ${totalFuncionarios} colaboradores. 
                 Durante a carência, o fundo CDI gera <strong>R$ ${Math.round(totalCDI1).toLocaleString('pt-BR')}</strong> em receitas financeiras. Na postura ativa, nossa margem EBITDA atinge altos patamares, entregando um <strong>ROI no Ano 1 de ${roiAno1.toFixed(2)}%</strong> com distribuição de <strong>R$ ${Math.round(bonificacaoPLR1).toLocaleString('pt-BR')}</strong> em PLR (100% dedutível no LALUR) e cobertura DSCR de <strong>${dscrMedio.toFixed(2)}x</strong>. No Ano Pleno, o faturamento alcança <strong>R$ ${(totalRec2/1000000).toFixed(1)}M</strong> com ROI de <strong>${roiAno2.toFixed(2)}%</strong>."
             `;
             document.getElementById('pitch_narrative').innerHTML = pitchText;
@@ -1284,8 +1293,19 @@
 
         // Gráfico Chart.js
         function atualizarGrafico(dadosCaixa) {
-            const ctx = document.getElementById('chart_fluxo').getContext('2d');
-            if (myChart) { myChart.destroy(); }
+            if (typeof Chart === 'undefined') {
+                console.warn('Chart.js ainda não foi carregado.');
+                return;
+            }
+
+            const canvas = document.getElementById('chart_fluxo');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            if (myChart) { 
+                myChart.destroy(); 
+                myChart = null;
+            }
 
             myChart = new Chart(ctx, {
                 type: 'line',
