@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Granja Avilândia - Simulador Financeiro, Due Diligence & PDF LALUR</title>
+    <title>Granja Avilândia - Simulador Financeiro</title>
     <!-- Tailwind CSS para design responsivo executivo -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js UMD para gráficos interativos -->
@@ -164,6 +164,37 @@
                                 <span class="bg-teal-50 text-teal-800 text-xs font-bold px-2 py-1 rounded border border-teal-100 w-16 text-center" id="val_cdi_fundo">10.5%</span>
                             </div>
                             <span class="text-[10px] text-slate-400 block mt-1">Rendimento do caixa reservado acumulado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card: Premissas Venda de Esterco -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                    <div class="flex items-center gap-2 border-b border-slate-100 pb-3 mb-4">
+                        <i class="fa-solid fa-leaf text-emerald-600 text-lg"></i>
+                        <h3 class="font-bold text-slate-900">Premissas Venda de Esterco</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="block text-xs font-semibold text-slate-500 uppercase">Esterco Seco (kg/ave/ano)</label>
+                                <span class="bg-emerald-50 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded border border-emerald-100" id="val_esterco_kg">18 kg</span>
+                            </div>
+                            <input type="number" id="input_esterco_kg_ave" value="18" min="5" max="40" step="1" class="block w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold text-slate-800">
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="block text-xs font-semibold text-slate-500 uppercase">Preço Esterco (R$/tonelada)</label>
+                                <span class="bg-emerald-50 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded border border-emerald-100" id="val_esterco_preco">R$ 260</span>
+                            </div>
+                            <input type="number" id="input_esterco_preco_ton" value="260" min="50" max="1000" step="10" class="block w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold text-slate-800">
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="block text-xs font-semibold text-slate-500 uppercase">Custo Coleta/Frete (%)</label>
+                                <span class="bg-amber-50 text-amber-800 text-xs font-bold px-2 py-0.5 rounded border border-amber-100" id="val_esterco_custo">20%</span>
+                            </div>
+                            <input type="number" id="input_esterco_custo_pct" value="20" min="0" max="80" step="1" class="block w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold text-slate-800">
                         </div>
                     </div>
                 </div>
@@ -496,6 +527,27 @@
                         <div class="text-right shrink-0">
                             <span class="text-lg font-black text-amber-900 block" id="kpi_total_plr">R$ 0,00</span>
                             <span class="text-[10px] text-emerald-700 font-semibold" id="kpi_plr_deducao_label">100% Dedutível no LALUR</span>
+                        </div>
+                    </div>
+
+                    <!-- Card Informativo Receita & Lucro Esterco -->
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="p-3 bg-emerald-200/60 text-emerald-900 rounded-xl text-xl shrink-0"><i class="fa-solid fa-leaf"></i></div>
+                            <div>
+                                <h4 class="text-xs font-extrabold text-emerald-900 uppercase">Subproduto: Receita & Lucro de Venda de Esterco (Ano)</h4>
+                                <p class="text-xs text-emerald-800 mt-0.5">Comercialização de adubo orgânico seco processado na planta.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6 text-right shrink-0">
+                            <div>
+                                <span class="text-[10px] text-slate-500 uppercase block font-semibold">Receita Bruta Esterco</span>
+                                <span class="text-lg font-black text-emerald-900 block" id="kpi_rec_esterco">R$ 0,00</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-500 uppercase block font-semibold">Lucro Líquido Esterco</span>
+                                <span class="text-lg font-black text-amber-900 block" id="kpi_lucro_esterco">R$ 0,00</span>
+                            </div>
                         </div>
                     </div>
 
@@ -1209,6 +1261,15 @@
 
         // Função de Cálculo Geral em Tempo Real
         function recalcular() {
+            // Premissas Venda de Esterco
+            const kgAveAnoEsterco = parseFloat(document.getElementById('input_esterco_kg_ave')?.value) || 18;
+            const precoTonEsterco = parseFloat(document.getElementById('input_esterco_preco_ton')?.value) || 260;
+            const custoPctEsterco = parseFloat(document.getElementById('input_esterco_custo_pct')?.value) || 20;
+
+            if (document.getElementById('val_esterco_kg')) document.getElementById('val_esterco_kg').innerText = kgAveAnoEsterco + ' kg';
+            if (document.getElementById('val_esterco_preco')) document.getElementById('val_esterco_preco').innerText = 'R$ ' + precoTonEsterco;
+            if (document.getElementById('val_esterco_custo')) document.getElementById('val_esterco_custo').innerText = custoPctEsterco + '%';
+
             // Entradas dos sliders e inputs
             let precoDuria = parseFloat(document.getElementById('input_preco_duzia').value);
             let mesInicioPostura = parseInt(document.getElementById('input_mes_inicio').value);
@@ -1414,6 +1475,20 @@
                 totalBanco: totalBanco1
             };
 
+            const volEsterco1 = (AVES_CONTIGENTE * kgAveAnoEsterco) / 1000;
+            const fatEsterco1 = volEsterco1 * precoTonEsterco;
+            const custEsterco1 = fatEsterco1 * (custoPctEsterco / 100);
+            const lucroAntesImpEsterco1 = fatEsterco1 - custEsterco1;
+            const impEsterco1 = lucroAntesImpEsterco1 * 0.34;
+            const lucroLiqEsterco1 = lucroAntesImpEsterco1 - impEsterco1;
+
+            cenario1Dados.volumeEstercoTon = volEsterco1;
+            cenario1Dados.faturamentoEsterco = fatEsterco1;
+            cenario1Dados.custoEsterco = custEsterco1;
+            cenario1Dados.lucroAntesImpostoEsterco = lucroAntesImpEsterco1;
+            cenario1Dados.impostoEsterco = impEsterco1;
+            cenario1Dados.lucroLiquidoEsterco = lucroLiqEsterco1;
+
             // ==========================================
             // CÁLCULO MÊS A MÊS - CENÁRIO 2 (ANO 2 - OPERAÇÃO PLENA 160k)
             // ==========================================
@@ -1481,6 +1556,20 @@
                 totalImpostos: totalImp2,
                 totalPLR: bonificacaoPLR2
             };
+
+            const volEsterco2 = (AVES_CONTIGENTE * kgAveAnoEsterco) / 1000;
+            const fatEsterco2 = volEsterco2 * precoTonEsterco;
+            const custEsterco2 = fatEsterco2 * (custoPctEsterco / 100);
+            const lucroAntesImpEsterco2 = fatEsterco2 - custEsterco2;
+            const impEsterco2 = lucroAntesImpEsterco2 * 0.34;
+            const lucroLiqEsterco2 = lucroAntesImpEsterco2 - impEsterco2;
+
+            cenario2Dados.volumeEstercoTon = volEsterco2;
+            cenario2Dados.faturamentoEsterco = fatEsterco2;
+            cenario2Dados.custoEsterco = custEsterco2;
+            cenario2Dados.lucroAntesImpostoEsterco = lucroAntesImpEsterco2;
+            cenario2Dados.impostoEsterco = impEsterco2;
+            cenario2Dados.lucroLiquidoEsterco = lucroLiqEsterco2;
 
             // ==========================================
             // CÁLCULO MÊS A MÊS - CENÁRIO 3 (ANO 3 - EXPANSÃO 320k AVES)
@@ -1555,12 +1644,33 @@
                 totalPLR: bonificacaoPLR3
             };
 
+            const volEsterco3 = (aves320k * kgAveAnoEsterco) / 1000;
+            const fatEsterco3 = volEsterco3 * precoTonEsterco;
+            const custEsterco3 = fatEsterco3 * (custoPctEsterco / 100);
+            const lucroAntesImpEsterco3 = fatEsterco3 - custEsterco3;
+            const impEsterco3 = lucroAntesImpEsterco3 * 0.34;
+            const lucroLiqEsterco3 = lucroAntesImpEsterco3 - impEsterco3;
+
+            cenario3Dados.volumeEstercoTon = volEsterco3;
+            cenario3Dados.faturamentoEsterco = fatEsterco3;
+            cenario3Dados.custoEsterco = custEsterco3;
+            cenario3Dados.lucroAntesImpostoEsterco = lucroAntesImpEsterco3;
+            cenario3Dados.impostoEsterco = impEsterco3;
+            cenario3Dados.lucroLiquidoEsterco = lucroLiqEsterco3;
+
             // Atualiza KPIs da Tela (Ano 1)
             document.getElementById('kpi_roi').innerText = roiAno1.toFixed(2) + '%';
             document.getElementById('kpi_ebitda').innerText = 'R$ ' + Math.round(totalEbitda1).toLocaleString('pt-BR');
             document.getElementById('kpi_total_plr').innerText = 'R$ ' + Math.round(bonificacaoPLR1).toLocaleString('pt-BR');
             if (document.getElementById('top_rendimento_fundo')) {
                 document.getElementById('top_rendimento_fundo').innerText = '+ R$ ' + Math.round(totalCDI1).toLocaleString('pt-BR');
+            }
+
+            if (document.getElementById('kpi_rec_esterco')) {
+                document.getElementById('kpi_rec_esterco').innerText = 'R$ ' + Math.round(fatEsterco1).toLocaleString('pt-BR');
+            }
+            if (document.getElementById('kpi_lucro_esterco')) {
+                document.getElementById('kpi_lucro_esterco').innerText = 'R$ ' + Math.round(lucroLiqEsterco1).toLocaleString('pt-BR');
             }
 
             const bonusMedioPorFunc = totalFuncionarios > 0 ? (bonificacaoPLR1 / totalFuncionarios) : 0;
@@ -1790,10 +1900,12 @@
             // Resumo Executivo
             const resumoBody = [
                 ['Faturamento Bruto Anual', 'R$ ' + Math.round(dadosRef.faturamento || 0).toLocaleString('pt-BR')],
+                ['Faturamento Bruto Esterco', 'R$ ' + Math.round(dadosRef.faturamentoEsterco || 0).toLocaleString('pt-BR')],
                 ['EBITDA Operacional', 'R$ ' + Math.round(dadosRef.totalEbitda !== undefined ? dadosRef.totalEbitda : (dadosRef.ebitda ? dadosRef.ebitda.reduce((a,b)=>a+b,0) : 0)).toLocaleString('pt-BR')],
                 ['Impostos IRPJ/CSLL (Lucro Real)', 'R$ ' + Math.round(dadosRef.totalImpostos !== undefined ? dadosRef.totalImpostos : (dadosRef.impostos ? dadosRef.impostos.reduce((a,b)=>a+b,0) : 0)).toLocaleString('pt-BR')],
                 ['Bonificação PLR / 14º Salário (Dedutível)', 'R$ ' + Math.round(dadosRef.totalPLR !== undefined ? dadosRef.totalPLR : (dadosRef.plr ? dadosRef.plr.reduce((a,b)=>a+b,0) : 0)).toLocaleString('pt-BR')],
                 ['Lucro Líquido do Exercício', 'R$ ' + Math.round(dadosRef.lucroLiquido || 0).toLocaleString('pt-BR')],
+                ['Lucro Líquido Esterco', 'R$ ' + Math.round(dadosRef.lucroLiquidoEsterco || 0).toLocaleString('pt-BR')],
                 ['Retorno sobre o Investimento (ROI)', (dadosRef.roi || 0).toFixed(2) + '%']
             ];
 
@@ -1889,11 +2001,13 @@
             
             const bodyComparativo = [
                 ['Faturamento Bruto Anual', 'R$ ' + Math.round(cenario1Dados.faturamento || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.faturamento || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.faturamento || 0).toLocaleString('pt-BR')],
+                ['Faturamento Bruto Esterco', 'R$ ' + Math.round(cenario1Dados.faturamentoEsterco || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.faturamentoEsterco || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.faturamentoEsterco || 0).toLocaleString('pt-BR')],
                 ['EBITDA Operacional', 'R$ ' + Math.round(cenario1Dados.totalEbitda || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.totalEbitda || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.totalEbitda || 0).toLocaleString('pt-BR')],
                 ['Rendimento Fundo CDI', 'R$ ' + Math.round(cenario1Dados.rendimentoTotalCDI || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round((cenario2Dados.rendimentoCDI || []).reduce((a,b)=>a+b,0)).toLocaleString('pt-BR'), 'R$ ' + Math.round((cenario3Dados.rendimentoCDI || []).reduce((a,b)=>a+b,0)).toLocaleString('pt-BR')],
                 ['Bônus PLR / Equipe (14º Sal. Dedutível)', 'R$ ' + Math.round(cenario1Dados.totalPLR || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.totalPLR || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.totalPLR || 0).toLocaleString('pt-BR')],
                 ['IRPJ / CSLL Devido (Lucro Real)', 'R$ ' + Math.round(cenario1Dados.totalImpostos || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.totalImpostos || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.totalImpostos || 0).toLocaleString('pt-BR')],
                 ['Lucro Líquido do Exercício', 'R$ ' + Math.round(cenario1Dados.lucroLiquido || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.lucroLiquido || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.lucroLiquido || 0).toLocaleString('pt-BR')],
+                ['Lucro Líquido Esterco', 'R$ ' + Math.round(cenario1Dados.lucroLiquidoEsterco || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario2Dados.lucroLiquidoEsterco || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round(cenario3Dados.lucroLiquidoEsterco || 0).toLocaleString('pt-BR')],
                 ['ROI Ajustado (%)', (cenario1Dados.roi || 0).toFixed(2) + '%', (cenario2Dados.roi || 0).toFixed(2) + '%', (cenario3Dados.roi || 0).toFixed(2) + '%'],
                 ['Saldo Final de Caixa Acumulado', 'R$ ' + Math.round((cenario1Dados.caixaAcumulado || [])[11] || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round((cenario2Dados.caixaAcumulado || [])[11] || 0).toLocaleString('pt-BR'), 'R$ ' + Math.round((cenario3Dados.caixaAcumulado || [])[11] || 0).toLocaleString('pt-BR')]
             ];
@@ -1952,7 +2066,8 @@
         // Attach Event Listeners para Atualização Instantânea
         ['input_preco_duzia', 'input_mes_inicio', 'input_financiamento', 'input_cdi_fundo',
          'input_plano_saude', 'input_vale_alimentacao', 'input_plr_percent',
-         'input_preco_milho', 'input_preco_soja', 'input_consumo_ave'].forEach(id => {
+         'input_preco_milho', 'input_preco_soja', 'input_consumo_ave',
+         'input_esterco_kg_ave', 'input_esterco_preco_ton', 'input_esterco_custo_pct'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.addEventListener('input', recalcular);
         });
